@@ -18,3 +18,5 @@ Imports:
     magrittr,
     purrr,
     data.table
+URL: https://github.com/rafzamb/raFunctions
+BugReports: https://github.com/rafzamb/raFunctions/issues
