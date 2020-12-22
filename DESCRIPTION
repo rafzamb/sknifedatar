@@ -17,6 +17,8 @@ Imports:
     dplyr,
     magrittr,
     purrr,
-    data.table
+    data.table,
+    geosphere,
+    parallel
 URL: https://github.com/rafzamb/raFunctions
 BugReports: https://github.com/rafzamb/raFunctions/issues
