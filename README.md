@@ -6,7 +6,8 @@
 Install the development version from GitHub with:
 
     # install.packages("devtools")
-    devtools::install_github("rstudio/distill")
+    devtools::install_github("rafzamb/raFunctions")
+    library(raFunctions)
 
 ## Proyectos
 
