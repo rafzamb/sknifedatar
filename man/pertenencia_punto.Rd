@@ -2,20 +2,30 @@
 % Please edit documentation in R/pertenencia_punto.R
 \name{pertenencia_punto}
 \alias{pertenencia_punto}
-\title{Pertenencia de localizaciones}
+\title{Puntos geolocalizados dentro de un radio de metros de cercanía}
 \usage{
 pertenencia_punto(data, referencia, metros)
 }
 \arguments{
-\item{data}{: dataframe con las columnas de geolocalización nombradas como "long" y "lat"}
+\item{data}{data frame que representa los puntos del primer conjunto de datos,}
 
-\item{referencia}{: dataframe con las columnas de geolocalización nombradas como "long" y "lat"}
+\item{referencia}{data frame que representa los segundos puntos de datos, sobre los cuales se evaluará cuáles de ellos están dentro del radio de cercanía de los puntos del primer conjunto de datos, las columnas de geolocalización deben estar nombradas como "long" y "lat".}
 
-\item{metros}{: distancia en metros}
+\item{metros}{radio en metros para evaluar la cercanía.}
 }
 \value{
-
+Una lista del mismo tamaño que el primer conjunto de datos, cada elemento tiene como valor el o los
+puntos del segundo conjunto de datos que estén dentro del radio de cercanía.
 }
 \description{
-Pertenencia de localizaciones
+Dado dos conjuntos de puntos geolocalizados, esta función permite determinar para cada punto del primer conjunto de datos, cuál o cuáles de los puntos del segundo conjunto de datos están dentro de un radio de metros determinado.
+}
+\details{
+Las columnas de geolocalización de ambos conjuntos de datos deben estar nombradas como "long" y "lat".
+}
+\examples{
+pertenencia_punto(data = crimes, referencia = intercepcion_calles, metros = 150)
+}
+\seealso{
+\href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Blog Posts Rafael Zambrano}
 }

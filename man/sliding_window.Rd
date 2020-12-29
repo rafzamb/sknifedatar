@@ -2,22 +2,52 @@
 % Please edit documentation in R/sliding_window.R
 \name{sliding_window}
 \alias{sliding_window}
-\title{Implemnetacion de sliding window}
+\title{Trasnformación de ventana deslizante movil}
 \usage{
 sliding_window(data, inicio, pliegues, variables)
 }
 \arguments{
-\item{data}{dataframe}
+\item{data}{data frame que contiene conteos históricos de distintos eventos en espacios de tiempo mensuales.
+Cada fila es una observación única y las columnas corresponden a los distintos meses de estudio. Las
+variables deben tener palabras claves para poder seleccionarlas en conjunto. Para ver un ejemplo de la estructura de
+los datos, puede consultarse el dataset tal contenido en este paquete.}
 
-\item{inicio}{vector}
+\item{inicio}{mes inicial, formato numerico entero}
 
-\item{pliegues}{vector}
+\item{pliegues}{vector que inicia en 1 y termina en el número de periodos que se desee recorrer.}
 
-\item{variables}{vector}
+\item{variables}{una palabra o vector que permita seleccionar las variables en conjunto e implementar la función
+para cada grupo}
 }
 \value{
-A list
+Un data frame con el ID de la observaciones y los distintos espacios de tiempo de conteo calculados por
+variables
 }
 \description{
-Implemnetacion de sliding window
+Esta función permite aplicar una trasnformación de ventana deslizante movil mensual sobre un
+conjunto de datos.
+}
+\details{
+El funcionamiento es el siguiente, es seleccionado el mes intermedio “t” de todo el periodo de estudio,
+posteriormente se calcula el número de eventos ocurridos para cada obervacion  en el mes anterior,
+en los últimos 3 meses, 6 meses, 12 meses y el mismo mes del año anterior.
+
+El procedimiento descrito anteriormente es replicado de manera móvil, es decir, rodando la ventana temporal
+desde t+1 hasta n, siendo n el último mes de estudio. Para ver un caso de uso real,
+visitar \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci\%C3\%B3n-de-ventanas-deslizantes}{Crime analysis with tidymodels}
+}
+\examples{
+pliegues = 1:13
+names(pliegues) = pliegues
+
+variables = c("delitos", "temperatura", "mm_agua", "lluvia", "viento")
+names(variables) = variables
+
+sliding_window(data = data_crime_clime \%>\% dplyr::select(-c(long,lat)),
+               inicio = 13,
+               pliegues = pliegues,
+               variables = variables)
+}
+\seealso{
+\href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Blog Posts Rafael Zambrano}
 }
