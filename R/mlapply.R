@@ -1,14 +1,26 @@
-#' Title
+#' @title mapply for all combinations of arguments or lapply for multiple vectors/lists of arguments
 #'
-#' @param .Fun asADSa
-#' @param ... asas
-#' @param .Cluster dasd
-#' @param .parFun dasasda
+#' @description mapply for all combinations of arguments or lapply for multiple vectors/lists of arguments.
+#'   This function was extracted from \href{https://github.com/alekrutkowski}{Alek Rutkowski's} Gist GitHub public repository,
+#'   it can be found published through the
+#'   following \href{https://gist.github.com/alekrutkowski/e46fae4dc079bf6c871b517e47404421}{repository}.
 #'
-#' @return saSa
+#'
+#' @author \href{https://github.com/alekrutkowski}{Alek Rutkowski}
+#'
+#' @seealso \href{https://gist.github.com/alekrutkowski/e46fae4dc079bf6c871b517e47404421}{Gist GitHub repository where the original code is located.}
+#'
+#' @param .Fun function to apply
+#' @param ... parameteres
+#' @param .Cluster Cluster
+#' @param .parFun function of "parallel::"
+#'
+#' @return list with the result of applying a function to all combinations
 #' @export
 #'
 #' @examples
+#' mlapply(function(x, y ) paste(x,"+",y,"=", x+y) ,
+#'         x = 1:3, y = 3:1)
 mlapply <- function(.Fun, ..., .Cluster=NULL, .parFun=parallel::parLapply) {
   `--List--` <-
     list(...)

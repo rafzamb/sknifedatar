@@ -2,22 +2,35 @@
 % Please edit documentation in R/mlapply.R
 \name{mlapply}
 \alias{mlapply}
-\title{Title}
+\title{mapply for all combinations of arguments or lapply for multiple vectors/lists of arguments}
 \usage{
 mlapply(.Fun, ..., .Cluster = NULL, .parFun = parallel::parLapply)
 }
 \arguments{
-\item{.Fun}{asADSa}
+\item{.Fun}{function to apply}
 
-\item{...}{asas}
+\item{...}{parameteres}
 
-\item{.Cluster}{dasd}
+\item{.Cluster}{Cluster}
 
-\item{.parFun}{dasasda}
+\item{.parFun}{function of "parallel::"}
 }
 \value{
-saSa
+list with the result of applying a function to all combinations
 }
 \description{
-Title
+mapply for all combinations of arguments or lapply for multiple vectors/lists of arguments.
+This function was extracted from \href{https://github.com/alekrutkowski}{Alek Rutkowski's} Gist GitHub public repository,
+it can be found published through the
+following \href{https://gist.github.com/alekrutkowski/e46fae4dc079bf6c871b517e47404421}{repository}.
+}
+\examples{
+mlapply(function(x, y ) paste(x,"+",y,"=", x+y) ,
+        x = 1:3, y = 3:1)
+}
+\seealso{
+\href{https://gist.github.com/alekrutkowski/e46fae4dc079bf6c871b517e47404421}{Gist GitHub repository where the original code is located.}
+}
+\author{
+\href{https://github.com/alekrutkowski}{Alek Rutkowski}
 }

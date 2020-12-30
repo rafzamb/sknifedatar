@@ -20,8 +20,11 @@ Imports:
     data.table,
     geosphere,
     parallel,
-    rlang
+    rlang,
+    yardstick
 URL: https://github.com/rafzamb/raFunctions
 BugReports: https://github.com/rafzamb/raFunctions/issues
 Depends: 
     R (>= 2.10)
+Suggests: 
+    erer
