@@ -6,8 +6,8 @@
 Install the development version from GitHub with:
 
     # install.packages("devtools")
-    devtools::install_github("rafzamb/raFunctions")
-    library(raFunctions)
+    devtools::install_github("rafzamb/sknifedatar")
+    library(sknifedatar)
 
 ## Proyectos
 
