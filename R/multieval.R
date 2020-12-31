@@ -1,6 +1,8 @@
-#' @title Evaluación de múltiples mètricas y predicciones
+#' @title Evaluación de múltiples métricas y predicciones
 #'
-#' @description Para un conjunto de predicciones de distintos modelos, permite evaluar mùltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.
+#' @description Para un conjunto de predicciones de distintos modelos, permite evaluar múltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.
+#'
+#' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Aplicación de la función en un proyecto de ciencia de datos}
 #'
 #' @param data data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.
 #' @param observed string con el nombre de la columna que contiene los datos observados.

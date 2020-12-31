@@ -2,7 +2,7 @@
 % Please edit documentation in R/multieval.R
 \name{multieval}
 \alias{multieval}
-\title{Evaluación de múltiples mètricas y predicciones}
+\title{Evaluación de múltiples métricas y predicciones}
 \usage{
 multieval(data, observed, predictions, metrica)
 }
@@ -20,7 +20,7 @@ el paquete \href{https://yardstick.tidymodels.org/}{yardstick} de tidymodels.}
 data frame con 4 columnas, siendo las mismas las métricas de evaluación, el estimador usado, el valor de la métrica y el nombre del modelo.
 }
 \description{
-Para un conjunto de predicciones de distintos modelos, permite evaluar mùltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.
+Para un conjunto de predicciones de distintos modelos, permite evaluar múltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.
 }
 \examples{
 set.seed(123)
@@ -57,4 +57,7 @@ multieval(data = predictions,
 #          observed = "truth",
 #          predictions = c("predict_model1","predict_model2"),
 #          metrica = erer::listn(rmse, rsq, mae))
+}
+\seealso{
+\href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Aplicación de la función en un proyecto de ciencia de datos}
 }
