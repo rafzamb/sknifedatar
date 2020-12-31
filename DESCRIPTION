@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Recopilaciones de funciones utilizadas en distintos proyectos.
+Description: Colección de funciones que facilitan el desarrollo de las distintas etapas de un proyecto de ciencia de datos.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
