@@ -7,6 +7,3 @@ template:
     image:
       src: man/figures/logo.jpg
       alt: "Pool noodles configured to form the word poolnoodlr"
-
-  params:
-    bootswatch: cerulean
