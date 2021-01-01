@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# pkgdown <img src = "man/figures/logo.jpg" align = "right" />
+
 ## Installation
 
 Install the development version from GitHub with:
