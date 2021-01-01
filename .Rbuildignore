@@ -5,3 +5,6 @@
 ^README\.Rmd$
 ^paquetes\.R$
 ^Paquetes_pasos\.R$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

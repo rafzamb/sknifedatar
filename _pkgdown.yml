@@ -1,0 +1,12 @@
+home:
+  title: An R package for pool-noodle discovery
+  description: Discover and add pool-noodles to your growing collection.
+
+template:
+  params:
+    bootswatch: cerulean
+  opengraph:
+    twitter:
+      creator: "@hadleywickham"
+      site: "@rstudio"
+      card: summary_large_image
