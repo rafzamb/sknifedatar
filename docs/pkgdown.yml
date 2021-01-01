@@ -1,13 +1,9 @@
-home:
-  title: An R package for pool-noodle discovery
-  description: Discover and add pool-noodles to your growing collection.
-
-template:
-  opengraph:
-    image:
-      src: man/figures/logo.jpg
-      alt: "Pool noodles configured to form the word poolnoodlr"
-
+pandoc: 2.11.1.1
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles: {}
+last_built: 2021-01-01T16:36Z
 authors:
   Hadley Wickham:
     href: http://hadley.nz
+
