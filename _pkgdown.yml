@@ -6,6 +6,9 @@ template:
   params:
     bootswatch: cerulean
   opengraph:
+    image:
+      src: man/figures/card.png
+      alt: "Pool noodles configured to form the word poolnoodlr"
     twitter:
       creator: "@hadleywickham"
       site: "@rstudio"

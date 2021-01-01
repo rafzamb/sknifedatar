@@ -1,0 +1,44 @@
+---
+output: github_document
+editor_options:
+  markdown:
+    mode: gfm
+home:
+  title: An R package for pool-noodle discovery
+  description: >
+    Do you love R? Do you love pool-noodles? If so, you might enjoy
+    using this package to automatically discover and add pool-noodles
+    to your growing collection.
+  links:
+  - text: Link text
+    href: http://website.com
+  strip_header: true
+authors:
+  firstname lastname:
+    href: "http://name-website.com"
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures",
+  out.width = "100%"
+)
+```
+
+# sknifedatar <img src = "man/figures/logo.png" align = "right" />
+
+## Installation
+
+Install the development version from GitHub with:
+
+    # install.packages("devtools")
+    devtools::install_github("rafzamb/sknifedatar")
+    library(sknifedatar)
+
+## Proyectos
+
+Para visitar los proyectos consultar en [Rafael Zambrano / Blog Posts](https://rafael-zambrano-blog-ds.netlify.app/blog.html)

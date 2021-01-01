@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# sknifedatar <img src = "man/figures/logo.png" align = "right" />
+
 ## Installation
 
 Install the development version from GitHub with:
@@ -11,5 +13,5 @@ Install the development version from GitHub with:
 
 ## Proyectos
 
-Para visitar los proyectos consultar en [Blog Posts - Rafael
-Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
+Para visitar los proyectos consultar en [Rafael Zambrano / Blog
+Posts](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
