@@ -1,15 +1,12 @@
+url: https://rafzamb.github.io/sknifedatar/
+
+development:
+  mode: auto
+
 template:
   params:
-    bootswatch: cerulean
-  opengraph:
-    image:
-      src: man/figures/card.png
-      alt: "Pool noodles configured to form the word poolnoodlr"
-    twitter:
-      creator: "@hadleywickham"
-      site: "@rstudio"
-      card: summary_large_image
+    bootswatch: cosmo
 
-home:
-  title: An R package for pool-noodle discovery
-  description: Discover and add pool-noodles to your growing collection.
+authors:
+  Rafael Zambrano:
+    href: https://rafael-zambrano-blog-ds.netlify.app/
