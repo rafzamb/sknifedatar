@@ -8,11 +8,18 @@
 
 <title>Esquinas de la ciudad de Buenos Aires — data_crime_clime • sknifedatar</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
@@ -40,10 +47,12 @@
 
 
 <meta property="og:title" content="Esquinas de la ciudad de Buenos Aires — data_crime_clime" />
-<meta property="og:description" content="Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos, elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina." />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:creator" content="@hadleywickham" />
-<meta name="twitter:site" content="@rstudio" />
+<meta property="og:description" content="Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de
+las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos,
+elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina. Los datos originales fueron extraídos de los
+repositorios Openstreetmap y  GCABA,
+posteriormente fueron transformados hasta obtener la estructura tabular que acá se presenta." />
+<meta property="og:image" content="https://rafzamb.github.io/sknifedatar/logo.png" />
 
 
 
@@ -75,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -93,7 +102,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rafzamb/raFunctions/">
+  <a href="https://github.com/rafzamb/sknifedatar/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -112,12 +121,16 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Esquinas de la ciudad de Buenos Aires</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rafzamb/raFunctions/blob/master/R/data_crime_clime.R'><code>R/data_crime_clime.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/data_crime_clime.R'><code>R/data_crime_clime.R</code></a></small>
     <div class="hidden name"><code>data_crime_clime.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos, elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina.</p>
+    <p>Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de
+las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos,
+elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina. Los datos originales fueron extraídos de los
+repositorios <a href='https://www.openstreetmap.org/'>Openstreetmap</a> y  <a href='https://data.buenosaires.gob.ar/dataset/delitos/'>GCABA</a>,
+posteriormente fueron transformados hasta obtener la estructura tabular que acá se presenta.</p>
     </div>
 
     <pre class="usage"><span class='va'>data_crime_clime</span></pre>
@@ -128,7 +141,7 @@
     <p>Un data frame con 2023 filas y 136 columnas, las variables esquina, long y lat, representan el ID de la esquina y la gelocalización de la misma. Para ver un proyecto de ciencia de datos aplicado sobre este dataset consultar <a href='https://rafael-zambrano-blog-ds.netlify.app/posts'>Predicción de delitos en CABA</a></p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://github.com/rafzamb/raFunctions'>https://github.com/rafzamb/raFunctions</a></p>
+    <p><a href='https://rafzamb.github.io/sknifedatar'>https://rafzamb.github.io/sknifedatar</a></p>
     <h2 class="hasAnchor" id="variables-de-criminalidad"><a class="anchor" href="#variables-de-criminalidad"></a>Variables de criminalidad</h2>
 
     
@@ -156,7 +169,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Rafael Zambrano.</p>
+  <p>Developed by <a href='https://rafael-zambrano-blog-ds.netlify.app/'>Rafael Zambrano</a>.</p>
 </div>
 
 <div class="pkgdown">

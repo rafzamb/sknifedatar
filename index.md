@@ -1,5 +1,5 @@
 
-# sknifedatar <img src="man/figures/logo.png" align="right" height="139" />
+# sknifedatar <img src="logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -42,7 +42,7 @@ predictions =
              predict_model_1 = rnorm(100, mean = 1,sd =2),
              predict_model_2 = rnorm(100, mean = 0,sd =2))
 
- tibble(predictions)
+tibble(predictions)
 #> # A tibble: 100 x 3
 #>     truth predict_model_1 predict_model_2
 #>     <dbl>           <dbl>           <dbl>
