@@ -42,7 +42,7 @@ predictions =
              predict_model_1 = rnorm(100, mean = 1,sd =2),
              predict_model_2 = rnorm(100, mean = 0,sd =2))
 
- tibble(predictions)
+tibble(predictions)
 #> # A tibble: 100 x 3
 #>     truth predict_model_1 predict_model_2
 #>     <dbl>           <dbl>           <dbl>
