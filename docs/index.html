@@ -13,6 +13,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Swiss knife of data for R">
 <meta property="og:description" content="Colección de funciones que facilitan el desarrollo de las distintas etapas de un proyecto de ciencia de datos.">
+<meta property="og:image" content="https://rafzamb.github.io/sknifedatar/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -66,7 +67,13 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+<div id="sknifedatar-" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#sknifedatar-" class="anchor"></a>sknifedatar <img src="reference/figures/logo.png" align="right" height="139">
+</h1></div>
+<!-- badges: start -->
 
+<p><strong>Swiss Knife of Data for R</strong>: Colección de funciones que facilitan el desarrollo de las distintas etapas de un proyecto de ciencia de datos.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -75,12 +82,165 @@
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rafzamb/sknifedatar"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sknifedatar)</span></code></pre></div>
 </div>
-<div id="proyectos" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#proyectos" class="anchor"></a>Proyectos</h2>
-<p>Para visitar los proyectos consultar en <a href="https://rafael-zambrano-blog-ds.netlify.app/blog.html">Blog Posts - Rafael Zambrano</a></p>
-</div>
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rafzamb/raFunctions">sknifedatar</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
+<div id="función-multieval" class="section level3">
+<h3 class="hasAnchor">
+<a href="#funci%C3%B3n-multieval" class="anchor"></a>Función multieval</h3>
+<p>Para un conjunto de predicciones de distintos modelos, permite evaluar múltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/yardstick">yardstick</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">erer</span><span class="op">)</span>
 
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
+<span class="va">predictions</span> <span class="op">=</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>truth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
+             predict_model_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">1</span>,sd <span class="op">=</span><span class="fl">2</span><span class="op">)</span>,
+             predict_model_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>,sd <span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+
+ <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">predictions</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 100 x 3</span>
+<span class="co">#&gt;     truth predict_model_1 predict_model_2</span>
+<span class="co">#&gt;     &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 0.288            1.51            1.58 </span>
+<span class="co">#&gt;  2 0.788            0.943           1.54 </span>
+<span class="co">#&gt;  3 0.409            0.914           0.664</span>
+<span class="co">#&gt;  4 0.883            3.74           -2.02 </span>
+<span class="co">#&gt;  5 0.940            0.548          -0.239</span>
+<span class="co">#&gt;  6 0.0456           4.03           -0.561</span>
+<span class="co">#&gt;  7 0.528           -2.10            1.13 </span>
+<span class="co">#&gt;  8 0.892            2.17           -0.745</span>
+<span class="co">#&gt;  9 0.551            1.25            1.95 </span>
+<span class="co">#&gt; 10 0.457            1.43           -0.749</span>
+<span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/multieval.html">multieval</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">predictions</span>,
+          observed <span class="op">=</span> <span class="st">"truth"</span>,
+          predictions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"predict_model_1"</span>,<span class="st">"predict_model_2"</span><span class="op">)</span>,
+          metrica <span class="op">=</span> <span class="fu">erer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/erer/man/listn.html">listn</a></span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span>, <span class="va">mae</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   .metric .estimator .estimate model          </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;          </span>
+<span class="co">#&gt; 1 mae     standard    1.59     predict_model_1</span>
+<span class="co">#&gt; 2 mae     standard    1.61     predict_model_2</span>
+<span class="co">#&gt; 3 rmse    standard    1.99     predict_model_1</span>
+<span class="co">#&gt; 4 rmse    standard    1.95     predict_model_2</span>
+<span class="co">#&gt; 5 rsq     standard    0.000704 predict_model_1</span>
+<span class="co">#&gt; 6 rsq     standard    0.00115  predict_model_2</span></code></pre></div>
+</div>
+<div id="función-pertenencia_punto" class="section level3">
+<h3 class="hasAnchor">
+<a href="#funci%C3%B3n-pertenencia_punto" class="anchor"></a>Función pertenencia_punto</h3>
+<p>Dado dos conjuntos de puntos geolocalizados, esta función permite determinar para cada punto del primer conjunto de datos, cuál o cuáles de los puntos del segundo conjunto de datos están dentro de un radio de metros determinado.</p>
+<ul>
+<li>Muestra de 100 crimenes ocurridos en CABA.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 9</span>
+<span class="co">#&gt;       id fecha      franja_horaria tipo_delito subtipo_delito comuna barrio</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; </span>
+<span class="co">#&gt; 1 341734 2018-08-29              0 Robo (con … &lt;NA&gt;                5 Boedo </span>
+<span class="co">#&gt; 2 257029 2018-09-17             15 Hurto (sin… &lt;NA&gt;                6 Cabal…</span>
+<span class="co">#&gt; 3 307285 2018-03-16             18 Robo (con … &lt;NA&gt;               14 Paler…</span>
+<span class="co">#&gt; 4 314525 2018-02-12             12 Robo (con … &lt;NA&gt;                3 Balva…</span>
+<span class="co">#&gt; 5 347997 2018-06-15              9 Robo (con … &lt;NA&gt;                7 Parqu…</span>
+<span class="co">#&gt; 6 240042 2017-12-12             14 Robo (con … &lt;NA&gt;               13 Nuñez </span>
+<span class="co">#&gt; # … with 2 more variables: lat &lt;dbl&gt;, long &lt;dbl&gt;</span></code></pre></div>
+<ul>
+<li>2023 esquinas de CABA uniformemente distribuidas sobre la ciudad.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">intercepcion_calles</span><span class="op">)</span>
+<span class="co">#&gt;   id      long       lat</span>
+<span class="co">#&gt; 1  1 -58.47533 -34.53936</span>
+<span class="co">#&gt; 2  2 -58.49107 -34.54576</span>
+<span class="co">#&gt; 3  3 -58.46640 -34.53487</span>
+<span class="co">#&gt; 4  4 -58.49474 -34.54741</span>
+<span class="co">#&gt; 5  5 -58.39515 -34.57223</span>
+<span class="co">#&gt; 6  6 -58.38185 -34.59158</span></code></pre></div>
+<ul>
+<li>Para cada delito, se determina la esquina que está dentro de un radio de cercanía inferior a 150 metros.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">esquina</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pertenencia_esquina <span class="op">=</span> <span class="fu"><a href="reference/pertenencia_punto.html">pertenencia_punto</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">crimes</span>, 
+                                          referencia <span class="op">=</span> <span class="va">intercepcion_calles</span>,
+                                          metros <span class="op">=</span> <span class="fl">150</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+                       <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Data frame con los delitos y sus esquinas de cercaria.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">crimes</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">esquina</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 100 x 2</span>
+<span class="co">#&gt;        id pertenencia_esquina</span>
+<span class="co">#&gt;  *  &lt;dbl&gt;               &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 341734                1125</span>
+<span class="co">#&gt;  2 257029                2086</span>
+<span class="co">#&gt;  3 307285                 241</span>
+<span class="co">#&gt;  4 314525                 331</span>
+<span class="co">#&gt;  5 347997                2268</span>
+<span class="co">#&gt;  6 240042                   0</span>
+<span class="co">#&gt;  7 420664                 574</span>
+<span class="co">#&gt;  8 304656                1355</span>
+<span class="co">#&gt;  9 253948                 721</span>
+<span class="co">#&gt; 10 265219                 783</span>
+<span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
+</div>
+<div id="función-sliding_window" class="section level3">
+<h3 class="hasAnchor">
+<a href="#funci%C3%B3n-sliding_window" class="anchor"></a>Función sliding_window</h3>
+<p>Esta función permite aplicar una transformación de ventana deslizante móvil mensual sobre un conjunto de datos. Se define el número de pliegues y los tipos de variables a calcular. Para ver una explicación detallada y un caso de uso de esta función con código R, consultar <a href="https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci%C3%B3n-de-ventanas-deslizantes">Predicción de ocurrencia de delitos / sliding_window</a>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pliegues</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pliegues</span><span class="op">)</span> <span class="op">=</span> <span class="va">pliegues</span>
+
+<span class="va">variables</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"delitos"</span>, <span class="st">"temperatura"</span>, <span class="st">"mm_agua"</span>, <span class="st">"lluvia"</span>, <span class="st">"viento"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">variables</span><span class="op">)</span> <span class="op">=</span> <span class="va">variables</span>
+
+<span class="fu"><a href="reference/sliding_window.html">sliding_window</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_crime_clime</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">long</span>,<span class="va">lat</span><span class="op">)</span><span class="op">)</span>,
+               inicio <span class="op">=</span> <span class="fl">13</span>,
+               pliegues <span class="op">=</span> <span class="va">pliegues</span>,
+               variables <span class="op">=</span> <span class="va">variables</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 26,299 x 32</span>
+<span class="co">#&gt;    id    pliegue delitos_last_ye… delitos_last_12 delitos_last_6 delitos_last_3</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 esqu…       1                1              73             41             20</span>
+<span class="co">#&gt;  2 esqu…       1                5             106             47             19</span>
+<span class="co">#&gt;  3 esqu…       1                4              25             11              4</span>
+<span class="co">#&gt;  4 esqu…       1                0               4              1              1</span>
+<span class="co">#&gt;  5 esqu…       1                0              31             16              7</span>
+<span class="co">#&gt;  6 esqu…       1                1              11              6              3</span>
+<span class="co">#&gt;  7 esqu…       1                1              16             11              4</span>
+<span class="co">#&gt;  8 esqu…       1                1              19              8              5</span>
+<span class="co">#&gt;  9 esqu…       1                0               9              6              4</span>
+<span class="co">#&gt; 10 esqu…       1                3              27             14             10</span>
+<span class="co">#&gt; # … with 26,289 more rows, and 26 more variables: delitos_last_1 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   delitos &lt;dbl&gt;, temperatura_last_year &lt;dbl&gt;, temperatura_last_12 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   temperatura_last_6 &lt;dbl&gt;, temperatura_last_3 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   temperatura_last_1 &lt;dbl&gt;, temperatura &lt;dbl&gt;, mm_last_year &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   mm_last_12 &lt;dbl&gt;, mm_last_6 &lt;dbl&gt;, mm_last_3 &lt;dbl&gt;, mm_last_1 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   mm &lt;dbl&gt;, dias_last_year &lt;dbl&gt;, dias_last_12 &lt;dbl&gt;, dias_last_6 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   dias_last_3 &lt;dbl&gt;, dias_last_1 &lt;dbl&gt;, dias &lt;dbl&gt;, veloc_last_year &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   veloc_last_12 &lt;dbl&gt;, veloc_last_6 &lt;dbl&gt;, veloc_last_3 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   veloc_last_1 &lt;dbl&gt;, veloc &lt;dbl&gt;</span></code></pre></div>
+</div>
+</div>
+<div id="casos-de-uso" class="section level2">
+<h2 class="hasAnchor">
+<a href="#casos-de-uso" class="anchor"></a>Casos de Uso</h2>
+<p>Para visitar proyectos donde fue utilizado este paquete consultar:</p>
+<ul>
+<li><a href="https://rafael-zambrano-blog-ds.netlify.app/blog.html">Blog Posts / Rafael Zambrano</a></li>
+</ul>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -108,7 +268,14 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://www.r-project.org/"><img src="https://img.shields.io/badge/Made%20with-R-1f425f.svg" alt="made-with-R"></a></li>
+<li><a href="https://github.com/rafzamb/sknifedatar/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Naereen/StrapDown.js.svg" alt="GitHub license"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
