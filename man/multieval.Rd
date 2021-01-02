@@ -4,7 +4,7 @@
 \alias{multieval}
 \title{Evaluación de múltiples métricas y predicciones}
 \usage{
-multieval(data, observed, predictions, metrica)
+multieval(data, observed, predictions, metrica, plot_view = FALSE)
 }
 \arguments{
 \item{data}{data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.}
@@ -15,6 +15,8 @@ multieval(data, observed, predictions, metrica)
 
 \item{metrica}{métrica o conjunto de métricas que se desean evaluar, las métricas hacen referencias a las permitidas por
 el paquete \href{https://yardstick.tidymodels.org/}{yardstick} de tidymodels.}
+
+\item{plot_view}{TRUE para hacer un gráfico de las métricas resultantes.}
 }
 \value{
 data frame con 4 columnas, siendo las mismas las métricas de evaluación, el estimador usado, el valor de la métrica y el nombre del modelo.
@@ -59,5 +61,5 @@ multieval(data = predictions,
 #          metrica = erer::listn(rmse, rsq, mae))
 }
 \seealso{
-\href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Aplicación de la función en un proyecto de ciencia de datos}
+\href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#modelos-de-series-de-tiempo}{Predicción de delitos/multieval}
 }

@@ -8,13 +8,17 @@
 Un data frame con 2023 filas y 136 columnas, las variables esquina, long y lat, representan el ID de la esquina y la gelocalización de la misma. Para ver un proyecto de ciencia de datos aplicado sobre este dataset consultar \href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Predicción de delitos en CABA}
 }
 \source{
-\url{https://github.com/rafzamb/raFunctions}
+\url{https://rafzamb.github.io/sknifedatar}
 }
 \usage{
 data_crime_clime
 }
 \description{
-Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos, elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina.
+Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de
+las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos,
+elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina. Los datos originales fueron extraídos de los
+repositorios \href{https://www.openstreetmap.org/}{Openstreetmap} y  \href{https://data.buenosaires.gob.ar/dataset/delitos/}{GCABA},
+posteriormente fueron transformados hasta obtener la estructura tabular que acá se presenta.
 }
 \section{Variables de criminalidad}{
 

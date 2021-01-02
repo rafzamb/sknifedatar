@@ -21,9 +21,11 @@ Imports:
     geosphere,
     parallel,
     rlang,
-    yardstick
-URL: https://github.com/rafzamb/raFunctions
-BugReports: https://github.com/rafzamb/raFunctions/issues
+    yardstick,
+    ggplot2,
+    scales
+URL: https://github.com/rafzamb/sknifedatar
+BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 
     R (>= 2.10)
 Suggests: 

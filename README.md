@@ -9,7 +9,6 @@ Install the development version from GitHub with:
     devtools::install_github("rafzamb/sknifedatar")
     library(sknifedatar)
 
-## Proyectos
+## Website
 
-Para visitar los proyectos consultar en [Blog Posts - Rafael
-Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
+[sknifedatar](https://rafzamb.github.io/sknifedatar/)

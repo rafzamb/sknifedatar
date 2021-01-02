@@ -1,6 +1,10 @@
 #' @title Esquinas de la ciudad de Buenos Aires
 #'
-#' @description Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos, elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina.
+#' @description Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de
+#'  las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos,
+#'   elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina. Los datos originales fueron extraídos de los
+#'   repositorios \href{https://www.openstreetmap.org/}{Openstreetmap} y  \href{https://data.buenosaires.gob.ar/dataset/delitos/}{GCABA},
+#'   posteriormente fueron transformados hasta obtener la estructura tabular que acá se presenta.
 #'
 #' @section Variables de criminalidad:
 #' Para cada esquina se registra el número de delitos que ocurrieron en cada mes del periodo diciembre 2017 - diciembre-2019. En total son 25 columnas de criminalidad, que hacen referencia a los 25 meses del periodo de estudio. Los atributos están ordenados cronológicamente, pueden identificarse con el prefijo “delitos”, seguido del mes y año, por ejemplo: delitos_dec_2017.
@@ -13,5 +17,5 @@
 #'
 #' @format Un data frame con 2023 filas y 136 columnas, las variables esquina, long y lat, representan el ID de la esquina y la gelocalización de la misma. Para ver un proyecto de ciencia de datos aplicado sobre este dataset consultar \href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Predicción de delitos en CABA}
 #'
-#' @source \url{https://github.com/rafzamb/raFunctions}
+#' @source \url{https://rafzamb.github.io/sknifedatar}
 "data_crime_clime"

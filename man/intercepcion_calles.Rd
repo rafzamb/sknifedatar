@@ -14,13 +14,15 @@ A data frame con 2417 filas y 3 columnas:
 }
 }
 \source{
-\url{https://www.openstreetmap.org/}
+\url{https://rafzamb.github.io/sknifedatar/}
 }
 \usage{
 intercepcion_calles
 }
 \description{
 Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019
-diamonds.
+diamonds.  Los datos fueron extraídos del repositorio de \href{https://www.openstreetmap.org/}{Openstreetmap}  a través del
+paquete \href{https://docs.ropensci.org/osmdata}{osmdata}, posteriormente fueron transformados hasta obtener la estructura tabular
+que acá se presenta.
 }
 \keyword{datasets}

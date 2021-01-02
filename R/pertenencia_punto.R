@@ -2,7 +2,7 @@
 #'
 #' @description Dado dos conjuntos de puntos geolocalizados, esta función permite determinar para cada punto del primer conjunto de datos, cuál o cuáles de los puntos del segundo conjunto de datos están dentro de un radio de metros determinado.
 #'
-#' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Blog Posts Rafael Zambrano}
+#' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#c%C3%A1lculo-mensual-de-los-delitos-ocurridos-en-cada-esquina-de-caba}{Predicción de delitos/pertenencia_punto}
 #'
 #' @param data data frame que representa los puntos del primer conjunto de datos,
 #' @param referencia data frame que representa los segundos puntos de datos, sobre los cuales se evaluará cuáles de ellos están dentro del radio de cercanía de los puntos del primer conjunto de datos, las columnas de geolocalización deben estar nombradas como "long" y "lat".

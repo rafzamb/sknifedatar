@@ -27,5 +27,6 @@ crimes
 }
 \description{
 Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019.
+Los datos fueron extraídos del repositorio público del \href{https://data.buenosaires.gob.ar/dataset/delitos/}{GCABA}
 }
 \keyword{datasets}

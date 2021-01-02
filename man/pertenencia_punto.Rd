@@ -27,5 +27,5 @@ Las columnas de geolocalización de ambos conjuntos de datos deben estar nombrad
 pertenencia_punto(data = crimes, referencia = intercepcion_calles, metros = 150)
 }
 \seealso{
-\href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Blog Posts Rafael Zambrano}
+\href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#c\%C3\%A1lculo-mensual-de-los-delitos-ocurridos-en-cada-esquina-de-caba}{Predicción de delitos/pertenencia_punto}
 }

@@ -49,5 +49,5 @@ sliding_window(data = data_crime_clime \%>\% dplyr::select(-c(long,lat)),
                variables = variables)
 }
 \seealso{
-\href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Blog Posts Rafael Zambrano}
+\href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 }

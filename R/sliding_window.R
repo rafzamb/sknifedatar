@@ -15,7 +15,7 @@
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 #'
-#' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Blog Posts Rafael Zambrano}
+#' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
 #'
 #' @param data data frame que contiene conteos históricos de distintos eventos en espacios de tiempo mensuales.
