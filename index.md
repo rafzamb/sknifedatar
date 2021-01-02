@@ -189,7 +189,7 @@ sliding_window(data = data_crime_clime %>% dplyr::select(-c(long,lat)),
 
 ## Casos de Uso
 
-Para visitar proyectos donde fue utilizado este paquete consultar:
+Para consultar proyectos donde fue utilizado este paquete consultar:
 
 -   [Blog Posts / Rafael
     Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
