@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//index.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/crimes.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/data_crime_clime.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/intercepcion_calles.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/mlapply.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/multieval.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/pertenencia_punto.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/sliding_window.html</loc>
+  </url>
+</urlset>
