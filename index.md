@@ -9,7 +9,7 @@ license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https:
 <!-- badges: end -->
 
 **Swiss Knife of Data for R**: Colección de funciones que facilitan el
-desarrollo de las distintas etapas de un proyecto de ciencia de datos.
+desarrollo práctico de un proyecto de ciencia de datos.
 
 ## Installation
 
@@ -63,7 +63,9 @@ tibble(predictions)
 multieval(data = predictions,
           observed = "truth",
           predictions = c("predict_model_1","predict_model_2"),
-          metrica = erer::listn(rmse, rsq, mae))
+          metrica = listn(rmse, rsq, mae),
+          plot_view = TRUE)
+#> $table_values
 #> # A tibble: 6 x 4
 #>   .metric .estimator .estimate model          
 #>   <chr>   <chr>          <dbl> <chr>          
@@ -73,7 +75,11 @@ multieval(data = predictions,
 #> 4 rmse    standard    1.95     predict_model_2
 #> 5 rsq     standard    0.000704 predict_model_1
 #> 6 rsq     standard    0.00115  predict_model_2
+#> 
+#> $plot_metrics
 ```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ### Función pertenencia\_punto
 

@@ -79,7 +79,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><strong>Swiss Knife of Data for R</strong>: Colección de funciones que facilitan el desarrollo de las distintas etapas de un proyecto de ciencia de datos.</p>
+<p><strong>Swiss Knife of Data for R</strong>: Colección de funciones que facilitan el desarrollo práctico de un proyecto de ciencia de datos.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -127,7 +127,9 @@
 <code class="sourceCode R"><span class="fu"><a href="reference/multieval.html">multieval</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">predictions</span>,
           observed <span class="op">=</span> <span class="st">"truth"</span>,
           predictions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"predict_model_1"</span>,<span class="st">"predict_model_2"</span><span class="op">)</span>,
-          metrica <span class="op">=</span> <span class="fu">erer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/erer/man/listn.html">listn</a></span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span>, <span class="va">mae</span><span class="op">)</span><span class="op">)</span>
+          metrica <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/erer/man/listn.html">listn</a></span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span>, <span class="va">mae</span><span class="op">)</span>,
+          plot_view <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; $table_values</span>
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   .metric .estimator .estimate model          </span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;          </span>
@@ -136,7 +138,10 @@
 <span class="co">#&gt; 3 rmse    standard    1.99     predict_model_1</span>
 <span class="co">#&gt; 4 rmse    standard    1.95     predict_model_2</span>
 <span class="co">#&gt; 5 rsq     standard    0.000704 predict_model_1</span>
-<span class="co">#&gt; 6 rsq     standard    0.00115  predict_model_2</span></code></pre></div>
+<span class="co">#&gt; 6 rsq     standard    0.00115  predict_model_2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $plot_metrics</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
 </div>
 <div id="función-pertenencia_punto" class="section level3">
 <h3 class="hasAnchor">
