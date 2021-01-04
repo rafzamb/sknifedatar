@@ -57,7 +57,7 @@ multieval = function(data , observed, predictions, metrica ,plot_view = TRUE, va
 
   }else{
 
-    plot_view = NULL
+    plot_metrics = NULL
   }
 
   if(value_table == FALSE){
