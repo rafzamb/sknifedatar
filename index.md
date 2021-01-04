@@ -63,8 +63,7 @@ tibble(predictions)
 multieval(data = predictions,
           observed = "truth",
           predictions = c("predict_model_1","predict_model_2"),
-          metrica = listn(rmse, rsq, mae),
-          plot_view = TRUE)
+          metrica = listn(rmse, rsq, mae))
 #> $table_values
 #> # A tibble: 6 x 4
 #>   .metric .estimator .estimate model          
@@ -75,6 +74,13 @@ multieval(data = predictions,
 #> 4 rmse    standard    1.95     predict_model_2
 #> 5 rsq     standard    0.000704 predict_model_1
 #> 6 rsq     standard    0.00115  predict_model_2
+#> 
+#> $summary_table
+#> # A tibble: 2 x 4
+#>   model             mae  rmse      rsq
+#>   <chr>           <dbl> <dbl>    <dbl>
+#> 1 predict_model_1  1.59  1.99 0.000704
+#> 2 predict_model_2  1.61  1.95 0.00115 
 #> 
 #> $plot_metrics
 ```
