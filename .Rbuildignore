@@ -10,3 +10,5 @@
 ^pkgdown$
 ^_pkgdown$
 ^index.md$
+^index.Rmd$
+^logo.png$

@@ -4,7 +4,14 @@
 \alias{multieval}
 \title{Evaluación de múltiples métricas y predicciones}
 \usage{
-multieval(data, observed, predictions, metrica, plot_view = FALSE)
+multieval(
+  data,
+  observed,
+  predictions,
+  metrica,
+  plot_view = TRUE,
+  value_table = TRUE
+)
 }
 \arguments{
 \item{data}{data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.}
@@ -17,6 +24,8 @@ multieval(data, observed, predictions, metrica, plot_view = FALSE)
 el paquete \href{https://yardstick.tidymodels.org/}{yardstick} de tidymodels.}
 
 \item{plot_view}{TRUE para hacer un gráfico de las métricas resultantes.}
+
+\item{value_table}{TRUE para mostrar las métricas desagregadas.}
 }
 \value{
 data frame con 4 columnas, siendo las mismas las métricas de evaluación, el estimador usado, el valor de la métrica y el nombre del modelo.

@@ -10,6 +10,7 @@
 #' @param metrica métrica o conjunto de métricas que se desean evaluar, las métricas hacen referencias a las permitidas por
 #'   el paquete \href{https://yardstick.tidymodels.org/}{yardstick} de tidymodels.
 #' @param plot_view TRUE para hacer un gráfico de las métricas resultantes.
+#' @param value_table TRUE para mostrar las métricas desagregadas.
 #'
 #' @importFrom rlang .data
 #'
@@ -17,7 +18,7 @@
 #' @export
 #'
 #' @example man/examples/multieval_example.R
-multieval = function(data , observed, predictions, metrica ,plot_view = FALSE){
+multieval = function(data , observed, predictions, metrica ,plot_view = TRUE, value_table = TRUE){
 
   names(predictions) = predictions
 
@@ -34,6 +35,11 @@ multieval = function(data , observed, predictions, metrica ,plot_view = FALSE){
     dplyr::bind_rows() %>%
     dplyr::arrange(.data$.metric)
 
+  summary_table =
+    table_values %>%
+    dplyr::select(-".estimator") %>%
+    tidyr::pivot_wider(names_from = .data$.metric, values_from = .data$.estimate)
+
   if(plot_view == "TRUE"){
 
     plot_metrics = table_values %>%
@@ -45,16 +51,22 @@ multieval = function(data , observed, predictions, metrica ,plot_view = FALSE){
       ggplot2::facet_wrap(~ .metric, nrow = 1, scales = "free") +
       ggplot2::theme_minimal() +
       ggplot2::theme(axis.text.y = ggplot2::element_blank(),
-            axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1),
-            strip.text = ggplot2::element_text(face = "bold", size = 10)) +
+                     axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1),
+                     strip.text = ggplot2::element_text(face = "bold", size = 10)) +
       ggplot2::scale_y_continuous(label= scales::comma)
 
   }else{
 
-    plot_metrics = NULL
+    plot_view = NULL
+  }
 
+  if(value_table == FALSE){
+
+    table_values = NULL
   }
 
   list(table_values = table_values,
-       plot_metrics = plot_metrics)
+       summary_table = summary_table,
+       plot_metrics =  plot_metrics) %>%
+    purrr::compact()
 }
