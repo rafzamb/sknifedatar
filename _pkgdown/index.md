@@ -8,7 +8,7 @@ license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https:
 <!-- badges: end -->
 
 **Swiss Knife of Data for R**: Colección de funciones que facilitan el
-desarrollo práctico de un proyecto de ciencia de datos.
+desarrollo de las distintas etapas de un proyecto de ciencia de datos.
 
 ## Installation
 
@@ -74,6 +74,13 @@ multieval(data = predictions,
 #> 4 rmse    standard    1.95     predict_model_2
 #> 5 rsq     standard    0.000704 predict_model_1
 #> 6 rsq     standard    0.00115  predict_model_2
+#> 
+#> $summary_table
+#> # A tibble: 2 x 4
+#>   model             mae  rmse      rsq
+#>   <chr>           <dbl> <dbl>    <dbl>
+#> 1 predict_model_1  1.59  1.99 0.000704
+#> 2 predict_model_2  1.61  1.95 0.00115 
 #> 
 #> $plot_metrics
 ```
@@ -164,7 +171,7 @@ names(pliegues) = pliegues
 variables = c("delitos", "temperatura", "mm_agua", "lluvia", "viento")
 names(variables) = variables
 
-sliding_window(data = data_crime_clime %>% dplyr::select(-c(long,lat)),
+sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
                inicio = 13,
                pliegues = pliegues,
                variables = variables)
@@ -194,7 +201,7 @@ sliding_window(data = data_crime_clime %>% dplyr::select(-c(long,lat)),
 
 ## Casos de Uso
 
-Para visitar proyectos donde fue utilizado este paquete consultar:
+Para visitar los proyectos donde fue utilizado este paquete consultar:
 
 -   [Blog Posts / Rafael
     Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
