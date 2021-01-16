@@ -24,7 +24,8 @@ Imports:
     yardstick,
     ggplot2,
     scales,
-    tidyr
+    tidyr,
+    tibble
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 

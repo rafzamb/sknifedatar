@@ -17,7 +17,7 @@
 #' @export
 #'
 #' @examples
-#' pertenencia_punto(data = crimes, referencia = intercepcion_calles, metros = 150)
+#' pertenencia_punto(data = crimes, referencia = intercepcion_calles[1:300,], metros = 150)
 pertenencia_punto = function(data, referencia, metros){
 
   crime = data %>%
