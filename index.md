@@ -128,7 +128,7 @@ head(intercepcion_calles)
 
 ``` r
 esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes, 
-                                          referencia = intercepcion_calles,
+                                          referencia = intercepcion_calles[1:300,],
                                           metros = 150) %>% 
                        unlist())
 ```
@@ -142,16 +142,16 @@ crimes %>%
 #> # A tibble: 100 x 2
 #>        id pertenencia_esquina
 #>  *  <dbl>               <dbl>
-#>  1 341734                1125
-#>  2 257029                2086
+#>  1 341734                   0
+#>  2 257029                   0
 #>  3 307285                 241
-#>  4 314525                 331
-#>  5 347997                2268
+#>  4 314525                   0
+#>  5 347997                   0
 #>  6 240042                   0
-#>  7 420664                 574
-#>  8 304656                1355
-#>  9 253948                 721
-#> 10 265219                 783
+#>  7 420664                   0
+#>  8 304656                   0
+#>  9 253948                   0
+#> 10 265219                   0
 #> # … with 90 more rows
 ```
 
@@ -197,6 +197,29 @@ sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
 #> #   dias_last_3 <dbl>, dias_last_1 <dbl>, dias <dbl>, veloc_last_year <dbl>,
 #> #   veloc_last_12 <dbl>, veloc_last_6 <dbl>, veloc_last_3 <dbl>,
 #> #   veloc_last_1 <dbl>, veloc <dbl>
+```
+
+### Función insert\_na
+
+Esta función permite agregar valores NA a un data frame, pudiendo
+seleccionar las columnas y la propòrcion de NAs deseados.
+
+``` r
+insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
+#> # A tibble: 150 x 5
+#>    Sepal.Width Petal.Width Species Sepal.Length Petal.Length
+#>          <dbl>       <dbl> <fct>          <dbl>        <dbl>
+#>  1         3.5         0.2 setosa           5.1         NA  
+#>  2         3           0.2 setosa          NA            1.4
+#>  3         3.2         0.2 setosa           4.7          1.3
+#>  4         3.1         0.2 setosa          NA            1.5
+#>  5         3.6         0.2 setosa          NA            1.4
+#>  6         3.9         0.4 setosa           5.4          1.7
+#>  7         3.4         0.3 setosa           4.6          1.4
+#>  8         3.4         0.2 setosa          NA            1.5
+#>  9         2.9         0.2 setosa           4.4          1.4
+#> 10         3.1         0.1 setosa           4.9          1.5
+#> # … with 140 more rows
 ```
 
 ## Casos de Uso
