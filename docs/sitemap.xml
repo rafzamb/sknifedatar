@@ -28,6 +28,9 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_multifit.html</loc>
   </url>
   <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_multiforecast.html</loc>
+  </url>
+  <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/multieval.html</loc>
   </url>
   <url>
@@ -38,5 +41,8 @@
   </url>
   <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/sliding_window.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/table_time.html</loc>
   </url>
 </urlset>

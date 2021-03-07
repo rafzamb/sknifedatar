@@ -221,6 +221,99 @@ insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
 #> # … with 140 more rows
 ```
 
+### modeltime\_multifit
+
+Esta funcion permite ajusatr multiples mdoelos sobre multiples series de
+tiempo, utilizando los modelos del paquete .
+
+``` r
+ # libraries
+ library(modeltime)
+ library(rsample)
+ library(parsnip)
+ library(recipes)
+ library(workflows)
+ library(dplyr)
+ library(tidyr)
+ library(sknifedatar)
+
+ # Data
+ data("emae_series")
+ nested_serie = emae_series %>% nest(nested_column=-sector)
+
+ # Recipes
+ recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%
+ step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+
+ # Models
+ m_auto_arima <- arima_reg() %>% set_engine('auto_arima')
+
+ m_prophet_boost <- workflow() %>%
+   add_recipe(recipe_1) %>%
+   add_model(prophet_boost(mode='regression') %>% set_engine("prophet_xgboost"))
+
+ m_nnetar <- workflow() %>%
+   add_recipe(recipe_1) %>%
+   add_model(nnetar_reg() %>% set_engine("nnetar"))
+
+ # modeltime_multifit
+ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(4),
+                                       .prop = 0.8,
+                                       m_auto_arima,
+                                       m_prophet_boost,
+                                       m_nnetar)
+
+ model_table_emae
+#> $table_time
+#> # A tibble: 4 x 7
+#>   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model 
+#>   <chr>       <list>         <list>       <list>          <list>   <list>       
+#> 1 Comercio    <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 2 Enseñanza   <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 3 Administra… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 4 Transporte… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> # … with 1 more variable: calibration <list>
+#> 
+#> $models_accuracy
+#> # A tibble: 12 x 10
+#>    name_serie .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
+#>    <chr>          <int> <chr>       <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+#>  1 Comercio           1 ARIMA(2,1,… Test  15.7  11.6   1.45  10.9  18.7  1.06e-2
+#>  2 Comercio           2 PROPHET W/… Test   7.09  5.19  0.653  4.97  9.31 6.40e-1
+#>  3 Comercio           3 NNAR(1,1,1… Test  10.7   7.84  0.986  7.50 12.1  2.81e-1
+#>  4 Enseñanza          1 ARIMA(1,1,… Test   4.01  2.49  3.08   2.48  4.70 1.45e-1
+#>  5 Enseñanza          2 PROPHET W/… Test   7.69  4.76  5.91   4.64  8.02 3.66e-1
+#>  6 Enseñanza          3 NNAR(1,1,1… Test   5.03  3.11  3.86   3.06  5.31 6.06e-1
+#>  7 Administr…         1 ARIMA(0,1,… Test   3.29  2.14  6.72   2.11  3.63 4.72e-1
+#>  8 Administr…         2 PROPHET W/… Test  12.1   7.84 24.6    7.54 12.2  4.66e-1
+#>  9 Administr…         3 NNAR(1,1,1… Test  10.2   6.62 20.8    6.40 10.4  1.13e-2
+#> 10 Transport…         1 ARIMA(0,1,… Test  11.4   6.10  2.48   5.79 15.1  1.65e-1
+#> 11 Transport…         2 PROPHET W/… Test  16.7   8.82  3.64   8.43 17.0  6.29e-1
+#> 12 Transport…         3 NNAR(1,1,1… Test  14.0   7.51  3.07   7.17 15.8  1.26e-4
+```
+
+### modeltime\_multiforecast
+
+Esta funcion permite ralizar un forecating sobre multiples series de
+tiempo a partir de multiples modelos entrenados.
+
+``` r
+library(sknifedatar)
+data("table_time")
+forecast_emae <- modeltime_multiforecast(table_time,
+                                        .prop=0.8)
+
+forecast_emae
+#> # A tibble: 4 x 8
+#>   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model 
+#>   <chr>       <list>         <list>       <list>          <list>   <list>       
+#> 1 Comercio    <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 2 Enseñanza   <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 3 Administra… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 4 Transporte… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> # … with 2 more variables: calibration <list>, nested_forecast <list>
+```
+
 ## Casos de Uso
 
 Para consultar proyectos donde fue utilizado este paquete consultar:
