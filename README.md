@@ -11,4 +11,4 @@ Install the development version from GitHub with:
 
 ## Website
 
-[sknifedatar](https://rafzamb.github.io/sknifedatar/)
+[https://rafzamb.github.io/sknifedatar/](https://rafzamb.github.io/sknifedatar/)

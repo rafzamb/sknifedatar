@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2020 Rafael Zambrano
+Copyright (c) 2020 Rafael Zambrano and Karina Bartolome
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

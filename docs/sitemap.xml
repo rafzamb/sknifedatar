@@ -13,6 +13,9 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/data_longer_crime.html</loc>
   </url>
   <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/emae_series.html</loc>
+  </url>
+  <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/insert_na.html</loc>
   </url>
   <url>
@@ -22,7 +25,7 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/mlapply.html</loc>
   </url>
   <url>
-    <loc>https://rafzamb.github.io/sknifedatar//reference/multi_fit.html</loc>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_multifit.html</loc>
   </url>
   <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/multieval.html</loc>

@@ -227,3 +227,5 @@ Para consultar proyectos donde fue utilizado este paquete consultar:
 
 -   [Blog Posts / Rafael
     Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
+-   [Blog Posts / Karina
+    Bartolome](https://karbartolome-blog.netlify.app/)
