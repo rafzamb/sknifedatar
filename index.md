@@ -99,14 +99,14 @@ metros determinado.
 ``` r
 head(crimes)
 #> # A tibble: 6 x 9
-#>       id fecha      franja_horaria tipo_delito subtipo_delito comuna barrio
-#>    <dbl> <date>              <dbl> <chr>       <chr>           <dbl> <chr> 
-#> 1 341734 2018-08-29              0 Robo (con … <NA>                5 Boedo 
-#> 2 257029 2018-09-17             15 Hurto (sin… <NA>                6 Cabal…
-#> 3 307285 2018-03-16             18 Robo (con … <NA>               14 Paler…
-#> 4 314525 2018-02-12             12 Robo (con … <NA>                3 Balva…
-#> 5 347997 2018-06-15              9 Robo (con … <NA>                7 Parqu…
-#> 6 240042 2017-12-12             14 Robo (con … <NA>               13 Nuñez 
+#>       id fecha      franja_horaria tipo_delito    subtipo_delito comuna barrio  
+#>    <dbl> <date>              <dbl> <chr>          <chr>           <dbl> <chr>   
+#> 1 341734 2018-08-29              0 Robo (con vio… <NA>                5 Boedo   
+#> 2 257029 2018-09-17             15 Hurto (sin vi… <NA>                6 Caballi…
+#> 3 307285 2018-03-16             18 Robo (con vio… <NA>               14 Palermo 
+#> 4 314525 2018-02-12             12 Robo (con vio… <NA>                3 Balvane…
+#> 5 347997 2018-06-15              9 Robo (con vio… <NA>                7 Parque …
+#> 6 240042 2017-12-12             14 Robo (con vio… <NA>               13 Nuñez   
 #> # … with 2 more variables: lat <dbl>, long <dbl>
 ```
 
@@ -127,19 +127,19 @@ head(intercepcion_calles)
     radio de cercanía inferior a 150 metros.
 
 ``` r
-esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes, 
-                                          referencia = intercepcion_calles[1:300,],
-                                          metros = 150) %>% 
+esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes[1:10,], 
+                                                             referencia = intercepcion_calles[1:300,],
+                                                             metros = 150) %>% 
                        unlist())
 ```
 
 -   Data frame con los delitos y sus esquinas de cercaria.
 
 ``` r
-crimes %>% 
+crimes[1:10,] %>% 
   select(id) %>% 
   bind_cols(esquina)
-#> # A tibble: 100 x 2
+#> # A tibble: 10 x 2
 #>        id pertenencia_esquina
 #>  *  <dbl>               <dbl>
 #>  1 341734                   0
@@ -152,7 +152,6 @@ crimes %>%
 #>  8 304656                   0
 #>  9 253948                   0
 #> 10 265219                   0
-#> # … with 90 more rows
 ```
 
 ### Función sliding\_window
@@ -176,18 +175,18 @@ sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
                pliegues = pliegues,
                variables = variables)
 #> # A tibble: 26,299 x 32
-#>    id    pliegue delitos_last_ye… delitos_last_12 delitos_last_6 delitos_last_3
-#>    <chr>   <int>            <dbl>           <dbl>          <dbl>          <dbl>
-#>  1 esqu…       1                1              73             41             20
-#>  2 esqu…       1                5             106             47             19
-#>  3 esqu…       1                4              25             11              4
-#>  4 esqu…       1                0               4              1              1
-#>  5 esqu…       1                0              31             16              7
-#>  6 esqu…       1                1              11              6              3
-#>  7 esqu…       1                1              16             11              4
-#>  8 esqu…       1                1              19              8              5
-#>  9 esqu…       1                0               9              6              4
-#> 10 esqu…       1                3              27             14             10
+#>    id     pliegue delitos_last_ye… delitos_last_12 delitos_last_6 delitos_last_3
+#>    <chr>    <int>            <dbl>           <dbl>          <dbl>          <dbl>
+#>  1 esqui…       1                1              73             41             20
+#>  2 esqui…       1                5             106             47             19
+#>  3 esqui…       1                4              25             11              4
+#>  4 esqui…       1                0               4              1              1
+#>  5 esqui…       1                0              31             16              7
+#>  6 esqui…       1                1              11              6              3
+#>  7 esqui…       1                1              16             11              4
+#>  8 esqui…       1                1              19              8              5
+#>  9 esqui…       1                0               9              6              4
+#> 10 esqui…       1                3              27             14             10
 #> # … with 26,289 more rows, and 26 more variables: delitos_last_1 <dbl>,
 #> #   delitos <dbl>, temperatura_last_year <dbl>, temperatura_last_12 <dbl>,
 #> #   temperatura_last_6 <dbl>, temperatura_last_3 <dbl>,

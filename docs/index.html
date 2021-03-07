@@ -159,14 +159,14 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 x 9</span>
-<span class="co">#&gt;       id fecha      franja_horaria tipo_delito subtipo_delito comuna barrio</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; </span>
-<span class="co">#&gt; 1 341734 2018-08-29              0 Robo (con … &lt;NA&gt;                5 Boedo </span>
-<span class="co">#&gt; 2 257029 2018-09-17             15 Hurto (sin… &lt;NA&gt;                6 Cabal…</span>
-<span class="co">#&gt; 3 307285 2018-03-16             18 Robo (con … &lt;NA&gt;               14 Paler…</span>
-<span class="co">#&gt; 4 314525 2018-02-12             12 Robo (con … &lt;NA&gt;                3 Balva…</span>
-<span class="co">#&gt; 5 347997 2018-06-15              9 Robo (con … &lt;NA&gt;                7 Parqu…</span>
-<span class="co">#&gt; 6 240042 2017-12-12             14 Robo (con … &lt;NA&gt;               13 Nuñez </span>
+<span class="co">#&gt;       id fecha      franja_horaria tipo_delito    subtipo_delito comuna barrio  </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;date&gt;              &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;   </span>
+<span class="co">#&gt; 1 341734 2018-08-29              0 Robo (con vio… &lt;NA&gt;                5 Boedo   </span>
+<span class="co">#&gt; 2 257029 2018-09-17             15 Hurto (sin vi… &lt;NA&gt;                6 Caballi…</span>
+<span class="co">#&gt; 3 307285 2018-03-16             18 Robo (con vio… &lt;NA&gt;               14 Palermo </span>
+<span class="co">#&gt; 4 314525 2018-02-12             12 Robo (con vio… &lt;NA&gt;                3 Balvane…</span>
+<span class="co">#&gt; 5 347997 2018-06-15              9 Robo (con vio… &lt;NA&gt;                7 Parque …</span>
+<span class="co">#&gt; 6 240042 2017-12-12             14 Robo (con vio… &lt;NA&gt;               13 Nuñez   </span>
 <span class="co">#&gt; # … with 2 more variables: lat &lt;dbl&gt;, long &lt;dbl&gt;</span></code></pre></div>
 <ul>
 <li>2023 esquinas de CABA uniformemente distribuidas sobre la ciudad.</li>
@@ -184,18 +184,18 @@
 <li>Para cada delito, se determina la esquina que está dentro de un radio de cercanía inferior a 150 metros.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">esquina</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pertenencia_esquina <span class="op">=</span> <span class="fu"><a href="reference/pertenencia_punto.html">pertenencia_punto</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">crimes</span>, 
-                                          referencia <span class="op">=</span> <span class="va">intercepcion_calles</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">300</span>,<span class="op">]</span>,
-                                          metros <span class="op">=</span> <span class="fl">150</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">esquina</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pertenencia_esquina <span class="op">=</span> <span class="fu"><a href="reference/pertenencia_punto.html">pertenencia_punto</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">crimes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, 
+                                                             referencia <span class="op">=</span> <span class="va">intercepcion_calles</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">300</span>,<span class="op">]</span>,
+                                                             metros <span class="op">=</span> <span class="fl">150</span><span class="op">)</span> <span class="op">%&gt;%</span> 
                        <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Data frame con los delitos y sus esquinas de cercaria.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">crimes</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">crimes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">esquina</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 100 x 2</span>
+<span class="co">#&gt; # A tibble: 10 x 2</span>
 <span class="co">#&gt;        id pertenencia_esquina</span>
 <span class="co">#&gt;  *  &lt;dbl&gt;               &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 341734                   0</span>
@@ -207,8 +207,7 @@
 <span class="co">#&gt;  7 420664                   0</span>
 <span class="co">#&gt;  8 304656                   0</span>
 <span class="co">#&gt;  9 253948                   0</span>
-<span class="co">#&gt; 10 265219                   0</span>
-<span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
+<span class="co">#&gt; 10 265219                   0</span></code></pre></div>
 </div>
 <div id="función-sliding_window" class="section level3">
 <h3 class="hasAnchor">
@@ -226,18 +225,18 @@
                pliegues <span class="op">=</span> <span class="va">pliegues</span>,
                variables <span class="op">=</span> <span class="va">variables</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 26,299 x 32</span>
-<span class="co">#&gt;    id    pliegue delitos_last_ye… delitos_last_12 delitos_last_6 delitos_last_3</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 esqu…       1                1              73             41             20</span>
-<span class="co">#&gt;  2 esqu…       1                5             106             47             19</span>
-<span class="co">#&gt;  3 esqu…       1                4              25             11              4</span>
-<span class="co">#&gt;  4 esqu…       1                0               4              1              1</span>
-<span class="co">#&gt;  5 esqu…       1                0              31             16              7</span>
-<span class="co">#&gt;  6 esqu…       1                1              11              6              3</span>
-<span class="co">#&gt;  7 esqu…       1                1              16             11              4</span>
-<span class="co">#&gt;  8 esqu…       1                1              19              8              5</span>
-<span class="co">#&gt;  9 esqu…       1                0               9              6              4</span>
-<span class="co">#&gt; 10 esqu…       1                3              27             14             10</span>
+<span class="co">#&gt;    id     pliegue delitos_last_ye… delitos_last_12 delitos_last_6 delitos_last_3</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 esqui…       1                1              73             41             20</span>
+<span class="co">#&gt;  2 esqui…       1                5             106             47             19</span>
+<span class="co">#&gt;  3 esqui…       1                4              25             11              4</span>
+<span class="co">#&gt;  4 esqui…       1                0               4              1              1</span>
+<span class="co">#&gt;  5 esqui…       1                0              31             16              7</span>
+<span class="co">#&gt;  6 esqui…       1                1              11              6              3</span>
+<span class="co">#&gt;  7 esqui…       1                1              16             11              4</span>
+<span class="co">#&gt;  8 esqui…       1                1              19              8              5</span>
+<span class="co">#&gt;  9 esqui…       1                0               9              6              4</span>
+<span class="co">#&gt; 10 esqui…       1                3              27             14             10</span>
 <span class="co">#&gt; # … with 26,289 more rows, and 26 more variables: delitos_last_1 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   delitos &lt;dbl&gt;, temperatura_last_year &lt;dbl&gt;, temperatura_last_12 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   temperatura_last_6 &lt;dbl&gt;, temperatura_last_3 &lt;dbl&gt;,</span>
