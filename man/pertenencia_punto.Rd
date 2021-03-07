@@ -24,7 +24,7 @@ Dado dos conjuntos de puntos geolocalizados, esta función permite determinar pa
 Las columnas de geolocalización de ambos conjuntos de datos deben estar nombradas como "long" y "lat".
 }
 \examples{
-pertenencia_punto(data = crimes, referencia = intercepcion_calles[1:300,], metros = 150)
+pertenencia_punto(data = crimes, referencia = intercepcion_calles[1:10,], metros = 150)
 }
 \seealso{
 \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#c\%C3\%A1lculo-mensual-de-los-delitos-ocurridos-en-cada-esquina-de-caba}{Predicción de delitos/pertenencia_punto}

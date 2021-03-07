@@ -25,7 +25,10 @@ Imports:
     ggplot2,
     scales,
     tidyr,
-    tibble
+    tibble,
+    modeltime,
+    rsample,
+    parsnip
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 
