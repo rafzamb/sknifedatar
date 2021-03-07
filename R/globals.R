@@ -1,1 +1,1 @@
-utils::globalVariables(c(".","Name"))
+utils::globalVariables(c(".","Name","nested_model","nested_column"))

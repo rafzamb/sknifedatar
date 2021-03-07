@@ -43,6 +43,8 @@ names(pliegues) = pliegues
 variables = c("delitos", "temperatura", "mm_agua", "lluvia", "viento")
 names(variables) = variables
 
+data("data_longer_crime")
+
 sliding_window(data = data_longer_crime \%>\% dplyr::select(-c(long,lat)),
                inicio = 13,
                pliegues = pliegues,

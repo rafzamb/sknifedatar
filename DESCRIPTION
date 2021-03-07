@@ -2,11 +2,8 @@ Package: sknifedatar
 Title: Swiss knife of data for R
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Rafael",
-           family = "Zambrano",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    c(person(given = "Rafael", family = "Zambrano", role = c("aut", "cre"), email = "rafazambragit@gmail.com"),
+      person(given = "Karina", family = "Bartolome", role = c("aut"), email = "first.last@example.com"))
 Description: Colección de funciones que facilitan el desarrollo práctico de un proyecto de ciencia de datos.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -34,4 +31,6 @@ BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 
     R (>= 2.10)
 Suggests: 
-    erer
+    erer,
+    workflows,
+    recipes

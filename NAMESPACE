@@ -3,7 +3,7 @@
 export("%>%")
 export(insert_na)
 export(mlapply)
-export(multi_fit)
+export(modeltime_multifit)
 export(multieval)
 export(pertenencia_punto)
 export(sliding_window)
