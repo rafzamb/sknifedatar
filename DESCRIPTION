@@ -25,7 +25,9 @@ Imports:
     tibble,
     modeltime,
     rsample,
-    parsnip
+    parsnip,
+    stringi,
+    stringr
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 
