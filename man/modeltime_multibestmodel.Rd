@@ -7,23 +7,23 @@
 modeltime_multibestmodel(.table, .metric = "mase", .optimization = which.min)
 }
 \arguments{
-\item{.table}{tibble que proviene del objeto table_time de la salida de la funcion "modeltime_multifit".}
+\item{.table}{tibble que proviene del objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}".}
 
-\item{.metric}{métrica de evaluación, proviene de modeltime_accuracy: 'mae', 'mape','mase','smape','rmse','rsq'}
+\item{.metric}{métrica de evaluación, proviene de "\strong{modeltime_accuracy}": 'mae', 'mape','mase','smape','rmse','rsq'.}
 
-\item{.optimization}{Es posible minimizar una métrica de error ('which.min') o maximizar el rsq ('which.max')}
+\item{.optimization}{Es posible minimizar una métrica de error ('which.min') o maximizar el rsq ('which.max').}
 }
 \value{
-tibble table_time filtrada por el mejor modelo
+tibble table_time filtrada por el mejor modelo.
 }
 \description{
-Esta funcion permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación
+Esta función permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación.
 }
 \details{
-Esta funcion toma el objeto table_time de la salida de la funcion "modeltime_multifit", posteriomente se selecciona el mejor modelo en función de la métrica seleccionada
+Esta función toma el objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}",
+posteriomente se selecciona el mejor modelo en función de la métrica seleccionada.
 }
 \examples{
-
 library(sknifedatar)
 data("table_time")
 

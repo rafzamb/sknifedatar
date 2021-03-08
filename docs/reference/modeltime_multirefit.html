@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Función para obtener el mejor modelo a partir de una modeltime table — modeltime_multibestmodel • sknifedatar</title>
+<title>Función para re ajustar el o los modelos para múltiples series de tiempo — modeltime_multirefit • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Función para obtener el mejor modelo a partir de una modeltime table — modeltime_multibestmodel" />
-<meta property="og:description" content="Esta funcion permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación" />
+<meta property="og:title" content="Función para re ajustar el o los modelos para múltiples series de tiempo — modeltime_multirefit" />
+<meta property="og:description" content="Esta función permite aplicar la función modeltime_refit() de modeltime a múltiples series y modelos" />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/logo.png" />
 
 
@@ -116,60 +116,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Función para obtener el mejor modelo a partir de una modeltime table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/modeltime_multibestmodel.R'><code>R/modeltime_multibestmodel.R</code></a></small>
-    <div class="hidden name"><code>modeltime_multibestmodel.Rd</code></div>
+    <h1>Función para re ajustar el o los modelos para múltiples series de tiempo</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/modeltime_multirefit.R'><code>R/modeltime_multirefit.R</code></a></small>
+    <div class="hidden name"><code>modeltime_multirefit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Esta funcion permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación</p>
+    <p>Esta función permite aplicar la función modeltime_refit() de modeltime a múltiples series y modelos</p>
     </div>
 
-    <pre class="usage"><span class='fu'>modeltime_multibestmodel</span><span class='op'>(</span><span class='va'>.table</span>, .metric <span class='op'>=</span> <span class='st'>"mase"</span>, .optimization <span class='op'>=</span> <span class='va'>which.min</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>modeltime_multirefit</span><span class='op'>(</span><span class='va'>models_table</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.table</th>
+      <th>models_table</th>
       <td><p>tibble que proviene del objeto table_time de la salida de la funcion "modeltime_multifit".</p></td>
-    </tr>
-    <tr>
-      <th>.metric</th>
-      <td><p>métrica de evaluación, proviene de modeltime_accuracy: 'mae', 'mape','mase','smape','rmse','rsq'</p></td>
-    </tr>
-    <tr>
-      <th>.optimization</th>
-      <td><p>Es posible minimizar una métrica de error ('which.min') o maximizar el rsq ('which.max')</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>tibble table_time filtrada por el mejor modelo</p>
+    <p>Devuelve el objeto table_time recalibrado</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Esta funcion toma el objeto table_time de la salida de la funcion "modeltime_multifit", posteriomente se selecciona el mejor modelo en función de la métrica seleccionada</p>
+    <p>Toma como input el objeto table_time de la salida de la funcion "modeltime_multifit" y devuelve el mismo objeto pero entrenado en todo el período</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/modeltime'>modeltime</a></span><span class='op'>)</span>
+
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"table_time"</span><span class='op'>)</span>
 
-<span class='va'>best_model_emae</span> <span class='op'>&lt;-</span> <span class='fu'>modeltime_multibestmodel</span><span class='op'>(</span>.table<span class='op'>=</span><span class='va'>table_time</span>,
-                                            .metric<span class='op'>=</span><span class='va'>rmse</span>,
-                                            .optimization <span class='op'>=</span> <span class='va'>which.min</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
-#&gt; <span class='message'>  method            from</span>
-#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='input'>
-<span class='va'>best_model_emae</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 8</span><span>
+<span class='va'>table_time_refit</span> <span class='op'>&lt;-</span> <span class='fu'>modeltime_multirefit</span><span class='op'>(</span>models_table <span class='op'>=</span> <span class='va'>table_time</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='input'>
+<span class='va'>table_time_refit</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 7</span><span>
 #&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>        
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio     </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span> Enseñanza    </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span> Administrac… </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
-#&gt; </span><span style='color: #949494;'># … with 2 more variables: calibration &lt;list&gt;, best_model &lt;list&gt;</span><span></div></span></pre>
+#&gt; </span><span style='color: #949494;'># … with 1 more variable: calibration &lt;list&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

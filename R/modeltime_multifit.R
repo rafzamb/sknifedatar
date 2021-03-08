@@ -1,31 +1,31 @@
-#' @title  Ajuste de multiples modelos a multiples series de tiempo
+#' @title  Ajuste de múltiples modelos a múltiples series de tiempo
 #'
-#' @description Esta funcion permite ajusatr multiples mdoelos sobre multiples series de tiempo,
+#' @description Esta función permite ajustar múltiples modelos sobre múltiples series de tiempo,
 #'              utilizando los modelos del paquete \href{https://business-science.github.io/modeltime/}{modeltime}.
 #'
-#' @details El enfoque de esta función no esta relacionado con series de panel, esta orientada a multiples series individuales.
-#'          Recibeindo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a traves de la funcion nest),
-#'          luego especificando una proporcion deseada para particionar cada una de las series en train/test.
+#' @details El enfoque de esta función no está relacionado con series de panel, está orientada a múltiples series individuales.
+#'          Recibiendo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a través de la función nest),
+#'          luego especificando una proporción deseada para particionar cada una de las series en train/test.
 #'
 #'
-#'          Por ultimo se deben suministrar los modelos a entrenar, siemplente escribiendo el nombre de los modelos separados
-#'          por comas, la funcion admite tantos modelos como se requierean.
+#'          Por último se deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
+#'          por comas, la función admite tantos modelos como se requieran.
 #'
 #' @importFrom rlang .data
 #'
 #' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
 #'
-#' @param serie series de tiempo anidadas
-#' @param .prop proporción de partición de las series en train/test
-#' @param ... modelos o workflows a entrenar (model_1,model2,...)
+#' @param serie series de tiempo anidadas.
+#' @param .prop proporción de partición de las series en train/test.
+#' @param ... modelos o workflows a entrenar (model_1,model2,...).
 #'
-#' @return una lista con 2 elementos. El primer componnete es un tibble que contiene una primera columna que contiene el nombre
+#' @return una lista con 2 elementos. El primer componente es un tibble que contiene una primera columna que contiene el nombre
 #'         de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-#'         modelo suministrado donde se almacenanan los modelos o workflows entrenados para cada series.
+#'         modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie.
 #'
-#'         Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las metricas de ajuste sobre la
-#'         particion de test.
+#'         Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
+#'         partición de test.
 #'
 #' @export
 #'
@@ -42,7 +42,7 @@
 #'
 #' # Data
 #' data("emae_series")
-#' nested_serie = emae_series %>% nest(nested_column=-sector)
+#' nested_serie = emae_series %>% filter(date < '2020-02-01') %>% nest(nested_column=-sector)
 #'
 #' # Recipes
 #' recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%

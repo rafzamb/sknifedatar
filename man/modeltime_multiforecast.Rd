@@ -2,29 +2,30 @@
 % Please edit documentation in R/modeltime_multiforecast.R
 \name{modeltime_multiforecast}
 \alias{modeltime_multiforecast}
-\title{Forecasting de multiples modelos sobre multiples series}
+\title{Forecasting de múltiples modelos sobre múltiples series de tiempo}
 \usage{
 modeltime_multiforecast(models_table, .h = NULL, .prop = NULL)
 }
 \arguments{
-\item{models_table}{tibble que proviene del objeto table_time de la salida de la funcion "modeltime_multifit".}
+\item{models_table}{tibble que proviene del objeto "\strong{table_time de la salida}" de la función "\strong{modeltime_multifit}".}
 
-\item{.h}{horizonte de predicción de la funcion "modeltime_forecast".}
+\item{.h}{horizonte de predicción de la función "\strong{modeltime_forecast}".}
 
-\item{.prop}{proporción de la partición de splits de als series de tiempo. En caso de no especificar "h", esta funcion
-proyecta en la particion de testing.}
+\item{.prop}{proporción de la partición de splits de las series de tiempo. En caso de no especificar "h", esta función
+predice sobre la particion de testing.}
 }
 \value{
-tibble correspondiente al mismmo suministardo en el parametro "models_table", agregando una nueva columna llamada
+tibble correspondiente al mismmo suministardo en el parámetro "models_table", agregando una nueva columna llamada
 "nested_forecast" donde se guardan las predicciones.
 }
 \description{
-Esta funcion permite ralizar un forecating sobre multiples series de tiempo a partir de multiples modelos
-entrenados.
+Esta función permite realizar un forecasting sobre múltiples series de tiempo a partir de
+múltiples modelos entrenados.
 }
 \details{
-Esta funcion toma el objeto table_time de la salida de la funcion "modeltime_multifit", posteriomente
-aplica la funcion "modeltime_forecast" a cada uno de los multiples modelos sobre multiples series.
+Esta función toma el objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}", posteriormente
+aplica la función "\strong{modeltime_forecast}" del paquete de \href{https://business-science.github.io/modeltime/}{\strong{modeltime}}
+a cada uno de los múltiples modelos sobre múltiples series.
 }
 \examples{
 library(sknifedatar)
