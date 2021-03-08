@@ -8,13 +8,13 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(sknifedatar)
 #' library(modeltime)
 #'
 #' data("table_time")
 #'
 #' table_time_refit <- modeltime_multirefit(models_table = table_time)
+#'
 #' table_time_refit
 modeltime_multirefit <- function(models_table){
 

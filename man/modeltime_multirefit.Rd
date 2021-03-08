@@ -19,12 +19,12 @@ Esta función permite aplicar la función modeltime_refit() de modeltime a múlt
 Toma como input el objeto table_time de la salida de la funcion "modeltime_multifit" y devuelve el mismo objeto pero entrenado en todo el período
 }
 \examples{
-
 library(sknifedatar)
 library(modeltime)
 
 data("table_time")
 
 table_time_refit <- modeltime_multirefit(models_table = table_time)
+
 table_time_refit
 }

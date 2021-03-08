@@ -30,5 +30,6 @@ data("table_time")
 best_model_emae <- modeltime_multibestmodel(.table=table_time,
                                             .metric=rmse,
                                             .optimization = which.min)
+
 best_model_emae
 }

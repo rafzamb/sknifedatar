@@ -22,6 +22,7 @@
 #' forecast_emae <- modeltime_multiforecast(table_time,
 #'                                          .prop=0.8)
 #'
+#'
 #' forecast_emae
 modeltime_multiforecast <- function(models_table,
                                     .h=NULL,

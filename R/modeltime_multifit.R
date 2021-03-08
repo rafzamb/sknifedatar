@@ -51,19 +51,18 @@
 #' # Models
 #' m_auto_arima <- arima_reg() %>% set_engine('auto_arima')
 #'
-#' m_prophet_boost <- workflow() %>%
-#'   add_recipe(recipe_1) %>%
-#'   add_model(prophet_boost(mode='regression') %>% set_engine("prophet_xgboost"))
+#' m_stlm_arima <- seasonal_reg() %>%
+#'   set_engine("stlm_arima")
 #'
 #' m_nnetar <- workflow() %>%
 #'   add_recipe(recipe_1) %>%
 #'   add_model(nnetar_reg() %>% set_engine("nnetar"))
 #'
 #' # modeltime_multifit
-#' model_table_emae = modeltime_multifit(serie = nested_serie %>% head(4),
+#' model_table_emae = modeltime_multifit(serie = nested_serie %>% head(3),
 #'                                       .prop = 0.8,
 #'                                       m_auto_arima,
-#'                                       m_prophet_boost,
+#'                                       m_stlm_arima,
 #'                                       m_nnetar)
 #'
 #' model_table_emae

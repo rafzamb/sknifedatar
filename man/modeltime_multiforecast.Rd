@@ -33,5 +33,6 @@ data("table_time")
 forecast_emae <- modeltime_multiforecast(table_time,
                                          .prop=0.8)
 
+
 forecast_emae
 }
