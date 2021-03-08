@@ -3,6 +3,7 @@
 export("%>%")
 export(insert_na)
 export(mlapply)
+export(modeltime_multibestmodel)
 export(modeltime_multifit)
 export(modeltime_multiforecast)
 export(multieval)
