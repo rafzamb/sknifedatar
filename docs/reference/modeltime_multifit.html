@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ajuste de multiples modelos a multiples series de tiempo — modeltime_multifit • sknifedatar</title>
+<title>Ajuste de múltiples modelos a múltiples series de tiempo — modeltime_multifit • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Ajuste de multiples modelos a multiples series de tiempo — modeltime_multifit" />
-<meta property="og:description" content="Esta funcion permite ajusatr multiples mdoelos sobre multiples series de tiempo,
+<meta property="og:title" content="Ajuste de múltiples modelos a múltiples series de tiempo — modeltime_multifit" />
+<meta property="og:description" content="Esta función permite ajustar múltiples modelos sobre múltiples series de tiempo,
 utilizando los modelos del paquete modeltime." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/logo.png" />
 
@@ -117,13 +117,13 @@ utilizando los modelos del paquete modeltime." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Ajuste de multiples modelos a multiples series de tiempo</h1>
+    <h1>Ajuste de múltiples modelos a múltiples series de tiempo</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/modeltime_multifit.R'><code>R/modeltime_multifit.R</code></a></small>
     <div class="hidden name"><code>modeltime_multifit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Esta funcion permite ajusatr multiples mdoelos sobre multiples series de tiempo,
+    <p>Esta función permite ajustar múltiples modelos sobre múltiples series de tiempo,
 utilizando los modelos del paquete <a href='https://business-science.github.io/modeltime/'>modeltime</a>.</p>
     </div>
 
@@ -134,32 +134,32 @@ utilizando los modelos del paquete <a href='https://business-science.github.io/m
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>serie</th>
-      <td><p>series de tiempo anidadas</p></td>
+      <td><p>series de tiempo anidadas.</p></td>
     </tr>
     <tr>
       <th>.prop</th>
-      <td><p>proporción de partición de las series en train/test</p></td>
+      <td><p>proporción de partición de las series en train/test.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>modelos o workflows a entrenar (model_1,model2,...)</p></td>
+      <td><p>modelos o workflows a entrenar (model_1,model2,...).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>una lista con 2 elementos. El primer componnete es un tibble que contiene una primera columna que contiene el nombre
+    <p>una lista con 2 elementos. El primer componente es un tibble que contiene una primera columna que contiene el nombre
 de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-modelo suministrado donde se almacenanan los modelos o workflows entrenados para cada series.</p><pre>    Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las metricas de ajuste sobre la
-    particion de test.
+modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie.</p><pre>    Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
+    partición de test.
 </pre>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>El enfoque de esta función no esta relacionado con series de panel, esta orientada a multiples series individuales.
-Recibeindo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a traves de la funcion nest),
-luego especificando una proporcion deseada para particionar cada una de las series en train/test.</p><pre>     Por ultimo se deben suministrar los modelos a entrenar, siemplente escribiendo el nombre de los modelos separados
-     por comas, la funcion admite tantos modelos como se requierean.
+    <p>El enfoque de esta función no está relacionado con series de panel, está orientada a múltiples series individuales.
+Recibiendo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a través de la función nest),
+luego especificando una proporción deseada para particionar cada una de las series en train/test.</p><pre>     Por último se deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
+     por comas, la función admite tantos modelos como se requieran.
 </pre>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -190,7 +190,7 @@ luego especificando una proporcion deseada para particionar cada una de las seri
 
 <span class='co'># Data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"emae_series"</span><span class='op'>)</span>
-<span class='va'>nested_serie</span> <span class='op'>=</span> <span class='va'>emae_series</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span>nested_column<span class='op'>=</span><span class='op'>-</span><span class='va'>sector</span><span class='op'>)</span>
+<span class='va'>nested_serie</span> <span class='op'>=</span> <span class='va'>emae_series</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>date</span> <span class='op'>&lt;</span> <span class='st'>'2020-02-01'</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span>nested_column<span class='op'>=</span><span class='op'>-</span><span class='va'>sector</span><span class='op'>)</span>
 
 <span class='co'># Recipes</span>
 <span class='va'>recipe_1</span> <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>value</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>emae_series</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sector</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -218,24 +218,24 @@ luego especificando una proporcion deseada para particionar cada una de las seri
 #&gt; <span style='color: #949494;'># A tibble: 3 x 7</span><span>
 #&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>        
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio     </span><span style='color: #949494;'>&lt;tibble [202 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Enseñanza    </span><span style='color: #949494;'>&lt;tibble [202 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Administrac… </span><span style='color: #949494;'>&lt;tibble [202 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio     </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Enseñanza    </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Administrac… </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
 #&gt; </span><span style='color: #949494;'># … with 1 more variable: calibration &lt;list&gt;</span><span>
 #&gt; 
 #&gt; $models_accuracy
 #&gt; </span><span style='color: #949494;'># A tibble: 9 x 10</span><span>
-#&gt;   name_serie  .model_id .model_desc  .type   mae  mape  mase smape  rmse     rsq
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio            1 ARIMA(3,1,0… Test  22.6  17.9   2.07 15.6  27.5  3.26</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Comercio            2 SEASONAL DE… Test  24.9  19.7   2.28 17.1  29.7  7.01</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Comercio            3 NNAR(1,1,10… Test  17.2  13.4   1.58 12.2  20.4  1.58</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Enseñanza           1 ARIMA(1,1,1… Test   6.92  4.53  2.81  4.36  9.46 5.53</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> Enseñanza           2 SEASONAL DE… Test   7.12  4.66  2.89  4.48  9.74 5.71</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> Enseñanza           3 NNAR(1,1,10… Test   8.02  5.20  3.25  5.00  9.88 1.47</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> Administra…         1 ARIMA(0,1,1… Test   8.94  6.36  4.56  5.97 12.7  5.46</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span> Administra…         2 SEASONAL DE… Test  10.0   7.11  5.11  6.64 13.9  6.08</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>9</span><span> Administra…         3 NNAR(1,1,10… Test  13.2   9.22  6.75  8.65 15.4  6.01</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt;   name_serie  .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio            1 ARIMA(0,1,… Test  11.9   8.70  1.10   8.41 15.0  1.53</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Comercio            2 SEASONAL D… Test  12.5   9.24  1.16   8.75 15.7  1.01</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Comercio            3 NNAR(1,1,1… Test   8.27  5.97  0.768  5.83  9.01 4.37</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Enseñanza           1 ARIMA(1,1,… Test   3.65  2.27  2.80   2.26  4.27 8.08</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> Enseñanza           2 SEASONAL D… Test   3.67  2.28  2.82   2.28  4.29 7.80</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> Enseñanza           3 NNAR(1,1,1… Test   4.80  2.97  3.69   2.92  5.18 4.76</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> Administra…         1 ARIMA(0,1,… Test   3.23  2.10  6.28   2.07  3.59 3.43</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span> Administra…         2 SEASONAL D… Test   3.09  2.01  6.00   1.98  3.56 2.84</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>9</span><span> Administra…         3 NNAR(1,1,1… Test  10.2   6.60 19.8    6.38 10.3  1.10</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
 #&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

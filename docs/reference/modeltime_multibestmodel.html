@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Función para obtener el mejor modelo a partir de una modeltime table — modeltime_multibestmodel" />
-<meta property="og:description" content="Esta funcion permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación" />
+<meta property="og:description" content="Esta función permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/logo.png" />
 
 
@@ -122,7 +122,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Esta funcion permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación</p>
+    <p>Esta función permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación.</p>
     </div>
 
     <pre class="usage"><span class='fu'>modeltime_multibestmodel</span><span class='op'>(</span><span class='va'>.table</span>, .metric <span class='op'>=</span> <span class='st'>"mase"</span>, .optimization <span class='op'>=</span> <span class='va'>which.min</span><span class='op'>)</span></pre>
@@ -132,28 +132,28 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.table</th>
-      <td><p>tibble que proviene del objeto table_time de la salida de la funcion "modeltime_multifit".</p></td>
+      <td><p>tibble que proviene del objeto "<strong>table_time</strong>" de la salida de la función "<strong>modeltime_multifit</strong>".</p></td>
     </tr>
     <tr>
       <th>.metric</th>
-      <td><p>métrica de evaluación, proviene de modeltime_accuracy: 'mae', 'mape','mase','smape','rmse','rsq'</p></td>
+      <td><p>métrica de evaluación, proviene de "<strong>modeltime_accuracy</strong>": 'mae', 'mape','mase','smape','rmse','rsq'.</p></td>
     </tr>
     <tr>
       <th>.optimization</th>
-      <td><p>Es posible minimizar una métrica de error ('which.min') o maximizar el rsq ('which.max')</p></td>
+      <td><p>Es posible minimizar una métrica de error ('which.min') o maximizar el rsq ('which.max').</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>tibble table_time filtrada por el mejor modelo</p>
+    <p>tibble table_time filtrada por el mejor modelo.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Esta funcion toma el objeto table_time de la salida de la funcion "modeltime_multifit", posteriomente se selecciona el mejor modelo en función de la métrica seleccionada</p>
+    <p>Esta función toma el objeto "<strong>table_time</strong>" de la salida de la función "<strong>modeltime_multifit</strong>",
+posteriomente se selecciona el mejor modelo en función de la métrica seleccionada.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"table_time"</span><span class='op'>)</span>
 
 <span class='va'>best_model_emae</span> <span class='op'>&lt;-</span> <span class='fu'>modeltime_multibestmodel</span><span class='op'>(</span>.table<span class='op'>=</span><span class='va'>table_time</span>,

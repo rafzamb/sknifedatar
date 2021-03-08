@@ -3,12 +3,13 @@
 
 <!-- badges: start -->
 
+[![made-with-R](https://img.shields.io/badge/Made%20with-R-1f425f.svg)](https://www.r-project.org/)
 [![GitHub
 license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/rafzamb/sknifedatar/blob/master/LICENSE)
 <!-- badges: end -->
 
 **Swiss Knife of Data for R**: Colección de funciones que facilitan el
-desarrollo de las distintas etapas de un proyecto de ciencia de datos.
+desarrollo práctico de un proyecto de ciencia de datos.
 
 ## Installation
 
@@ -62,8 +63,7 @@ tibble(predictions)
 multieval(data = predictions,
           observed = "truth",
           predictions = c("predict_model_1","predict_model_2"),
-          metrica = listn(rmse, rsq, mae),
-          plot_view = TRUE)
+          metrica = listn(rmse, rsq, mae))
 #> $table_values
 #> # A tibble: 6 x 4
 #>   .metric .estimator .estimate model          
@@ -128,7 +128,7 @@ head(intercepcion_calles)
 
 ``` r
 esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes[1:10,], 
-                                                             referencia = intercepcion_calles,
+                                                             referencia = intercepcion_calles[1:300,],
                                                              metros = 150) %>% 
                        unlist())
 ```
@@ -142,16 +142,16 @@ crimes[1:10,] %>%
 #> # A tibble: 10 x 2
 #>        id pertenencia_esquina
 #>  *  <dbl>               <dbl>
-#>  1 341734                1125
-#>  2 257029                2086
+#>  1 341734                   0
+#>  2 257029                   0
 #>  3 307285                 241
-#>  4 314525                 331
-#>  5 347997                2268
+#>  4 314525                   0
+#>  5 347997                   0
 #>  6 240042                   0
-#>  7 420664                 574
-#>  8 304656                1355
-#>  9 253948                 721
-#> 10 265219                 783
+#>  7 420664                   0
+#>  8 304656                   0
+#>  9 253948                   0
+#> 10 265219                   0
 ```
 
 ### Función sliding\_window
@@ -198,10 +198,34 @@ sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
 #> #   veloc_last_1 <dbl>, veloc <dbl>
 ```
 
+### Función insert\_na
+
+Esta función permite agregar valores NA a un data frame, pudiendo
+seleccionar las columnas y la propòrcion de NAs deseados.
+
+``` r
+insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
+#> # A tibble: 150 x 5
+#>    Sepal.Width Petal.Width Species Sepal.Length Petal.Length
+#>          <dbl>       <dbl> <fct>          <dbl>        <dbl>
+#>  1         3.5         0.2 setosa           5.1         NA  
+#>  2         3           0.2 setosa          NA            1.4
+#>  3         3.2         0.2 setosa           4.7          1.3
+#>  4         3.1         0.2 setosa          NA            1.5
+#>  5         3.6         0.2 setosa          NA            1.4
+#>  6         3.9         0.4 setosa           5.4          1.7
+#>  7         3.4         0.3 setosa           4.6          1.4
+#>  8         3.4         0.2 setosa          NA            1.5
+#>  9         2.9         0.2 setosa           4.4          1.4
+#> 10         3.1         0.1 setosa           4.9          1.5
+#> # … with 140 more rows
+```
+
 ### modeltime\_multifit
 
 Esta funcion permite ajusatr multiples mdoelos sobre multiples series de
-tiempo, utilizando los modelos del paquete .
+tiempo, utilizando los modelos del paquete
+[modeltime](https://business-science.github.io/modeltime/).
 
 ``` r
  # libraries
@@ -216,7 +240,7 @@ tiempo, utilizando los modelos del paquete .
 
  # Data
  data("emae_series")
- nested_serie = emae_series %>% nest(nested_column=-sector)
+ nested_serie = emae_series %>% filter(date < '2020-02-01') %>% nest(nested_column=-sector)
 
  # Recipes
  recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%
@@ -225,48 +249,43 @@ tiempo, utilizando los modelos del paquete .
  # Models
  m_auto_arima <- arima_reg() %>% set_engine('auto_arima')
 
- m_prophet_boost <- workflow() %>%
-   add_recipe(recipe_1) %>%
-   add_model(prophet_boost(mode='regression') %>% set_engine("prophet_xgboost"))
+ m_stlm_arima <- seasonal_reg() %>%
+   set_engine("stlm_arima")
 
  m_nnetar <- workflow() %>%
    add_recipe(recipe_1) %>%
    add_model(nnetar_reg() %>% set_engine("nnetar"))
 
  # modeltime_multifit
- model_table_emae = modeltime_multifit(serie = nested_serie %>% head(4),
+ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(3),
                                        .prop = 0.8,
                                        m_auto_arima,
-                                       m_prophet_boost,
+                                       m_stlm_arima,
                                        m_nnetar)
 
  model_table_emae
 #> $table_time
-#> # A tibble: 4 x 7
-#>   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model 
-#>   <chr>       <list>         <list>       <list>          <list>   <list>       
-#> 1 Comercio    <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 2 Enseñanza   <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 3 Administra… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 4 Transporte… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> # A tibble: 3 x 7
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> # … with 1 more variable: calibration <list>
 #> 
 #> $models_accuracy
-#> # A tibble: 12 x 10
-#>    name_serie .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
-#>    <chr>          <int> <chr>       <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>
-#>  1 Comercio           1 ARIMA(2,1,… Test  15.7  11.6   1.45  10.9  18.7  1.06e-2
-#>  2 Comercio           2 PROPHET W/… Test   7.09  5.19  0.653  4.97  9.31 6.40e-1
-#>  3 Comercio           3 NNAR(1,1,1… Test   9.13  6.58  0.841  6.40  9.98 4.17e-1
-#>  4 Enseñanza          1 ARIMA(1,1,… Test   4.01  2.49  3.08   2.48  4.70 1.45e-1
-#>  5 Enseñanza          2 PROPHET W/… Test   7.69  4.76  5.91   4.64  8.02 3.66e-1
-#>  6 Enseñanza          3 NNAR(1,1,1… Test   4.60  2.85  3.54   2.80  4.86 6.54e-1
-#>  7 Administr…         1 ARIMA(0,1,… Test   3.29  2.14  6.72   2.11  3.63 4.72e-1
-#>  8 Administr…         2 PROPHET W/… Test  12.1   7.84 24.6    7.54 12.2  4.66e-1
-#>  9 Administr…         3 NNAR(1,1,1… Test   9.84  6.40 20.1    6.19 10.1  3.41e-4
-#> 10 Transport…         1 ARIMA(0,1,… Test  11.4   6.10  2.48   5.79 15.1  1.65e-1
-#> 11 Transport…         2 PROPHET W/… Test  16.7   8.82  3.64   8.43 17.0  6.29e-1
-#> 12 Transport…         3 NNAR(1,1,1… Test  15.4   8.21  3.37   7.81 17.0  2.75e-3
+#> # A tibble: 9 x 10
+#>   name_serie  .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
+#>   <chr>           <int> <chr>       <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+#> 1 Comercio            1 ARIMA(0,1,… Test  11.9   8.70  1.10   8.41 15.0  1.53e-4
+#> 2 Comercio            2 SEASONAL D… Test  12.5   9.24  1.16   8.75 15.7  1.01e-4
+#> 3 Comercio            3 NNAR(1,1,1… Test   8.27  5.97  0.768  5.83  9.01 4.37e-1
+#> 4 Enseñanza           1 ARIMA(1,1,… Test   3.65  2.27  2.80   2.26  4.27 8.08e-2
+#> 5 Enseñanza           2 SEASONAL D… Test   3.67  2.28  2.82   2.28  4.29 7.80e-2
+#> 6 Enseñanza           3 NNAR(1,1,1… Test   4.80  2.97  3.69   2.92  5.18 4.76e-1
+#> 7 Administra…         1 ARIMA(0,1,… Test   3.23  2.10  6.28   2.07  3.59 3.43e-1
+#> 8 Administra…         2 SEASONAL D… Test   3.09  2.01  6.00   1.98  3.56 2.84e-1
+#> 9 Administra…         3 NNAR(1,1,1… Test  10.2   6.60 19.8    6.38 10.3  1.10e-2
 ```
 
 ### modeltime\_multiforecast
@@ -281,19 +300,65 @@ forecast_emae <- modeltime_multiforecast(table_time,
                                         .prop=0.8)
 
 forecast_emae
-#> # A tibble: 4 x 8
-#>   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model 
-#>   <chr>       <list>         <list>       <list>          <list>   <list>       
-#> 1 Comercio    <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 2 Enseñanza   <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 3 Administra… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 4 Transporte… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> # A tibble: 3 x 8
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> # … with 2 more variables: calibration <list>, nested_forecast <list>
+```
+
+### modeltime\_multirefit
+
+Esta función permite aplicar la función “**modeltime\_refit**” de
+[modeltime](https://business-science.github.io/modeltime/) a múltiples
+series y modelos.
+
+``` r
+library(sknifedatar)
+library(modeltime)
+
+data("table_time")
+table_time_refit <- modeltime_multirefit(models_table = table_time)
+
+table_time_refit
+#> # A tibble: 3 x 7
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> # … with 1 more variable: calibration <list>
+```
+
+### modeltime\_multibestmodel
+
+Esta función permite seleccionar el mejor modelo para cada serie, en
+función de determinada métrica de evaluación.
+
+``` r
+library(sknifedatar)
+
+data("table_time")
+
+best_model_emae <- modeltime_multibestmodel(.table=table_time,
+                                           .metric=rmse,
+                                           .optimization = which.min)
+
+best_model_emae
+#> # A tibble: 3 x 8
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> # … with 2 more variables: calibration <list>, best_model <list>
 ```
 
 ## Casos de Uso
 
-Para visitar los proyectos donde fue utilizado este paquete consultar:
+Para consultar proyectos donde fue utilizado este paquete consultar:
 
 -   [Blog Posts / Rafael
     Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)

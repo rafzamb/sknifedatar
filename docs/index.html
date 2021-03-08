@@ -314,28 +314,28 @@
 <span class="co">#&gt; # A tibble: 4 x 7</span>
 <span class="co">#&gt;   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model </span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;         &lt;list&gt;       &lt;list&gt;          &lt;list&gt;   &lt;list&gt;       </span>
-<span class="co">#&gt; 1 Comercio    &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
-<span class="co">#&gt; 2 Enseñanza   &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
-<span class="co">#&gt; 3 Administra… &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
-<span class="co">#&gt; 4 Transporte… &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
+<span class="co">#&gt; 1 Comercio    &lt;tibble [202 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
+<span class="co">#&gt; 2 Enseñanza   &lt;tibble [202 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
+<span class="co">#&gt; 3 Administra… &lt;tibble [202 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
+<span class="co">#&gt; 4 Transporte… &lt;tibble [202 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
 <span class="co">#&gt; # … with 1 more variable: calibration &lt;list&gt;</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $models_accuracy</span>
 <span class="co">#&gt; # A tibble: 12 x 10</span>
-<span class="co">#&gt;    name_serie .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Comercio           1 ARIMA(2,1,… Test  15.7  11.6   1.45  10.9  18.7  1.06e-2</span>
-<span class="co">#&gt;  2 Comercio           2 PROPHET W/… Test   7.09  5.19  0.653  4.97  9.31 6.40e-1</span>
-<span class="co">#&gt;  3 Comercio           3 NNAR(1,1,1… Test  10.7   7.84  0.986  7.50 12.1  2.81e-1</span>
-<span class="co">#&gt;  4 Enseñanza          1 ARIMA(1,1,… Test   4.01  2.49  3.08   2.48  4.70 1.45e-1</span>
-<span class="co">#&gt;  5 Enseñanza          2 PROPHET W/… Test   7.69  4.76  5.91   4.64  8.02 3.66e-1</span>
-<span class="co">#&gt;  6 Enseñanza          3 NNAR(1,1,1… Test   5.03  3.11  3.86   3.06  5.31 6.06e-1</span>
-<span class="co">#&gt;  7 Administr…         1 ARIMA(0,1,… Test   3.29  2.14  6.72   2.11  3.63 4.72e-1</span>
-<span class="co">#&gt;  8 Administr…         2 PROPHET W/… Test  12.1   7.84 24.6    7.54 12.2  4.66e-1</span>
-<span class="co">#&gt;  9 Administr…         3 NNAR(1,1,1… Test  10.2   6.62 20.8    6.40 10.4  1.13e-2</span>
-<span class="co">#&gt; 10 Transport…         1 ARIMA(0,1,… Test  11.4   6.10  2.48   5.79 15.1  1.65e-1</span>
-<span class="co">#&gt; 11 Transport…         2 PROPHET W/… Test  16.7   8.82  3.64   8.43 17.0  6.29e-1</span>
-<span class="co">#&gt; 12 Transport…         3 NNAR(1,1,1… Test  14.0   7.51  3.07   7.17 15.8  1.26e-4</span></code></pre></div>
+<span class="co">#&gt;    name_serie  .model_id .model_desc .type   mae  mape  mase smape  rmse     rsq</span>
+<span class="co">#&gt;    &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Comercio            1 ARIMA(3,1,… Test  22.6  17.9   2.07 15.6  27.5  0.0326 </span>
+<span class="co">#&gt;  2 Comercio            2 PROPHET W/… Test  14.7  11.6   1.35 10.5  18.7  0.213  </span>
+<span class="co">#&gt;  3 Comercio            3 NNAR(1,1,1… Test  18.1  14.1   1.65 12.7  21.8  0.114  </span>
+<span class="co">#&gt;  4 Enseñanza           1 ARIMA(1,1,… Test   6.92  4.53  2.81  4.36  9.46 0.553  </span>
+<span class="co">#&gt;  5 Enseñanza           2 PROPHET W/… Test  10.1   6.56  4.08  6.23 12.6  0.0660 </span>
+<span class="co">#&gt;  6 Enseñanza           3 NNAR(1,1,1… Test   8.03  5.21  3.26  5.00  9.87 0.155  </span>
+<span class="co">#&gt;  7 Administra…         1 ARIMA(0,1,… Test   8.94  6.36  4.56  5.97 12.7  0.546  </span>
+<span class="co">#&gt;  8 Administra…         2 PROPHET W/… Test  16.9  11.8   8.64 10.9  19.4  0.401  </span>
+<span class="co">#&gt;  9 Administra…         3 NNAR(1,1,1… Test  14.4  10.0   7.36  9.38 16.3  0.0475 </span>
+<span class="co">#&gt; 10 Transporte…         1 ARIMA(0,1,… Test  27.5  17.0   4.29 15.0  34.1  0.0851 </span>
+<span class="co">#&gt; 11 Transporte…         2 PROPHET W/… Test  37.5  22.9   5.84 19.7  43.5  0.132  </span>
+<span class="co">#&gt; 12 Transporte…         3 NNAR(1,1,1… Test  32.5  19.9   5.06 17.4  38.1  0.00287</span></code></pre></div>
 </div>
 <div id="modeltime_multiforecast" class="section level3">
 <h3 class="hasAnchor">
@@ -348,13 +348,12 @@
                                         .prop<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span>
 
 <span class="va">forecast_emae</span>
-<span class="co">#&gt; # A tibble: 4 x 8</span>
-<span class="co">#&gt;   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model </span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;         &lt;list&gt;       &lt;list&gt;          &lt;list&gt;   &lt;list&gt;       </span>
-<span class="co">#&gt; 1 Comercio    &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
-<span class="co">#&gt; 2 Enseñanza   &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
-<span class="co">#&gt; 3 Administra… &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
-<span class="co">#&gt; 4 Transporte… &lt;tibble [194 … &lt;fit[+]&gt;     &lt;workflow&gt;      &lt;workfl… &lt;model_time …</span>
+<span class="co">#&gt; # A tibble: 3 x 8</span>
+<span class="co">#&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  </span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;list&gt;          &lt;list&gt;       &lt;list&gt;       &lt;list&gt;   &lt;list&gt;        </span>
+<span class="co">#&gt; 1 Comercio     &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
+<span class="co">#&gt; 2 Enseñanza    &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
+<span class="co">#&gt; 3 Administrac… &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
 <span class="co">#&gt; # … with 2 more variables: calibration &lt;list&gt;, nested_forecast &lt;list&gt;</span></code></pre></div>
 </div>
 </div>

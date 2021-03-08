@@ -268,28 +268,28 @@ tiempo, utilizando los modelos del paquete .
 #> # A tibble: 4 x 7
 #>   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model 
 #>   <chr>       <list>         <list>       <list>          <list>   <list>       
-#> 1 Comercio    <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 2 Enseñanza   <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 3 Administra… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 4 Transporte… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 1 Comercio    <tibble [202 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 2 Enseñanza   <tibble [202 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 3 Administra… <tibble [202 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> 4 Transporte… <tibble [202 … <fit[+]>     <workflow>      <workfl… <model_time …
 #> # … with 1 more variable: calibration <list>
 #> 
 #> $models_accuracy
 #> # A tibble: 12 x 10
-#>    name_serie .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
-#>    <chr>          <int> <chr>       <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>
-#>  1 Comercio           1 ARIMA(2,1,… Test  15.7  11.6   1.45  10.9  18.7  1.06e-2
-#>  2 Comercio           2 PROPHET W/… Test   7.09  5.19  0.653  4.97  9.31 6.40e-1
-#>  3 Comercio           3 NNAR(1,1,1… Test  10.7   7.84  0.986  7.50 12.1  2.81e-1
-#>  4 Enseñanza          1 ARIMA(1,1,… Test   4.01  2.49  3.08   2.48  4.70 1.45e-1
-#>  5 Enseñanza          2 PROPHET W/… Test   7.69  4.76  5.91   4.64  8.02 3.66e-1
-#>  6 Enseñanza          3 NNAR(1,1,1… Test   5.03  3.11  3.86   3.06  5.31 6.06e-1
-#>  7 Administr…         1 ARIMA(0,1,… Test   3.29  2.14  6.72   2.11  3.63 4.72e-1
-#>  8 Administr…         2 PROPHET W/… Test  12.1   7.84 24.6    7.54 12.2  4.66e-1
-#>  9 Administr…         3 NNAR(1,1,1… Test  10.2   6.62 20.8    6.40 10.4  1.13e-2
-#> 10 Transport…         1 ARIMA(0,1,… Test  11.4   6.10  2.48   5.79 15.1  1.65e-1
-#> 11 Transport…         2 PROPHET W/… Test  16.7   8.82  3.64   8.43 17.0  6.29e-1
-#> 12 Transport…         3 NNAR(1,1,1… Test  14.0   7.51  3.07   7.17 15.8  1.26e-4
+#>    name_serie  .model_id .model_desc .type   mae  mape  mase smape  rmse     rsq
+#>    <chr>           <int> <chr>       <chr> <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>
+#>  1 Comercio            1 ARIMA(3,1,… Test  22.6  17.9   2.07 15.6  27.5  0.0326 
+#>  2 Comercio            2 PROPHET W/… Test  14.7  11.6   1.35 10.5  18.7  0.213  
+#>  3 Comercio            3 NNAR(1,1,1… Test  18.1  14.1   1.65 12.7  21.8  0.114  
+#>  4 Enseñanza           1 ARIMA(1,1,… Test   6.92  4.53  2.81  4.36  9.46 0.553  
+#>  5 Enseñanza           2 PROPHET W/… Test  10.1   6.56  4.08  6.23 12.6  0.0660 
+#>  6 Enseñanza           3 NNAR(1,1,1… Test   8.03  5.21  3.26  5.00  9.87 0.155  
+#>  7 Administra…         1 ARIMA(0,1,… Test   8.94  6.36  4.56  5.97 12.7  0.546  
+#>  8 Administra…         2 PROPHET W/… Test  16.9  11.8   8.64 10.9  19.4  0.401  
+#>  9 Administra…         3 NNAR(1,1,1… Test  14.4  10.0   7.36  9.38 16.3  0.0475 
+#> 10 Transporte…         1 ARIMA(0,1,… Test  27.5  17.0   4.29 15.0  34.1  0.0851 
+#> 11 Transporte…         2 PROPHET W/… Test  37.5  22.9   5.84 19.7  43.5  0.132  
+#> 12 Transporte…         3 NNAR(1,1,1… Test  32.5  19.9   5.06 17.4  38.1  0.00287
 ```
 
 ### modeltime\_multiforecast
@@ -304,13 +304,12 @@ forecast_emae <- modeltime_multiforecast(table_time,
                                         .prop=0.8)
 
 forecast_emae
-#> # A tibble: 4 x 8
-#>   sector      nested_column  m_auto_arima m_prophet_boost m_nnetar nested_model 
-#>   <chr>       <list>         <list>       <list>          <list>   <list>       
-#> 1 Comercio    <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 2 Enseñanza   <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 3 Administra… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
-#> 4 Transporte… <tibble [194 … <fit[+]>     <workflow>      <workfl… <model_time …
+#> # A tibble: 3 x 8
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> # … with 2 more variables: calibration <list>, nested_forecast <list>
 ```
 
