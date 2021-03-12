@@ -27,7 +27,8 @@ Imports:
     rsample,
     parsnip,
     stringi,
-    stringr
+    stringr,
+    tune
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 

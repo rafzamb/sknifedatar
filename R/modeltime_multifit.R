@@ -71,7 +71,7 @@ modeltime_multifit = function(serie, .prop, ...){
   # Funcion de ajuste
   nest_fit = function(serie, model, .proporcion = .prop){
 
-    if(class(model)[1] == "workflow"){
+    if (tune::is_workflow(model) == TRUE) {
 
       model %>% parsnip::fit(data = rsample::training(rsample::initial_time_split(serie, prop= .proporcion)))
 
