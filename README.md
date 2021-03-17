@@ -119,17 +119,17 @@ devtools::install_github("rafzamb/sknifedatar")
 #> 
 #> $models_accuracy
 #> # A tibble: 9 x 10
-#>   name_serie  .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
-#>   <chr>           <int> <chr>       <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>
-#> 1 Comercio            1 ARIMA(0,1,… Test  11.9   8.70  1.10   8.41 15.0  1.53e-4
-#> 2 Comercio            2 SEASONAL D… Test  12.5   9.24  1.16   8.75 15.7  1.01e-4
-#> 3 Comercio            3 NNAR(1,1,1… Test   8.00  5.80  0.743  5.64  8.97 4.79e-1
-#> 4 Enseñanza           1 ARIMA(1,1,… Test   3.65  2.27  2.80   2.26  4.27 8.08e-2
-#> 5 Enseñanza           2 SEASONAL D… Test   3.67  2.28  2.82   2.28  4.29 7.80e-2
-#> 6 Enseñanza           3 NNAR(1,1,1… Test   4.79  2.96  3.68   2.92  5.06 5.88e-1
-#> 7 Administra…         1 ARIMA(0,1,… Test   3.23  2.10  6.28   2.07  3.59 3.43e-1
-#> 8 Administra…         2 SEASONAL D… Test   3.09  2.01  6.00   1.98  3.56 2.84e-1
-#> 9 Administra…         3 NNAR(1,1,1… Test  10.1   6.54 19.6    6.33 10.2  1.90e-2
+#>   name_serie  .model_id .model_desc  .type   mae  mape   mase smape  rmse    rsq
+#>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+#> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
+#> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
+#> 3 Comercio            3 NNAR(1,1,10… Test   9.06  5.98  0.696  6.09 11.2  0.480 
+#> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
+#> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.22  2.00  2.34   1.98  3.57 0.865 
+#> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
+#> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
+#> 9 Administra…         3 NNAR(1,1,10… Test   7.10  4.61 14.7    4.49  7.79 0.0830
 ```
 
 ## Website

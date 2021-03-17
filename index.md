@@ -48,7 +48,9 @@ tiempo, utilizando los modelos del paquete
  library(dplyr)
  library(tidyr)
  library(sknifedatar)
+```
 
+``` r
  # Data
  data("emae_series")
  nested_serie = emae_series %>% filter(date < '2020-02-01') %>% nest(nested_column=-sector)
@@ -90,13 +92,13 @@ tiempo, utilizando los modelos del paquete
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.19  6.15  0.706  6.18 10.8  0.475 
+#> 3 Comercio            3 NNAR(1,1,10… Test   9.35  6.20  0.718  6.31 11.2  0.477 
 #> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.12  1.94  2.27   1.92  3.54 0.864 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.34  2.08  2.42   2.05  3.77 0.812 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.11  3.97 12.7    3.88  6.67 0.0589
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.36  4.13 13.2    4.03  6.99 0.0781
 ```
 
 #### modeltime\_multiforecast
@@ -222,7 +224,7 @@ multieval(data = predictions,
 #> $plot_metrics
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 #### Función pertenencia\_punto
 
