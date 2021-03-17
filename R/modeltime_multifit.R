@@ -114,7 +114,7 @@ modeltime_multifit = function(serie, .prop, ...){
 
              nested_model %>%
 
-               modeltime::modeltime_calibrate(new_data = rsample::testing(rsample::initial_time_split(nested_column, prop = 0.9)))
+               modeltime::modeltime_calibrate(new_data = rsample::testing(rsample::initial_time_split(nested_column, prop = .prop)))
 
              }))
 
