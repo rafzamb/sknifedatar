@@ -150,18 +150,16 @@ utilizando los modelos del paquete <a href='https://business-science.github.io/m
 
     <p>una lista con 2 elementos. El primer componente es un tibble que contiene una primera columna que contiene el nombre
 de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie.</p><pre>    Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
-    partición de test.
-</pre>
-
+modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie. Finalmente las columnas
+"nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
+partición de test.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>El enfoque de esta función no está relacionado con series de panel, está orientada a múltiples series individuales.
 Recibiendo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a través de la función nest),
-luego especificando una proporción deseada para particionar cada una de las series en train/test.</p><pre>     Por último se deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
-     por comas, la función admite tantos modelos como se requieran.
-</pre>
-
+luego especificando una proporción deseada para particionar cada una de las series en train/test. Por último se
+deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
+por comas, la función admite tantos modelos como se requieran.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rafzamb.github.io/sknifedatar/'>sknifedatar website</a></p></div>
@@ -225,17 +223,17 @@ luego especificando una proporción deseada para particionar cada una de las ser
 #&gt; 
 #&gt; $models_accuracy
 #&gt; </span><span style='color: #949494;'># A tibble: 9 x 10</span><span>
-#&gt;   name_serie  .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio            1 ARIMA(0,1,… Test  11.9   8.70  1.10   8.41 15.0  1.53</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-4</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Comercio            2 SEASONAL D… Test  12.5   9.24  1.16   8.75 15.7  1.01</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-4</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Comercio            3 NNAR(1,1,1… Test   8.27  5.97  0.768  5.83  9.01 4.37</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Enseñanza           1 ARIMA(1,1,… Test   3.65  2.27  2.80   2.26  4.27 8.08</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> Enseñanza           2 SEASONAL D… Test   3.67  2.28  2.82   2.28  4.29 7.80</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> Enseñanza           3 NNAR(1,1,1… Test   4.80  2.97  3.69   2.92  5.18 4.76</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> Administra…         1 ARIMA(0,1,… Test   3.23  2.10  6.28   2.07  3.59 3.43</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span> Administra…         2 SEASONAL D… Test   3.09  2.01  6.00   1.98  3.56 2.84</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-1</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>9</span><span> Administra…         3 NNAR(1,1,1… Test  10.2   6.60 19.8    6.38 10.3  1.10</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-2</span><span>
+#&gt;   name_serie  .model_id .model_desc  .type   mae  mape   mase smape  rmse    rsq
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Comercio            3 NNAR(1,1,10… Test   8.81  5.93  0.676  5.92 10.5  0.490 
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> Enseñanza           3 NNAR(1,1,10… Test   3.04  1.89  2.20   1.87  3.42 0.847 
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.038</span><span style='text-decoration: underline;'>4</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span> Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.048</span><span style='text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>9</span><span> Administra…         3 NNAR(1,1,10… Test   6.64  4.32 13.8    4.21  7.28 0.050</span><span style='text-decoration: underline;'>1</span><span>
 #&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

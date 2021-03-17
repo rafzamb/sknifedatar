@@ -10,8 +10,8 @@ license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https:
 
 **sknifedatar** is a package that serves primarily as an extension to
 the [modeltime](https://business-science.github.io/modeltime/) 📦
-ecosystem. In addition to some functionalities of spatial data and
-visualization.
+ecosystem. In addition, it includes some functionalities for spatial
+data and visualization.
 
 ## Installation
 
@@ -86,17 +86,17 @@ tiempo, utilizando los modelos del paquete
 #> 
 #> $models_accuracy
 #> # A tibble: 9 x 10
-#>   name_serie  .model_id .model_desc .type   mae  mape   mase smape  rmse     rsq
-#>   <chr>           <int> <chr>       <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>
-#> 1 Comercio            1 ARIMA(0,1,… Test  11.9   8.70  1.10   8.41 15.0  1.53e-4
-#> 2 Comercio            2 SEASONAL D… Test  12.5   9.24  1.16   8.75 15.7  1.01e-4
-#> 3 Comercio            3 NNAR(1,1,1… Test   8.79  6.40  0.817  6.18  9.91 4.68e-1
-#> 4 Enseñanza           1 ARIMA(1,1,… Test   3.65  2.27  2.80   2.26  4.27 8.08e-2
-#> 5 Enseñanza           2 SEASONAL D… Test   3.67  2.28  2.82   2.28  4.29 7.80e-2
-#> 6 Enseñanza           3 NNAR(1,1,1… Test   4.57  2.83  3.51   2.78  4.94 4.64e-1
-#> 7 Administra…         1 ARIMA(0,1,… Test   3.23  2.10  6.28   2.07  3.59 3.43e-1
-#> 8 Administra…         2 SEASONAL D… Test   3.09  2.01  6.00   1.98  3.56 2.84e-1
-#> 9 Administra…         3 NNAR(1,1,1… Test   9.44  6.14 18.4    5.95  9.61 1.93e-2
+#>   name_serie  .model_id .model_desc  .type   mae  mape   mase smape  rmse    rsq
+#>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+#> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
+#> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
+#> 3 Comercio            3 NNAR(1,1,10… Test   8.53  5.69  0.656  5.72 10.4  0.522 
+#> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
+#> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.26  2.03  2.37   2.00  3.64 0.860 
+#> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
+#> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.74  4.38 14.0    4.27  7.41 0.0729
 ```
 
 #### modeltime\_multiforecast
