@@ -17,6 +17,6 @@ table_time
 }
 \description{
 Conjunto de modelos ajustados sobre el "emae_series" dataset, este objeto proviene de la salida de la función
-modeltime_multifit (object = modeltime_multifit; object$table_time).
+modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time
 }
 \keyword{datasets}

@@ -47,9 +47,6 @@ modeltime_multiforecast <- function(models_table,
                                           .model_details = .model_desc,
                                           .model_desc = stringr::str_replace_all(.model_desc,
                                                                         "[[:punct:][:digit:][:cntrl:]]", "")
-                                        ) %>%
-                                        dplyr::mutate(.model_desc = ifelse(stringr::str_detect(.model_desc, "ARIMA"),
-                                                                    "ARIMA"
-                                                                    , .model_desc))
+                                        )
                                     }))
   }

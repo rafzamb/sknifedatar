@@ -5,10 +5,8 @@
 #'
 #' @details El enfoque de esta función no está relacionado con series de panel, está orientada a múltiples series individuales.
 #'          Recibiendo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a través de la función nest),
-#'          luego especificando una proporción deseada para particionar cada una de las series en train/test.
-#'
-#'
-#'          Por último se deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
+#'          luego especificando una proporción deseada para particionar cada una de las series en train/test. Por último se
+#'          deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
 #'          por comas, la función admite tantos modelos como se requieran.
 #'
 #' @importFrom rlang .data
@@ -22,9 +20,8 @@
 #'
 #' @return una lista con 2 elementos. El primer componente es un tibble que contiene una primera columna que contiene el nombre
 #'         de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-#'         modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie.
-#'
-#'         Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
+#'         modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie. Finalmente las columnas
+#'         "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
 #'         partición de test.
 #'
 #' @export
