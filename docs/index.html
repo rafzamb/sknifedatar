@@ -93,42 +93,69 @@
 <div id="multiple-models-on-multiple-series-functions-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-models-on-multiple-series-functions-" class="anchor"></a>Multiple models on multiple series functions 📈</h3>
-<p><img src="reference/figures/diagrama_resumen.png" width="100%" style="display: block; margin: auto;"></p>
-<div id="modeltime_multifit" class="section level4">
-<h4 class="hasAnchor">
-<a href="#modeltime_multifit" class="anchor"></a>modeltime_multifit</h4>
-<p>Esta funcion permite ajusatr multiples mdoelos sobre multiples series de tiempo, utilizando los modelos del paquete <a href="https://business-science.github.io/modeltime/">modeltime</a>.</p>
+<p><img src="reference/figures/diagrama_resumen_en.png" width="100%" style="display: block; margin: auto;"></p>
+<ul>
+<li>libraries</li>
+</ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="co"># libraries</span>
- <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime">modeltime</a></span><span class="op">)</span>
+<code class="sourceCode R"> <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime">modeltime</a></span><span class="op">)</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rsample.tidymodels.org">rsample</a></span><span class="op">)</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://parsnip.tidymodels.org">parsnip</a></span><span class="op">)</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes">recipes</a></span><span class="op">)</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows">workflows</a></span><span class="op">)</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
- <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rafzamb/sknifedatar">sknifedatar</a></span><span class="op">)</span>
-
- <span class="co"># Data</span>
- <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"emae_series"</span><span class="op">)</span>
+ <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rafzamb/sknifedatar">sknifedatar</a></span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Data</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"emae_series"</span><span class="op">)</span>
  <span class="va">nested_serie</span> <span class="op">=</span> <span class="va">emae_series</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&lt;</span> <span class="st">'2020-02-01'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>nested_column<span class="op">=</span><span class="op">-</span><span class="va">sector</span><span class="op">)</span>
-
- <span class="co"># Recipes</span>
- <span class="va">recipe_1</span> <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">emae_series</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">sector</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
- <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_date.html">step_date</a></span><span class="op">(</span><span class="va">date</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"quarter"</span>, <span class="st">"year"</span><span class="op">)</span>, ordinal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
- <span class="co"># Models</span>
- <span class="va">m_auto_arima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/arima_reg.html">arima_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">'auto_arima'</span><span class="op">)</span>
+ 
+  <span class="va">nested_serie</span>
+<span class="co">#&gt; # A tibble: 16 x 2</span>
+<span class="co">#&gt;    sector                           nested_column     </span>
+<span class="co">#&gt;    &lt;chr&gt;                            &lt;list&gt;            </span>
+<span class="co">#&gt;  1 Comercio                         &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  2 Enseñanza                        &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  3 Administración pública           &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  4 Transporte y comunicaciones      &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  5 Servicios sociales/Salud         &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  6 Impuestos netos                  &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  7 Sector financiero                &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  8 Minería                          &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  9 Agro/Ganadería/Caza/Silvicultura &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 10 Electricidad/Gas/Agua            &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 11 Hoteles/Restaurantes             &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 12 Inmobiliarias                    &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 13 Otras actividades                &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 14 Pesca                            &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 15 Industria manufacturera          &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt; 16 Construcción                     &lt;tibble [193 × 2]&gt;</span></code></pre></div>
+<ul>
+<li>Recipes</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="va">recipe_1</span> <span class="op">=</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">emae_series</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">sector</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+ <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_date.html">step_date</a></span><span class="op">(</span><span class="va">date</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"quarter"</span>, <span class="st">"year"</span><span class="op">)</span>, ordinal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Models</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="va">m_auto_arima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/arima_reg.html">arima_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">'auto_arima'</span><span class="op">)</span>
 
  <span class="va">m_stlm_arima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/seasonal_reg.html">seasonal_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
    <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"stlm_arima"</span><span class="op">)</span>
 
  <span class="va">m_nnetar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://workflows.tidymodels.org//reference/workflow.html">workflow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
    <span class="fu"><a href="https://workflows.tidymodels.org//reference/add_recipe.html">add_recipe</a></span><span class="op">(</span><span class="va">recipe_1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-   <span class="fu"><a href="https://workflows.tidymodels.org//reference/add_model.html">add_model</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/nnetar_reg.html">nnetar_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"nnetar"</span><span class="op">)</span><span class="op">)</span>
-
- <span class="co"># modeltime_multifit</span>
- <span class="va">model_table_emae</span> <span class="op">=</span> <span class="fu"><a href="reference/modeltime_multifit.html">modeltime_multifit</a></span><span class="op">(</span>serie <span class="op">=</span> <span class="va">nested_serie</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,
+   <span class="fu"><a href="https://workflows.tidymodels.org//reference/add_model.html">add_model</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/nnetar_reg.html">nnetar_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"nnetar"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div id="-modeltime_multifit" class="section level4">
+<h4 class="hasAnchor">
+<a href="#-modeltime_multifit" class="anchor"></a>🔺 modeltime_multifit</h4>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="va">model_table_emae</span> <span class="op">=</span> <span class="fu"><a href="reference/modeltime_multifit.html">modeltime_multifit</a></span><span class="op">(</span>serie <span class="op">=</span> <span class="va">nested_serie</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,
                                        .prop <span class="op">=</span> <span class="fl">0.8</span>,
                                        <span class="va">m_auto_arima</span>,
                                        <span class="va">m_stlm_arima</span>,
@@ -150,59 +177,46 @@
 <span class="co">#&gt;   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 </span>
 <span class="co">#&gt; 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 </span>
-<span class="co">#&gt; 3 Comercio            3 NNAR(1,1,10… Test   9.19  6.15  0.706  6.18 10.8  0.475 </span>
+<span class="co">#&gt; 3 Comercio            3 NNAR(1,1,10… Test   8.89  6.04  0.683  5.97 11.1  0.433 </span>
 <span class="co">#&gt; 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 </span>
 <span class="co">#&gt; 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 </span>
-<span class="co">#&gt; 6 Enseñanza           3 NNAR(1,1,10… Test   3.12  1.94  2.27   1.92  3.54 0.864 </span>
+<span class="co">#&gt; 6 Enseñanza           3 NNAR(1,1,10… Test   2.90  1.81  2.11   1.79  3.24 0.871 </span>
 <span class="co">#&gt; 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384</span>
 <span class="co">#&gt; 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480</span>
-<span class="co">#&gt; 9 Administra…         3 NNAR(1,1,10… Test   6.11  3.97 12.7    3.88  6.67 0.0589</span></code></pre></div>
+<span class="co">#&gt; 9 Administra…         3 NNAR(1,1,10… Test   6.62  4.30 13.7    4.19  7.28 0.0786</span></code></pre></div>
 </div>
-<div id="modeltime_multiforecast" class="section level4">
-<h4 class="hasAnchor">
-<a href="#modeltime_multiforecast" class="anchor"></a>modeltime_multiforecast</h4>
-<p>Esta funcion permite ralizar un forecating sobre multiples series de tiempo a partir de multiples modelos entrenados.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"table_time"</span><span class="op">)</span>
-<span class="va">forecast_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multiforecast.html">modeltime_multiforecast</a></span><span class="op">(</span><span class="va">table_time</span>,
-                                        .prop<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span>
-
-<span class="va">forecast_emae</span>
-<span class="co">#&gt; # A tibble: 3 x 8</span>
-<span class="co">#&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  </span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;list&gt;          &lt;list&gt;       &lt;list&gt;       &lt;list&gt;   &lt;list&gt;        </span>
-<span class="co">#&gt; 1 Comercio     &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
-<span class="co">#&gt; 2 Enseñanza    &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
-<span class="co">#&gt; 3 Administrac… &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
-<span class="co">#&gt; # … with 2 more variables: calibration &lt;list&gt;, nested_forecast &lt;list&gt;</span></code></pre></div>
 </div>
-<div id="modeltime_multirefit" class="section level4">
-<h4 class="hasAnchor">
-<a href="#modeltime_multirefit" class="anchor"></a>modeltime_multirefit</h4>
-<p>Esta función permite aplicar la función “<strong>modeltime_refit</strong>” de <a href="https://business-science.github.io/modeltime/">modeltime</a> a múltiples series y modelos.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"table_time"</span><span class="op">)</span>
-<span class="va">table_time_refit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multirefit.html">modeltime_multirefit</a></span><span class="op">(</span>models_table <span class="op">=</span> <span class="va">table_time</span><span class="op">)</span>
-
-<span class="va">table_time_refit</span>
-<span class="co">#&gt; # A tibble: 3 x 7</span>
-<span class="co">#&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  </span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;list&gt;          &lt;list&gt;       &lt;list&gt;       &lt;list&gt;   &lt;list&gt;        </span>
-<span class="co">#&gt; 1 Comercio     &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
-<span class="co">#&gt; 2 Enseñanza    &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
-<span class="co">#&gt; 3 Administrac… &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
-<span class="co">#&gt; # … with 1 more variable: calibration &lt;list&gt;</span></code></pre></div>
+<div id="-modeltime_multiforecast" class="section level3">
+<h3 class="hasAnchor">
+<a href="#-modeltime_multiforecast" class="anchor"></a>🔺 modeltime_multiforecast</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multiforecast.html">modeltime_multiforecast</a></span><span class="op">(</span>
+  <span class="va">model_table_emae</span><span class="op">$</span><span class="va">table_time</span>,
+  .prop <span class="op">=</span> <span class="fl">0.8</span>
+<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sector</span>, <span class="va">nested_forecast</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">nested_forecast</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sector</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/plot_modeltime_forecast.html">plot_modeltime_forecast</a></span><span class="op">(</span>
+    .legend_max_width <span class="op">=</span> <span class="fl">12</span>,
+    .facet_ncol <span class="op">=</span> <span class="fl">2</span>, 
+    .line_size <span class="op">=</span> <span class="fl">0.5</span>,
+    .interactive <span class="op">=</span> <span class="cn">FALSE</span>,
+    .facet_scales <span class="op">=</span> <span class="st">'free_y'</span>,
+    .title<span class="op">=</span><span class="st">'Forecasting test'</span><span class="op">)</span> </code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
 </div>
-<div id="modeltime_multibestmodel" class="section level4">
-<h4 class="hasAnchor">
-<a href="#modeltime_multibestmodel" class="anchor"></a>modeltime_multibestmodel</h4>
-<p>Esta función permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"table_time"</span><span class="op">)</span>
-
-<span class="va">best_model_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multibestmodel.html">modeltime_multibestmodel</a></span><span class="op">(</span>.table<span class="op">=</span><span class="va">table_time</span>,
-                                           .metric<span class="op">=</span><span class="va">rmse</span>,
-                                           .optimization <span class="op">=</span> <span class="va">which.min</span><span class="op">)</span>
+<div id="-modeltime_multibestmodel" class="section level3">
+<h3 class="hasAnchor">
+<a href="#-modeltime_multibestmodel" class="anchor"></a>🔺 modeltime_multibestmodel</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">best_model_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multibestmodel.html">modeltime_multibestmodel</a></span><span class="op">(</span>
+    .table <span class="op">=</span> <span class="va">model_table_emae</span><span class="op">$</span><span class="va">table_time</span>,
+    .metric <span class="op">=</span> <span class="va">rmse</span>,
+    .optimization <span class="op">=</span> <span class="va">which.min</span>
+  <span class="op">)</span>
 
 <span class="va">best_model_emae</span>
 <span class="co">#&gt; # A tibble: 3 x 8</span>
@@ -213,6 +227,40 @@
 <span class="co">#&gt; 3 Administrac… &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
 <span class="co">#&gt; # … with 2 more variables: calibration &lt;list&gt;, best_model &lt;list&gt;</span></code></pre></div>
 </div>
+<div id="-modeltime_multirefit" class="section level3">
+<h3 class="hasAnchor">
+<a href="#-modeltime_multirefit" class="anchor"></a>🔺 modeltime_multirefit</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_refit_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multirefit.html">modeltime_multirefit</a></span><span class="op">(</span>models_table <span class="op">=</span> <span class="va">best_model_emae</span><span class="op">)</span>
+
+<span class="va">model_refit_emae</span>
+<span class="co">#&gt; # A tibble: 3 x 8</span>
+<span class="co">#&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  </span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;list&gt;          &lt;list&gt;       &lt;list&gt;       &lt;list&gt;   &lt;list&gt;        </span>
+<span class="co">#&gt; 1 Comercio     &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
+<span class="co">#&gt; 2 Enseñanza    &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
+<span class="co">#&gt; 3 Administrac… &lt;tibble [193 ×… &lt;fit[+]&gt;     &lt;fit[+]&gt;     &lt;workfl… &lt;model_time […</span>
+<span class="co">#&gt; # … with 2 more variables: calibration &lt;list&gt;, best_model &lt;list&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multiforecast.html">modeltime_multiforecast</a></span><span class="op">(</span>
+    <span class="va">model_refit_emae</span>,
+    .prop <span class="op">=</span> <span class="fl">0.8</span>,
+    .h <span class="op">=</span> <span class="st">"1 years"</span>
+<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sector</span>, <span class="va">nested_forecast</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">nested_forecast</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sector</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/plot_modeltime_forecast.html">plot_modeltime_forecast</a></span><span class="op">(</span>
+    .legend_max_width <span class="op">=</span> <span class="fl">12</span>,
+    .facet_ncol <span class="op">=</span> <span class="fl">2</span>, 
+    .line_size <span class="op">=</span> <span class="fl">0.5</span>,
+    .interactive <span class="op">=</span> <span class="cn">FALSE</span>,
+    .facet_scales <span class="op">=</span> <span class="st">'free_y'</span>,
+    .title<span class="op">=</span><span class="st">'Forecasting'</span>
+    <span class="op">)</span> </code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 <div id="other-functions-" class="section level3">
 <h3 class="hasAnchor">
@@ -221,7 +269,7 @@
 <h4 class="hasAnchor">
 <a href="#funci%C3%B3n-multieval" class="anchor"></a>Función multieval</h4>
 <p>Para un conjunto de predicciones de distintos modelos, permite evaluar múltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/yardstick">yardstick</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">erer</span><span class="op">)</span>
 
@@ -246,7 +294,7 @@
 <span class="co">#&gt;  9 0.551            1.25            1.95 </span>
 <span class="co">#&gt; 10 0.457            1.43           -0.749</span>
 <span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/multieval.html">multieval</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">predictions</span>,
           observed <span class="op">=</span> <span class="st">"truth"</span>,
           predictions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"predict_model_1"</span>,<span class="st">"predict_model_2"</span><span class="op">)</span>,
@@ -270,7 +318,7 @@
 <span class="co">#&gt; 2 predict_model_2  1.61  1.95 0.00115 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $plot_metrics</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 <div id="función-pertenencia_punto" class="section level4">
 <h4 class="hasAnchor">
@@ -279,7 +327,7 @@
 <ul>
 <li>Muestra de 100 crimenes ocurridos en CABA.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 x 9</span>
 <span class="co">#&gt;       id fecha      franja_horaria tipo_delito    subtipo_delito comuna barrio  </span>
@@ -294,7 +342,7 @@
 <ul>
 <li>2023 esquinas de CABA uniformemente distribuidas sobre la ciudad.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">intercepcion_calles</span><span class="op">)</span>
 <span class="co">#&gt;   id      long       lat</span>
 <span class="co">#&gt; 1  1 -58.47533 -34.53936</span>
@@ -306,7 +354,7 @@
 <ul>
 <li>Para cada delito, se determina la esquina que está dentro de un radio de cercanía inferior a 150 metros.</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">esquina</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pertenencia_esquina <span class="op">=</span> <span class="fu"><a href="reference/pertenencia_punto.html">pertenencia_punto</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">crimes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, 
                                                              referencia <span class="op">=</span> <span class="va">intercepcion_calles</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">300</span>,<span class="op">]</span>,
                                                              metros <span class="op">=</span> <span class="fl">150</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -314,7 +362,7 @@
 <ul>
 <li>Data frame con los delitos y sus esquinas de cercaria.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">crimes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">esquina</span><span class="op">)</span>
@@ -336,7 +384,7 @@
 <h4 class="hasAnchor">
 <a href="#funci%C3%B3n-sliding_window" class="anchor"></a>Función sliding_window</h4>
 <p>Esta función permite aplicar una transformación de ventana deslizante móvil mensual sobre un conjunto de datos. Se define el número de pliegues y los tipos de variables a calcular. Para ver una explicación detallada y un caso de uso de esta función con código R, consultar <a href="https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci%C3%B3n-de-ventanas-deslizantes">Predicción de ocurrencia de delitos / sliding_window</a>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pliegues</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">13</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pliegues</span><span class="op">)</span> <span class="op">=</span> <span class="va">pliegues</span>
 
@@ -374,7 +422,7 @@
 <h4 class="hasAnchor">
 <a href="#funci%C3%B3n-insert_na" class="anchor"></a>Función insert_na</h4>
 <p>Esta función permite agregar valores NA a un data frame, pudiendo seleccionar las columnas y la propòrcion de NAs deseados.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/insert_na.html">insert_na</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span>, columnas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>,<span class="st">"Petal.Length"</span><span class="op">)</span>, p <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 150 x 5</span>
 <span class="co">#&gt;    Sepal.Width Petal.Width Species Sepal.Length Petal.Length</span>
