@@ -30,16 +30,11 @@ devtools::install_github("rafzamb/sknifedatar")
 
 ### Multiple models on multiple series functions 📈
 
-<img src="man/figures/diagrama_resumen.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/diagrama_resumen_en.png" width="100%" style="display: block; margin: auto;" />
 
-#### modeltime\_multifit
-
-Esta funcion permite ajusatr multiples mdoelos sobre multiples series de
-tiempo, utilizando los modelos del paquete
-[modeltime](https://business-science.github.io/modeltime/).
+-   libraries
 
 ``` r
- # libraries
  library(modeltime)
  library(rsample)
  library(parsnip)
@@ -50,16 +45,44 @@ tiempo, utilizando los modelos del paquete
  library(sknifedatar)
 ```
 
+-   Data
+
 ``` r
- # Data
  data("emae_series")
  nested_serie = emae_series %>% filter(date < '2020-02-01') %>% nest(nested_column=-sector)
+ 
+  nested_serie
+#> # A tibble: 16 x 2
+#>    sector                           nested_column     
+#>    <chr>                            <list>            
+#>  1 Comercio                         <tibble [193 × 2]>
+#>  2 Enseñanza                        <tibble [193 × 2]>
+#>  3 Administración pública           <tibble [193 × 2]>
+#>  4 Transporte y comunicaciones      <tibble [193 × 2]>
+#>  5 Servicios sociales/Salud         <tibble [193 × 2]>
+#>  6 Impuestos netos                  <tibble [193 × 2]>
+#>  7 Sector financiero                <tibble [193 × 2]>
+#>  8 Minería                          <tibble [193 × 2]>
+#>  9 Agro/Ganadería/Caza/Silvicultura <tibble [193 × 2]>
+#> 10 Electricidad/Gas/Agua            <tibble [193 × 2]>
+#> 11 Hoteles/Restaurantes             <tibble [193 × 2]>
+#> 12 Inmobiliarias                    <tibble [193 × 2]>
+#> 13 Otras actividades                <tibble [193 × 2]>
+#> 14 Pesca                            <tibble [193 × 2]>
+#> 15 Industria manufacturera          <tibble [193 × 2]>
+#> 16 Construcción                     <tibble [193 × 2]>
+```
 
- # Recipes
+-   Recipes
+
+``` r
  recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%
  step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+```
 
- # Models
+-   Models
+
+``` r
  m_auto_arima <- arima_reg() %>% set_engine('auto_arima')
 
  m_stlm_arima <- seasonal_reg() %>%
@@ -68,8 +91,11 @@ tiempo, utilizando los modelos del paquete
  m_nnetar <- workflow() %>%
    add_recipe(recipe_1) %>%
    add_model(nnetar_reg() %>% set_engine("nnetar"))
+```
 
- # modeltime_multifit
+#### 🔺 modeltime\_multifit
+
+``` r
  model_table_emae = modeltime_multifit(serie = nested_serie %>% head(3),
                                        .prop = 0.8,
                                        m_auto_arima,
@@ -92,66 +118,48 @@ tiempo, utilizando los modelos del paquete
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.35  6.20  0.718  6.31 11.2  0.477 
+#> 3 Comercio            3 NNAR(1,1,10… Test   8.89  6.04  0.683  5.97 11.1  0.433 
 #> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.34  2.08  2.42   2.05  3.77 0.812 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   2.90  1.81  2.11   1.79  3.24 0.871 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.36  4.13 13.2    4.03  6.99 0.0781
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.62  4.30 13.7    4.19  7.28 0.0786
 ```
 
-#### modeltime\_multiforecast
-
-Esta funcion permite ralizar un forecating sobre multiples series de
-tiempo a partir de multiples modelos entrenados.
+### 🔺 modeltime\_multiforecast
 
 ``` r
-data("table_time")
-forecast_emae <- modeltime_multiforecast(table_time,
-                                        .prop=0.8)
-
-forecast_emae
-#> # A tibble: 3 x 8
-#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
-#>   <chr>        <list>          <list>       <list>       <list>   <list>        
-#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 2 more variables: calibration <list>, nested_forecast <list>
+forecast_emae <- modeltime_multiforecast(
+  model_table_emae$table_time,
+  .prop = 0.8
+)
 ```
 
-#### modeltime\_multirefit
-
-Esta función permite aplicar la función “**modeltime\_refit**” de
-[modeltime](https://business-science.github.io/modeltime/) a múltiples
-series y modelos.
-
 ``` r
-data("table_time")
-table_time_refit <- modeltime_multirefit(models_table = table_time)
-
-table_time_refit
-#> # A tibble: 3 x 7
-#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
-#>   <chr>        <list>          <list>       <list>       <list>   <list>        
-#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 1 more variable: calibration <list>
+forecast_emae %>% 
+  select(sector, nested_forecast) %>% 
+  unnest(nested_forecast) %>% 
+  group_by(sector) %>% 
+  plot_modeltime_forecast(
+    .legend_max_width = 12,
+    .facet_ncol = 2, 
+    .line_size = 0.5,
+    .interactive = FALSE,
+    .facet_scales = 'free_y',
+    .title='Forecasting test') 
 ```
 
-#### modeltime\_multibestmodel
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
-Esta función permite seleccionar el mejor modelo para cada serie, en
-función de determinada métrica de evaluación.
+### 🔺 modeltime\_multibestmodel
 
 ``` r
-data("table_time")
-
-best_model_emae <- modeltime_multibestmodel(.table=table_time,
-                                           .metric=rmse,
-                                           .optimization = which.min)
+best_model_emae <- modeltime_multibestmodel(
+    .table = model_table_emae$table_time,
+    .metric = rmse,
+    .optimization = which.min
+  )
 
 best_model_emae
 #> # A tibble: 3 x 8
@@ -162,6 +170,46 @@ best_model_emae
 #> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> # … with 2 more variables: calibration <list>, best_model <list>
 ```
+
+### 🔺 modeltime\_multirefit
+
+``` r
+model_refit_emae <- modeltime_multirefit(models_table = best_model_emae)
+
+model_refit_emae
+#> # A tibble: 3 x 8
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> # … with 2 more variables: calibration <list>, best_model <list>
+```
+
+``` r
+forecast_emae <- modeltime_multiforecast(
+    model_refit_emae,
+    .prop = 0.8,
+    .h = "1 years"
+)
+```
+
+``` r
+forecast_emae %>% 
+  select(sector, nested_forecast) %>% 
+  unnest(nested_forecast) %>% 
+  group_by(sector) %>% 
+  plot_modeltime_forecast(
+    .legend_max_width = 12,
+    .facet_ncol = 2, 
+    .line_size = 0.5,
+    .interactive = FALSE,
+    .facet_scales = 'free_y',
+    .title='Forecasting'
+    ) 
+```
+
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 ### Other functions 🌀
 
@@ -224,7 +272,7 @@ multieval(data = predictions,
 #> $plot_metrics
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
 #### Función pertenencia\_punto
 

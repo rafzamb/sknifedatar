@@ -26,7 +26,7 @@ devtools::install_github("rafzamb/sknifedatar")
 
 ### Multiple models on multiple series functions
 
-<img src="man/figures/diagrama_resumen.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/diagrama_resumen_en.png" width="100%" style="display: block; margin: auto;" />
 
 ### libraries
 
@@ -123,14 +123,101 @@ devtools::install_github("rafzamb/sknifedatar")
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.06  5.98  0.696  6.09 11.2  0.480 
+#> 3 Comercio            3 NNAR(1,1,10… Test   9.25  6.12  0.711  6.22 11.0  0.519 
 #> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.22  2.00  2.34   1.98  3.57 0.865 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.36  2.09  2.43   2.06  3.72 0.852 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   7.10  4.61 14.7    4.49  7.79 0.0830
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.11  3.97 12.7    3.88  6.73 0.0867
 ```
+
+### modeltime\_multiforecast
+
+``` r
+forecast_emae <- modeltime_multiforecast(
+  model_table_emae$table_time,
+  .prop = 0.8
+)
+```
+
+``` r
+forecast_emae %>% 
+  select(sector, nested_forecast) %>% 
+  unnest(nested_forecast) %>% 
+  group_by(sector) %>% 
+  plot_modeltime_forecast(
+    .legend_max_width = 12,
+    .facet_ncol = 2, 
+    .line_size = 0.5,
+    .interactive = FALSE,
+    .facet_scales = 'free_y',
+    .title='Forecasting test') 
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+### modeltime\_multibestmodel
+
+``` r
+best_model_emae <- modeltime_multibestmodel(
+    .table = model_table_emae$table_time,
+    .metric = rmse,
+    .optimization = which.min
+  )
+
+best_model_emae
+#> # A tibble: 3 x 8
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> # … with 2 more variables: calibration <list>, best_model <list>
+```
+
+### modeltime\_multirefit
+
+``` r
+model_refit_emae <- modeltime_multirefit(models_table = best_model_emae)
+#> frequency = 12 observations per 1 year
+#> frequency = 12 observations per 1 year
+#> frequency = 12 observations per 1 year
+
+model_refit_emae
+#> # A tibble: 3 x 8
+#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
+#>   <chr>        <list>          <list>       <list>       <list>   <list>        
+#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
+#> # … with 2 more variables: calibration <list>, best_model <list>
+```
+
+``` r
+forecast_emae <- modeltime_multiforecast(
+    model_refit_emae,
+    .prop = 0.8,
+    .h = "1 years"
+)
+```
+
+``` r
+forecast_emae %>% 
+  select(sector, nested_forecast) %>% 
+  unnest(nested_forecast) %>% 
+  group_by(sector) %>% 
+  plot_modeltime_forecast(
+    .legend_max_width = 12,
+    .facet_ncol = 2, 
+    .line_size = 0.5,
+    .interactive = FALSE,
+    .facet_scales = 'free_y',
+    .title='Forecasting'
+    ) 
+```
+
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 ## Website
 
