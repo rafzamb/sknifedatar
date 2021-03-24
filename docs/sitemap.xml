@@ -4,6 +4,9 @@
     <loc>https://rafzamb.github.io/sknifedatar//index.html</loc>
   </url>
   <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/automagic_tabs.html</loc>
+  </url>
+  <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/crimes.html</loc>
   </url>
   <url>
@@ -52,6 +55,9 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/sliding_window.html</loc>
   </url>
   <url>
-    <loc>https://rafzamb.github.io/sknifedatar//reference/table_time.html</loc>
+    <loc>https://rafzamb.github.io/sknifedatar//articles/Geospatial.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//articles/automatic_tabs.html</loc>
   </url>
 </urlset>

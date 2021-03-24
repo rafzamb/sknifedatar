@@ -90,6 +90,8 @@ crimes[1:10,] %>%
   bind_cols(esquina)
 ```
 
+To consult projects where this functions was used, visit:
 
+* [Crime occurrence prediction](https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/)
 
 

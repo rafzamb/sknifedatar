@@ -49,7 +49,11 @@
 <meta property="og:title" content="Forecasting de múltiples modelos sobre múltiples series de tiempo — modeltime_multiforecast" />
 <meta property="og:description" content="Esta función permite realizar un forecasting sobre múltiples series de tiempo a partir de
 múltiples modelos entrenados." />
-<meta property="og:image" content="https://rafzamb.github.io/sknifedatar/logo.png" />
+<meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo.png" />
+<meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@rafa_zamr" />
+<meta name="twitter:site" content="@rafa_zamr" />
 
 
 
@@ -95,6 +99,21 @@ múltiples modelos entrenados." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Geospatial.html">Geospatial</a>
+    </li>
+    <li>
+      <a href="../articles/automatic_tabs.html">Automatic Tabs Distill/Rmarkdown</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -158,21 +177,53 @@ aplica la función "<strong>modeltime_forecast</strong>" del paquete de <a href=
 a cada uno de los múltiples modelos sobre múltiples series.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"table_time"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># Generate "table_time" object</span>
+<span class='co'>## libraries</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/modeltime'>modeltime</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rsample.tidymodels.org'>rsample</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://parsnip.tidymodels.org'>parsnip</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/workflows'>workflows</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
 
+<span class='co'>## Data</span>
+<span class='va'>emae_series</span> <span class='op'>&lt;-</span> <span class='fu'>sknifedatar</span><span class='fu'>::</span><span class='va'><a href='emae_series.html'>emae_series</a></span>
+<span class='va'>nested_serie</span> <span class='op'>&lt;-</span> <span class='va'>emae_series</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>date</span> <span class='op'>&lt;</span> <span class='st'>'2008-02-01'</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span>nested_column<span class='op'>=</span><span class='op'>-</span><span class='va'>sector</span><span class='op'>)</span>
+
+<span class='co'>## Recipes</span>
+<span class='va'>recipe_1</span> <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>value</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>emae_series</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sector</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/step_date.html'>step_date</a></span><span class='op'>(</span><span class='va'>date</span>, features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"quarter"</span>, <span class='st'>"year"</span><span class='op'>)</span>, ordinal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'>## Models</span>
+<span class='va'>m_naive_reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/naive_reg.html'>naive_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://rdrr.io/pkg/parsnip/man/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"naive"</span><span class='op'>)</span>
+
+<span class='va'>m_nnetar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://workflows.tidymodels.org//reference/workflow.html'>workflow</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://workflows.tidymodels.org//reference/add_model.html'>add_model</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/nnetar_reg.html'>nnetar_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/parsnip/man/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"nnetar"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://workflows.tidymodels.org//reference/add_recipe.html'>add_recipe</a></span><span class='op'>(</span><span class='va'>recipe_1</span><span class='op'>)</span>
+
+<span class='co'>## modeltime_multifit</span>
+<span class='va'>model_table_emae</span> <span class='op'>&lt;-</span> <span class='fu'><a href='modeltime_multifit.html'>modeltime_multifit</a></span><span class='op'>(</span>serie <span class='op'>=</span> <span class='va'>nested_serie</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+                                       .prop <span class='op'>=</span> <span class='fl'>0.8</span>,
+                                       <span class='va'>m_naive_reg</span> ,
+                                       <span class='va'>m_nnetar</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 12 observations per 1 year</span></div><div class='output co'>#&gt; <span class='warning'>Warning: A correlation computation is required, but `estimate` is constant and has 0 standard deviation, resulting in a divide by 0 error. `NA` will be returned.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: A correlation computation is required, but `estimate` is constant and has 0 standard deviation, resulting in a divide by 0 error. `NA` will be returned.</span></div><div class='input'>
+<span class='va'>table_time</span> <span class='op'>&lt;-</span> <span class='va'>model_table_emae</span><span class='op'>$</span><span class='va'>table_time</span>
+
+<span class='co'># Forecast</span>
 <span class='va'>forecast_emae</span> <span class='op'>&lt;-</span> <span class='fu'>modeltime_multiforecast</span><span class='op'>(</span><span class='va'>table_time</span>,
                                          .prop<span class='op'>=</span><span class='fl'>0.8</span><span class='op'>)</span>
 
 
 <span class='va'>forecast_emae</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 8</span><span>
-#&gt;   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>        
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio     </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Enseñanza    </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Administrac… </span><span style='color: #949494;'>&lt;tibble [193 ×</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>     </span><span style='color: #949494;'>&lt;workfl</span><span>… </span><span style='color: #949494;'>&lt;model_time [</span><span>…
-#&gt; </span><span style='color: #949494;'># … with 2 more variables: calibration &lt;list&gt;, nested_forecast &lt;list&gt;</span><span></div></span></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 7</span><span>
+#&gt;   sector   nested_column   m_naive_reg m_nnetar  nested_model    calibration    
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>         
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio </span><span style='color: #949494;'>&lt;tibble [49 × </span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>    </span><span style='color: #949494;'>&lt;workflo</span><span>… </span><span style='color: #949494;'>&lt;model_time [2</span><span>… </span><span style='color: #949494;'>&lt;model_time [2</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Enseñan… </span><span style='color: #949494;'>&lt;tibble [49 × </span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span>    </span><span style='color: #949494;'>&lt;workflo</span><span>… </span><span style='color: #949494;'>&lt;model_time [2</span><span>… </span><span style='color: #949494;'>&lt;model_time [2</span><span>…
+#&gt; </span><span style='color: #949494;'># … with 1 more variable: nested_forecast &lt;list&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

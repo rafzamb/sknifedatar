@@ -118,13 +118,13 @@ devtools::install_github("rafzamb/sknifedatar")
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   8.89  6.04  0.683  5.97 11.1  0.433 
+#> 3 Comercio            3 NNAR(1,1,10… Test   8.70  5.86  0.668  5.84 10.5  0.489 
 #> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Enseñanza           3 NNAR(1,1,10… Test   2.90  1.81  2.11   1.79  3.24 0.871 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.01  1.88  2.18   1.85  3.36 0.855 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.62  4.30 13.7    4.19  7.28 0.0786
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.58  4.27 13.6    4.17  7.22 0.0777
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -211,13 +211,13 @@ forecast_emae %>%
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
-### Other functions 🌀
+### Others functions 🌀
 
-#### Función multieval
+#### Funcntion multieval
 
-Para un conjunto de predicciones de distintos modelos, permite evaluar
-múltiples métricas y devolver los resultados en un formato tabular que
-facilita la comparación de las predicciones.
+For a set of predictions from different models, it allows you to
+evaluate multiple metrics and return the results in a tabular format
+that makes it easy to compare the predictions.
 
 ``` r
 library(yardstick)
@@ -274,121 +274,10 @@ multieval(data = predictions,
 
 <img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
-#### Función pertenencia\_punto
-
-Dado dos conjuntos de puntos geolocalizados, esta función permite
-determinar para cada punto del primer conjunto de datos, cuál o cuáles
-de los puntos del segundo conjunto de datos están dentro de un radio de
-metros determinado.
-
--   Muestra de 100 crimenes ocurridos en CABA.
-
-``` r
-head(crimes)
-#> # A tibble: 6 x 9
-#>       id fecha      franja_horaria tipo_delito    subtipo_delito comuna barrio  
-#>    <dbl> <date>              <dbl> <chr>          <chr>           <dbl> <chr>   
-#> 1 341734 2018-08-29              0 Robo (con vio… <NA>                5 Boedo   
-#> 2 257029 2018-09-17             15 Hurto (sin vi… <NA>                6 Caballi…
-#> 3 307285 2018-03-16             18 Robo (con vio… <NA>               14 Palermo 
-#> 4 314525 2018-02-12             12 Robo (con vio… <NA>                3 Balvane…
-#> 5 347997 2018-06-15              9 Robo (con vio… <NA>                7 Parque …
-#> 6 240042 2017-12-12             14 Robo (con vio… <NA>               13 Nuñez   
-#> # … with 2 more variables: lat <dbl>, long <dbl>
-```
-
--   2023 esquinas de CABA uniformemente distribuidas sobre la ciudad.
-
-``` r
-head(intercepcion_calles)
-#>   id      long       lat
-#> 1  1 -58.47533 -34.53936
-#> 2  2 -58.49107 -34.54576
-#> 3  3 -58.46640 -34.53487
-#> 4  4 -58.49474 -34.54741
-#> 5  5 -58.39515 -34.57223
-#> 6  6 -58.38185 -34.59158
-```
-
--   Para cada delito, se determina la esquina que está dentro de un
-    radio de cercanía inferior a 150 metros.
-
-``` r
-esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes[1:10,], 
-                                                             referencia = intercepcion_calles[1:300,],
-                                                             metros = 150) %>% 
-                       unlist())
-```
-
--   Data frame con los delitos y sus esquinas de cercaria.
-
-``` r
-crimes[1:10,] %>% 
-  select(id) %>% 
-  bind_cols(esquina)
-#> # A tibble: 10 x 2
-#>        id pertenencia_esquina
-#>  *  <dbl>               <dbl>
-#>  1 341734                   0
-#>  2 257029                   0
-#>  3 307285                 241
-#>  4 314525                   0
-#>  5 347997                   0
-#>  6 240042                   0
-#>  7 420664                   0
-#>  8 304656                   0
-#>  9 253948                   0
-#> 10 265219                   0
-```
-
-#### Función sliding\_window
-
-Esta función permite aplicar una transformación de ventana deslizante
-móvil mensual sobre un conjunto de datos. Se define el número de
-pliegues y los tipos de variables a calcular. Para ver una explicación
-detallada y un caso de uso de esta función con código R, consultar
-[Predicción de ocurrencia de delitos /
-sliding\_window](https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci%C3%B3n-de-ventanas-deslizantes).
-
-``` r
-pliegues = 1:13
-names(pliegues) = pliegues
-
-variables = c("delitos", "temperatura", "mm_agua", "lluvia", "viento")
-names(variables) = variables
-
-sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
-               inicio = 13,
-               pliegues = pliegues,
-               variables = variables)
-#> # A tibble: 26,299 x 32
-#>    id     pliegue delitos_last_ye… delitos_last_12 delitos_last_6 delitos_last_3
-#>    <chr>    <int>            <dbl>           <dbl>          <dbl>          <dbl>
-#>  1 esqui…       1                1              73             41             20
-#>  2 esqui…       1                5             106             47             19
-#>  3 esqui…       1                4              25             11              4
-#>  4 esqui…       1                0               4              1              1
-#>  5 esqui…       1                0              31             16              7
-#>  6 esqui…       1                1              11              6              3
-#>  7 esqui…       1                1              16             11              4
-#>  8 esqui…       1                1              19              8              5
-#>  9 esqui…       1                0               9              6              4
-#> 10 esqui…       1                3              27             14             10
-#> # … with 26,289 more rows, and 26 more variables: delitos_last_1 <dbl>,
-#> #   delitos <dbl>, temperatura_last_year <dbl>, temperatura_last_12 <dbl>,
-#> #   temperatura_last_6 <dbl>, temperatura_last_3 <dbl>,
-#> #   temperatura_last_1 <dbl>, temperatura <dbl>, mm_last_year <dbl>,
-#> #   mm_last_12 <dbl>, mm_last_6 <dbl>, mm_last_3 <dbl>, mm_last_1 <dbl>,
-#> #   mm <dbl>, dias_last_year <dbl>, dias_last_12 <dbl>, dias_last_6 <dbl>,
-#> #   dias_last_3 <dbl>, dias_last_1 <dbl>, dias <dbl>, veloc_last_year <dbl>,
-#> #   veloc_last_12 <dbl>, veloc_last_6 <dbl>, veloc_last_3 <dbl>,
-#> #   veloc_last_1 <dbl>, veloc <dbl>
-```
-
 #### Función insert\_na
 
-Esta función permite agregar valores NA a un data frame, pudiendo
-seleccionar las columnas y la propòrcion de NAs deseados.
+This function allows adding NA values to a data frame, being able to
+select the columns and the proportion of NAs desired.
 
 ``` r
 insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
