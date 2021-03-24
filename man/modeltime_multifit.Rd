@@ -32,7 +32,9 @@ deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de l
 por comas, la función admite tantos modelos como se requieran.
 }
 \examples{
-# libraries
+
+# Generate "table_time" object
+## libraries
 library(modeltime)
 library(rsample)
 library(parsnip)
@@ -42,32 +44,29 @@ library(dplyr)
 library(tidyr)
 library(sknifedatar)
 
-# Data
-data("emae_series")
-nested_serie = emae_series \%>\% filter(date < '2020-02-01') \%>\% nest(nested_column=-sector)
+## Data
+emae_series <- sknifedatar::emae_series
+nested_serie <- emae_series \%>\% filter(date < '2008-02-01') \%>\% nest(nested_column=-sector)
 
-# Recipes
+## Recipes
 recipe_1 = recipe(value ~ ., data = emae_series \%>\% select(-sector)) \%>\%
-step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+  step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
 
-# Models
-m_auto_arima <- arima_reg() \%>\% set_engine('auto_arima')
-
-m_stlm_arima <- seasonal_reg() \%>\%
-  set_engine("stlm_arima")
+## Models
+m_naive_reg <- naive_reg() \%>\%  set_engine("naive")
 
 m_nnetar <- workflow() \%>\%
-  add_recipe(recipe_1) \%>\%
-  add_model(nnetar_reg() \%>\% set_engine("nnetar"))
+  add_model(nnetar_reg() \%>\% set_engine("nnetar")) \%>\%
+  add_recipe(recipe_1)
 
 # modeltime_multifit
-model_table_emae = modeltime_multifit(serie = nested_serie \%>\% head(3),
+model_table_emae = modeltime_multifit(serie = nested_serie \%>\% head(2),
                                       .prop = 0.8,
-                                      m_auto_arima,
-                                      m_stlm_arima,
+                                      m_naive_reg ,
                                       m_nnetar)
 
 model_table_emae
+
 }
 \seealso{
 \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}

@@ -17,9 +17,42 @@
 #' @export
 #'
 #' @examples
-#' library(sknifedatar)
-#' data("table_time")
 #'
+#' # Generate "table_time" object
+#' ## libraries
+#' library(modeltime)
+#' library(rsample)
+#' library(parsnip)
+#' library(recipes)
+#' library(workflows)
+#' library(dplyr)
+#' library(tidyr)
+#' library(sknifedatar)
+#'
+#' ## Data
+#' emae_series <- sknifedatar::emae_series
+#' nested_serie <- emae_series %>% filter(date < '2008-02-01') %>% nest(nested_column=-sector)
+#'
+#' ## Recipes
+#' recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%
+#'   step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+#'
+#' ## Models
+#' m_naive_reg <- naive_reg() %>%  set_engine("naive")
+#'
+#' m_nnetar <- workflow() %>%
+#'   add_model(nnetar_reg() %>% set_engine("nnetar")) %>%
+#'   add_recipe(recipe_1)
+#'
+#' ## modeltime_multifit
+#' model_table_emae <- modeltime_multifit(serie = nested_serie %>% head(2),
+#'                                        .prop = 0.8,
+#'                                        m_naive_reg ,
+#'                                        m_nnetar)
+#'
+#' table_time <- model_table_emae$table_time
+#'
+#' # Forecast
 #' forecast_emae <- modeltime_multiforecast(table_time,
 #'                                          .prop=0.8)
 #'
@@ -29,24 +62,24 @@ modeltime_multiforecast <- function(models_table,
                                     .h=NULL,
                                     .prop = NULL) {
 
-    models_table %>%
-      dplyr::mutate(nested_forecast = purrr::pmap(list(calibration, nested_column),
-                                    function(calibration, nested_column){
-                                      calibration %>%
-                                        modeltime::modeltime_forecast(
-                                          new_data    =  if (is.null(.h)) {
+  models_table %>%
+    dplyr::mutate(nested_forecast = purrr::pmap(list(calibration, nested_column),
+                                                function(x = calibration, y = nested_column){
+                                                  x %>%
+                                                    modeltime::modeltime_forecast(
+                                                      new_data    =  if (is.null(.h)) {
 
-                                            rsample::initial_time_split(nested_column, prop = .prop) %>% rsample::testing()
+                                                        rsample::initial_time_split(y, prop = .prop) %>% rsample::testing()
 
-                                          } else {
-                                            NULL
-                                          },
-                                          h=.h,
-                                          actual_data = nested_column) %>%
-                                        dplyr::mutate(
-                                          .model_details = .model_desc,
-                                          .model_desc = stringr::str_replace_all(.model_desc,
-                                                                        "[[:punct:][:digit:][:cntrl:]]", "")
-                                        )
-                                    }))
-  }
+                                                      } else {
+                                                        NULL
+                                                      },
+                                                      h=.h,
+                                                      actual_data = y) %>%
+                                                    dplyr::mutate(
+                                                      .model_details = .model_desc,
+                                                      .model_desc = stringr::str_replace_all(.model_desc,
+                                                                                             "[[:punct:][:digit:][:cntrl:]]", "")
+                                                    )
+                                                }))
+}

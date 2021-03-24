@@ -13,9 +13,42 @@
 #' @export
 #'
 #' @examples
-#' library(sknifedatar)
-#' data("table_time")
 #'
+#' # Generate "table_time" object
+#' ## libraries
+#' library(modeltime)
+#' library(rsample)
+#' library(parsnip)
+#' library(recipes)
+#' library(workflows)
+#' library(dplyr)
+#' library(tidyr)
+#' library(sknifedatar)
+#'
+#' ## Data
+#' emae_series <- sknifedatar::emae_series
+#' nested_serie <- emae_series %>% filter(date < '2008-02-01') %>% nest(nested_column=-sector)
+#'
+#' ## Recipes
+#' recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%
+#'   step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+#'
+#' ## Models
+#' m_naive_reg <- naive_reg() %>%  set_engine("naive")
+#'
+#' m_nnetar <- workflow() %>%
+#'   add_model(nnetar_reg() %>% set_engine("nnetar")) %>%
+#'   add_recipe(recipe_1)
+#'
+#' ## modeltime_multifit
+#' model_table_emae <- modeltime_multifit(serie = nested_serie %>% head(2),
+#'                                        .prop = 0.8,
+#'                                        m_naive_reg ,
+#'                                        m_nnetar)
+#'
+#' table_time <- model_table_emae$table_time
+#'
+#' # best_model_emae
 #' best_model_emae <- modeltime_multibestmodel(.table=table_time,
 #'                                             .metric=rmse,
 #'                                             .optimization = which.min)
@@ -27,13 +60,13 @@ modeltime_multibestmodel <- function(.table,
 
   calibration_table_best = .table %>%
     dplyr::mutate(
-      best_model = purrr::map(.data$calibration, .f=function(col){
-        col %>%
+      best_model = purrr::map(calibration, .f = function(.x){
+        .x %>%
           modeltime::modeltime_accuracy() %>%
           dplyr::slice(rlang::expr(!!.optimization)(!!rlang::enquo(.metric))) %>%
           dplyr::pull(.model_id)
       }),
-      calibration = purrr::pmap(list(calibration, best_model), .f=function(col, m){
+      calibration = purrr::pmap(list(calibration, best_model), .f = function(col = calibration, m = best_model){
         col %>%
           dplyr::filter(.model_id == m)
       })

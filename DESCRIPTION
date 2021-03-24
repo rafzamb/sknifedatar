@@ -28,7 +28,8 @@ Imports:
     parsnip,
     stringi,
     stringr,
-    tune
+    tune,
+    knitr
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 

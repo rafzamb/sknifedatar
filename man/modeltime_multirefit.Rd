@@ -21,11 +21,42 @@ Toma como input el objeto "\strong{table_time}" de la salida de la función "\st
 devuelve el mismo objeto pero entrenado en todo el período.
 }
 \examples{
-library(sknifedatar)
+
+# Generate "table_time" object
+## libraries
 library(modeltime)
+library(rsample)
+library(parsnip)
+library(recipes)
+library(workflows)
+library(dplyr)
+library(tidyr)
+library(sknifedatar)
 
-data("table_time")
+## Data
+emae_series <- sknifedatar::emae_series
+nested_serie <- emae_series \%>\% filter(date < '2008-02-01') \%>\% nest(nested_column=-sector)
 
+## Recipes
+recipe_1 = recipe(value ~ ., data = emae_series \%>\% select(-sector)) \%>\%
+  step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+
+## Models
+m_naive_reg <- naive_reg() \%>\%  set_engine("naive")
+
+m_nnetar <- workflow() \%>\%
+  add_model(nnetar_reg() \%>\% set_engine("nnetar")) \%>\%
+  add_recipe(recipe_1)
+
+## modeltime_multifit
+model_table_emae <- modeltime_multifit(serie = nested_serie \%>\% head(2),
+                                       .prop = 0.8,
+                                       m_naive_reg ,
+                                       m_nnetar)
+
+table_time <- model_table_emae$table_time
+
+# modeltime_multirefit
 table_time_refit <- modeltime_multirefit(models_table = table_time)
 
 table_time_refit
