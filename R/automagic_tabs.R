@@ -67,7 +67,7 @@ automagic_tabs <- function(input_data , panel_name, .output, .layout = NULL, ...
 
     knit_code_individual <- paste0(":::{.panel}\n### `r ", data_name,"$",panel_name,"[[",i,
                                    "]]` {.panel-name}\n```{r   `r ", time_acual," ", data_name,"$",panel_name,"[[",i,
-                                   "]]`, echo=FALSE, ",
+                                   "]]`, echo=FALSE, layout='",.layout,"', ",
                                    parse_extra_argumnets,
                                    "}\n\n ",data_name,"$",.output,"[[",i,
                                    "]] \n\n```\n:::")
