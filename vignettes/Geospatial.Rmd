@@ -1,32 +1,95 @@
 ---
 title: "Geospatial"
+description: "Functions related to the calculation of distance between geographic points and data partitioning in sliding windowsn"
+opengraph:
+  image: 
+    src: "figures_articles/automatic_tabs.png"
+  twitter:
+    creator: "@rafa_zamr"
+    card: summary_large_image
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Geospatial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
+🌐 Functions related to the calculation of distance between geographic points and data partitioning in sliding windows.
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%",
+  warning = FALSE,
+  message = FALSE
 )
 ```
 
 
-## R Markdown
+# Libraries 📚
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r }
+ library(modeltime)
+ library(rsample)
+ library(parsnip)
+ library(recipes)
+ library(workflows)
+ library(dplyr)
+ library(tidyr)
+ library(sknifedatar)
 ```
 
-## Including Plots
+## Function sliding_window 🔁
 
-You can also embed plots, for example:
+This feature allows you to apply a monthly moving sliding window transformation on a data set. The number of folds and the types of variables to be calculated are defined. For a detailed explanation and use case of this function with R code, see [Crime occurrence prediction / sliding_window](https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci%C3%B3n-de-ventanas-deslizantes).
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+pliegues = 1:13
+names(pliegues) = pliegues
+
+variables = c("delitos", "temperatura", "mm_agua", "lluvia", "viento")
+names(variables) = variables
+
+sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
+               inicio = 13,
+               pliegues = pliegues,
+               variables = variables)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Function pertenencia_punto 📍
+
+Given two sets of geolocated points, this function allows to determine for each point of the first data set, which or which of the points of the second data set are within a certain radius of meters.
+
+* Sample of 100 crimes that occurred in CABA.
+
+```{r}
+head(crimes)
+```
+
+* 2023 corners of CABA evenly distributed over the city.
+
+```{r}
+head(intercepcion_calles)
+```
+
+* For each crime, the corner that is within a proximity radius of less than 150 meters is determined.
+
+```{r}
+esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes[1:10,], 
+                                                             referencia = intercepcion_calles[1:300,],
+                                                             metros = 150) %>% 
+                       unlist())
+```
+
+* Data frame with crimes and their cercaria corners.
+
+```{r}
+crimes[1:10,] %>% 
+  select(id) %>% 
+  bind_cols(esquina)
+```
+
+
+
+

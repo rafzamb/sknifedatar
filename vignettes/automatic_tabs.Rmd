@@ -1,5 +1,17 @@
 ---
 title: "Automatic Tabs Distill/Rmarkdown"
+description: "Automatic Tabs Distill/Rmarkdown."
+opengraph:
+  image: 
+    src: "figures_articles/automatic_tabs.png"
+  twitter:
+    creator: "@rafa_zamr"
+    card: summary_large_image
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Automatic Tabs Distill/Rmarkdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
