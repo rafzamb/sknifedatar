@@ -14,31 +14,175 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      eval = TRUE,
+                      warning = FALSE, 
+                      message = FALSE)
+```
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+# What are tabs? 🤔
+
+✏️ A **tab** is a design pattern where content is separated into different panes, and each pane is viewable one at a time.
+
+```{r, echo=FALSE ,fig.align = 'center'}
+knitr::include_graphics('figures_articles/captura_tabs.png')
 ```
 
 
-## R Markdown
+# How to generate tabs? 🗂️
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+🔹 In order to generate the tabs above, the following chunks were necessary:
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r, echo=FALSE ,fig.align = 'center'}
+knitr::include_graphics('figures_articles/captura_tabs_code.png')
 ```
 
-## Including Plots
+🔎 As it can be seen, this is not so difficult. However, [**what if we wanted to generate 16 tabs instead of 4?**]{.ul}
 
-You can also embed plots, for example:
+```{r, out.width="70%",echo=FALSE ,fig.align = 'center'}
+knitr::include_graphics('https://media1.tenor.com/images/6f5f6fdc8187c12a0dc085135d708115/tenor.gif?itemid=3571132')
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Using a **tidy approach**, [an automatic tab generation]{.ul} 🧙 can be performed by nesting the objects to include in each tab. Let's see an example.
+
+# Data 📊
+
+For this example, time series data from the **Argentine monthly economic activity estimator (EMAE)** is used. This data is available in the [**sknifedatar**](https://rafzamb.github.io/sknifedatar/) package 📦.
+
+## Libraries 📚
+
+```{r}
+#devtools::install_github("rafzamb/sknifedatar")
+library(sknifedatar)
+
+#devtools::install_github("gadenbuie/xaringanExtra")
+library(xaringanExtra)
+
+library(lubridate)
+library(timetk)
+library(dplyr)
+library(tidyr)
+library(purrr)
+```
+
+```{r}
+emae <- sknifedatar::emae_series 
+```
+
+# Nested dataframes 📂
+
+🔹 The first step is to generate a **nested data frame.** It includes [a row per economic sector]{.ul}.
+
+```{r, eval=TRUE}
+nest_data <- emae %>%
+  nest(nested_column = -sector)
+
+nest_data
+```
+
+👀 To better understand the format of **nest_data**, the "**nested_column"** variable is disaggregated below. By clicking on each sector, it can be seen that 👉👉 [each nested column includes data for the series of the selected sector]{.ul}. In the first row, data corresponds to the monthly activity estimator from 2004-01-01 to 2020-10-01 for the 'Commerce' sector.
+
+# Time series plots 🌠
+
+👉 The evolution of each series can be observed by using a tab for each sector. **This allows the visualization to be much clearer 🙌**, allowing the reader to focus on each series, without having to view multiple plots of the same type.
+
+```{r, eval=TRUE}
+nest_data <- 
+  nest_data %>%
+  mutate(ts_plots = map(nested_column, 
+                        ~ plot_time_series(.data = .x,
+                                           .date_var = date,
+                                           .value = value,
+                                           .color_var = year(date),
+                                           .interactive = FALSE,
+                                           .line_size = 1, 
+                                           .smooth_color = 'lightgrey',
+                                           .smooth_size = 0.1,
+                                           .legend_show = FALSE
+                                          )))
+nest_data
+```
+
+
+📽 First, a column called "**ts_plots**" is added, where we store the visualizations of the time series. For this we apply the function "**plot_time_series**" on each series stored in the column "**nested_column**" through the function "**map"**. The function **plot_time_series** is included on the [**timetk**]{.ul} package 📦. One of the series is displayed below.Notice that we are using [**lubridate**]{.ul} package to add [different colors for each year]{.ul}. This allows us to infer if [seasonality]{.ul} is present in each time series, although we will analyse this later on this article.
+
+
+```{r}
+nest_data %>% pluck("ts_plots",1)
+```
+
+
+## Perfect, but ... if we wanted to graph all the time series, how could we do it? 🤔
+
+The "**automagic_tabs**" function of the **sknifedatar** package was created for this. It receives 3 main arguments:
+
+-   [x] **input_data**: The nested dataframe that we have created 💾, in our case, the "nest_data" object.
+
+-   [x] **panel_name**: The name of the column of the nested dataframe where the series names are, these names will be the titles of each tabs 📝. In our case, "sector".
+
+-   [x] **.output:** The name of the column of the nested dataframe that stores the graphs to be displayed 📈. In our case, "ts_plots".
+
+**🛠 Additional arguments**: you can specify the width of the set of panels in ".layout", 👉👉👉 [**in addition to being able to specify all the parameters available on rmarkdown chunks**]{.ul} 🙌 (fig.align, fig.width, ...)
+
+🔹 Let's see the application below, first we invoke the "**use_panelset"** function from the [**xaringanExtra**]{.ul} package 📦 and then the "**automagic_tabs**" function.\
+
+
+```{r, eval=FALSE}
+xaringanExtra::use_panelset()
+```
+
+
+```{r, eval=FALSE}
+`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots",
+                  .layout = "l-page", fig.heigth=1, fig.width=10)`
+```
+
+
+```{r, out.width="70%",echo=FALSE ,fig.align = 'center'}
+knitr::include_graphics('figures_articles/captura_tabs_final.png')
+```
+
+⚠ Note something important, 👉👉👉 [**the function does not run in a chunk, it is invoked "inline"**]{.ul} (or an r function between apostrophes) within the Rmarkdown document. Below is the complete code:
+
+```{r ,eval=FALSE}
+#---
+#title: "automagic_tabs"
+#author: "sknifedatar"
+#output: html_document
+#---
+#
+#```{r}
+#library(sknifedatar)
+#library(timetk)
+#```
+#
+#```{r}
+#emae <- sknifedatar::emae_series 
+#
+#nest_data <- emae %>%
+#  nest(nested_column = -sector) %>% 
+#  mutate(ts_plots = map(nested_column, 
+#                        ~ plot_time_series(.data = .x,
+#                                           .date_var = date,
+#                                           .value = value,
+#                                           .interactive = FALSE,
+#                                           .line_size = 0.15)
+#                         ))
+#```
+#
+#```{r}
+#xaringanExtra::use_panelset()
+#```
+#
+#`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots")`
+```
+
+🔹 **Copy the code above**, paste it into a new Rmarkdown file, and hit knit the document to get the tabs.
+
+```{r, echo=FALSE ,fig.align = 'center'}
+knitr::include_graphics('figures_articles/automagic_tabs_small.gif')
+```
+
+
