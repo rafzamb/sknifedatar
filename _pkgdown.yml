@@ -8,7 +8,7 @@ template:
     bootswatch: cosmo
   opengraph:
     image:
-      src: man/figures/logo.png
+      src: man/figures/logo_twitter_sknidatar.png
       alt: "sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization."
     twitter:
       creator: "@rafa_zamr"
