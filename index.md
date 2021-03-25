@@ -83,10 +83,9 @@ devtools::install_github("rafzamb/sknifedatar")
 -   Models
 
 ``` r
- m_auto_arima <- arima_reg() %>% set_engine('auto_arima')
-
- m_stlm_arima <- seasonal_reg() %>%
-   set_engine("stlm_arima")
+ m_ets <- workflow() %>%
+   add_model(exp_smoothing() %>% set_engine('ets')) %>%
+   add_recipe(recipe_1)
 
  m_nnetar <- workflow() %>%
    add_recipe(recipe_1) %>%
@@ -96,35 +95,27 @@ devtools::install_github("rafzamb/sknifedatar")
 #### 🔺 modeltime\_multifit
 
 ``` r
- model_table_emae = modeltime_multifit(serie = nested_serie %>% head(3),
-                                       .prop = 0.8,
-                                       m_auto_arima,
-                                       m_stlm_arima,
-                                       m_nnetar)
+model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
+                                     .prop = 0.8,
+                                     m_ets,
+                                     m_nnetar)
 
  model_table_emae
 #> $table_time
-#> # A tibble: 3 x 7
-#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
-#>   <chr>        <list>          <list>       <list>       <list>   <list>        
-#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 1 more variable: calibration <list>
+#> # A tibble: 2 x 6
+#>   sector   nested_column    m_ets    m_nnetar  nested_model     calibration     
+#>   <chr>    <list>           <list>   <list>    <list>           <list>          
+#> 1 Comercio <tibble [193 × … <workfl… <workflo… <model_time [2 … <model_time [2 …
+#> 2 Enseñan… <tibble [193 × … <workfl… <workflo… <model_time [2 … <model_time [2 …
 #> 
 #> $models_accuracy
-#> # A tibble: 9 x 10
-#>   name_serie  .model_id .model_desc  .type   mae  mape   mase smape  rmse    rsq
-#>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
-#> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
-#> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.24  6.26  0.710  6.22 11.1  0.427 
-#> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
-#> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.39  2.11  2.46   2.09  3.76 0.833 
-#> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
-#> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.79  4.41 14.1    4.30  7.48 0.0541
+#> # A tibble: 4 x 10
+#>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
+#>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test   8.73  5.89 0.671  5.84 11.3  0.432
+#> 3 Enseñanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
+#> 4 Enseñanza          2 NNAR(1,1,10)[1… Test   2.42  1.51 1.75   1.49  2.70 0.899
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -162,13 +153,11 @@ best_model_emae <- modeltime_multibestmodel(
   )
 
 best_model_emae
-#> # A tibble: 3 x 8
-#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
-#>   <chr>        <list>          <list>       <list>       <list>   <list>        
-#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 2 more variables: calibration <list>, best_model <list>
+#> # A tibble: 2 x 7
+#>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
+#>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
+#> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
+#> 2 Enseña… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
 ```
 
 ### 🔺 modeltime\_multirefit
@@ -177,13 +166,11 @@ best_model_emae
 model_refit_emae <- modeltime_multirefit(models_table = best_model_emae)
 
 model_refit_emae
-#> # A tibble: 3 x 8
-#>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
-#>   <chr>        <list>          <list>       <list>       <list>   <list>        
-#> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 2 Enseñanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 2 more variables: calibration <list>, best_model <list>
+#> # A tibble: 2 x 7
+#>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
+#>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
+#> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
+#> 2 Enseña… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
 ```
 
 ``` r
@@ -213,7 +200,7 @@ forecast_emae %>%
 
 ### Others functions 🌀
 
-#### Funcntion multieval
+#### 🔹 Function multieval
 
 For a set of predictions from different models, it allows you to
 evaluate multiple metrics and return the results in a tabular format
@@ -274,7 +261,7 @@ multieval(data = predictions,
 
 <img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
-#### Función insert\_na
+#### 🔹 Function insert\_na
 
 This function allows adding NA values to a data frame, being able to
 select the columns and the proportion of NAs desired.
