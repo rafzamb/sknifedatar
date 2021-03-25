@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Rafael", family = "Zambrano", role = c("aut", "cre"), email = "rafazambragit@gmail.com"),
       person(given = "Karina", family = "Bartolome", role = c("aut"), email = "first.last@example.com"))
-Description: Colección de funciones que facilitan el desarrollo práctico de un proyecto de ciencia de datos.
+Description: sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
