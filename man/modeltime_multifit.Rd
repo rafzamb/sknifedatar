@@ -2,34 +2,34 @@
 % Please edit documentation in R/modeltime_multifit.R
 \name{modeltime_multifit}
 \alias{modeltime_multifit}
-\title{Ajuste de múltiples modelos a múltiples series de tiempo}
+\title{Fit Multiple Models to Multiple Time Series}
 \usage{
 modeltime_multifit(serie, .prop, ...)
 }
 \arguments{
-\item{serie}{series de tiempo anidadas.}
+\item{serie}{nested time series.}
 
-\item{.prop}{proporción de partición de las series en train/test.}
+\item{.prop}{series train/test partition ratio.}
 
-\item{...}{modelos o workflows a entrenar (model_1,model2,...).}
+\item{...}{models or workflows to train (model_1, model2, ...).}
 }
 \value{
-una lista con 2 elementos. El primer componente es un tibble que contiene una primera columna que contiene el nombre
-de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie. Finalmente las columnas
-"nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
-partición de test.
+A list of 2 items. The first component is a tibble with a first column that contains the
+name of the series, and a second column called "nested_column" that stores the time series,
+then a column for each model where the trained models or workflows for each series are stored.
+The last 2 columns, "nested_model" and "calibration", store the "n" trained models for each
+series and the adjustment metrics on the test partition.
 }
 \description{
-Esta función permite ajustar múltiples modelos sobre múltiples series de tiempo,
-utilizando los modelos del paquete \href{https://business-science.github.io/modeltime/}{modeltime}.
+This function allows multiple models to be adjusted over multiple time series, using models
+from the \href{https://business-science.github.io/modeltime/}{modeltime} package.
 }
 \details{
-El enfoque de esta función no está relacionado con series de panel, está orientada a múltiples series individuales.
-Recibiendo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a través de la función nest),
-luego especificando una proporción deseada para particionar cada una de las series en train/test. Por último se
-deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
-por comas, la función admite tantos modelos como se requieran.
+The focus of this function is not related to panel series, it is oriented to multiple individual
+series. Receiving as the first argument "series" a set of nested series (for example through the
+nest function), then specifying a desired train/test partition ratio for series. The
+final input to the function are the models to be trained, simply by typing the name
+of the models separated by commas. The function admits as many models as required.
 }
 \examples{
 

@@ -2,34 +2,36 @@
 % Please edit documentation in R/automagic_tabs.R
 \name{automagic_tabs}
 \alias{automagic_tabs}
-\title{Generacion automatica de tabs}
+\title{Automatic Generation of Tabs}
 \usage{
 automagic_tabs(input_data, panel_name, .output, .layout = NULL, ...)
 }
 \arguments{
-\item{input_data}{tibble con al menos 2 columnas, una para el título de las tabs y otra con la salida a mostrar.}
+\item{input_data}{tibble with at least 2 columns, one for the title of the tabs and another with
+the output to be displayed.}
 
-\item{panel_name}{string con el nombre de la columna de ID.}
+\item{panel_name}{string with the name of the ID column.}
 
-\item{.output}{string con el nombre de la columna del output.}
+\item{.output}{string with the name of the column of the output.}
 
-\item{.layout}{string que representa el layout de las tabs, puede tomar los valores "l-body" ,"l-body-outset",
-"l-page" y "l-screen". Por defecto el valor es NULL y toma como parámetro "l-body".}
+\item{.layout}{string that represents the layout of the tabs, can take the values "l-body",
+"l-body-outset", "l-page" and "l-screen". By default the value is NULL and takes
+"l-body" as parameter.}
 
-\item{...}{parámetros adicionales que corresponden a todos los disponibles en los chunks de
-rmarkdown (fig.align, fig.width, …)}
+\item{...}{additional parameters that correspond to all those available in rmarkdown chunks
+(fig.align, fig.width, ...).}
 }
 \value{
-string que contiene concatenados todos los chunks generados automáticamente.
+concatenated string of all automatically generated chunks.
 }
 \description{
-Permite generar automáticamente el código necesario para agrupar múltiples chunks de Rmarkdown en tabs.
-Concatenando todos los chunks en un string que puede ser posteriormente tejido y renderizado.
+It allows to automatically generate the code necessary to group multiple Rmarkdown chunks
+into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.
 }
 \details{
-dado un tiblle, que debe contener una columna de “ID” (representará al título de las tabs) y otra columna
-que almacena la salida que se desee generar (gráfico, texto, código, ...), se genera automáticamente un
-string que posteriormente puede ser renderizado en un documento Rmarkdown.
+given a tiblle, which must contain an "ID" column (representing the title of the tabs) and another
+column that stores the output to be generated (plot, text, code, ...), a string is automatically
+generated which can be later rendered in a Rmarkdown document.
 }
 \examples{
 
