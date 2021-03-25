@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ajuste de múltiples modelos a múltiples series de tiempo — modeltime_multifit • sknifedatar</title>
+<title>Fit Multiple Models to Multiple Time Series — modeltime_multifit • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Ajuste de múltiples modelos a múltiples series de tiempo — modeltime_multifit" />
-<meta property="og:description" content="Esta función permite ajustar múltiples modelos sobre múltiples series de tiempo,
-utilizando los modelos del paquete modeltime." />
+<meta property="og:title" content="Fit Multiple Models to Multiple Time Series — modeltime_multifit" />
+<meta property="og:description" content="This function allows multiple models to be adjusted over multiple time series, using models
+from the modeltime package." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -136,14 +136,14 @@ utilizando los modelos del paquete modeltime." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Ajuste de múltiples modelos a múltiples series de tiempo</h1>
+    <h1>Fit Multiple Models to Multiple Time Series</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/modeltime_multifit.R'><code>R/modeltime_multifit.R</code></a></small>
     <div class="hidden name"><code>modeltime_multifit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Esta función permite ajustar múltiples modelos sobre múltiples series de tiempo,
-utilizando los modelos del paquete <a href='https://business-science.github.io/modeltime/'>modeltime</a>.</p>
+    <p>This function allows multiple models to be adjusted over multiple time series, using models
+from the <a href='https://business-science.github.io/modeltime/'>modeltime</a> package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>modeltime_multifit</span><span class='op'>(</span><span class='va'>serie</span>, <span class='va'>.prop</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -153,32 +153,32 @@ utilizando los modelos del paquete <a href='https://business-science.github.io/m
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>serie</th>
-      <td><p>series de tiempo anidadas.</p></td>
+      <td><p>nested time series.</p></td>
     </tr>
     <tr>
       <th>.prop</th>
-      <td><p>proporción de partición de las series en train/test.</p></td>
+      <td><p>series train/test partition ratio.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>modelos o workflows a entrenar (model_1,model2,...).</p></td>
+      <td><p>models or workflows to train (model_1, model2, ...).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>una lista con 2 elementos. El primer componente es un tibble que contiene una primera columna que contiene el nombre
-de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie. Finalmente las columnas
-"nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
-partición de test.</p>
+    <p>A list of 2 items. The first component is a tibble with a first column that contains the
+name of the series, and a second column called "nested_column" that stores the time series,
+then a column for each model where the trained models or workflows for each series are stored.
+The last 2 columns, "nested_model" and "calibration", store the "n" trained models for each
+series and the adjustment metrics on the test partition.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>El enfoque de esta función no está relacionado con series de panel, está orientada a múltiples series individuales.
-Recibiendo como primer argumento "serie" un conjunto de series anidadas (por ejemplo a través de la función nest),
-luego especificando una proporción deseada para particionar cada una de las series en train/test. Por último se
-deben suministrar los modelos a entrenar, simplemente escribiendo el nombre de los modelos separados
-por comas, la función admite tantos modelos como se requieran.</p>
+    <p>The focus of this function is not related to panel series, it is oriented to multiple individual
+series. Receiving as the first argument "series" a set of nested series (for example through the
+nest function), then specifying a desired train/test partition ratio for series. The
+final input to the function are the models to be trained, simply by typing the name
+of the models separated by commas. The function admits as many models as required.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rafzamb.github.io/sknifedatar/'>sknifedatar website</a></p></div>
@@ -205,10 +205,10 @@ por comas, la función admite tantos modelos como se requieran.</p>
   <span class='fu'><a href='https://recipes.tidymodels.org/reference/step_date.html'>step_date</a></span><span class='op'>(</span><span class='va'>date</span>, features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"month"</span>, <span class='st'>"quarter"</span>, <span class='st'>"year"</span><span class='op'>)</span>, ordinal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'>## Models</span>
-<span class='va'>m_naive_reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/naive_reg.html'>naive_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://rdrr.io/pkg/parsnip/man/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"naive"</span><span class='op'>)</span>
+<span class='va'>m_naive_reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/naive_reg.html'>naive_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"naive"</span><span class='op'>)</span>
 
 <span class='va'>m_nnetar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://workflows.tidymodels.org//reference/workflow.html'>workflow</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://workflows.tidymodels.org//reference/add_model.html'>add_model</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/nnetar_reg.html'>nnetar_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/parsnip/man/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"nnetar"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://workflows.tidymodels.org//reference/add_model.html'>add_model</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/nnetar_reg.html'>nnetar_reg</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='st'>"nnetar"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://workflows.tidymodels.org//reference/add_recipe.html'>add_recipe</a></span><span class='op'>(</span><span class='va'>recipe_1</span><span class='op'>)</span>
 
 <span class='co'># modeltime_multifit</span>

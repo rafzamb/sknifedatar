@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Automatic Tabs Distill/Rmarkdown">
 <meta property="og:description" content="Automatic Tabs Distill/Rmarkdown.">
-<meta property="og:image" content="figures_articles/automatic_tabs.png">
+<meta property="og:image" content="figures_articles/automatic_tabs_card.png">
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@rafa_zamr">
@@ -103,27 +103,168 @@
 
     
     
-<div id="r-markdown" class="section level2">
-<h2 class="hasAnchor">
-<a href="#r-markdown" class="anchor"></a>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span>
-<span class="co">#&gt;      speed           dist       </span>
-<span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span>
-<span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span>
-<span class="co">#&gt;  Median :15.0   Median : 36.00  </span>
-<span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span>
-<span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span>
-<span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></code></pre></div>
+<div id="what-are-tabs" class="section level1">
+<h1 class="hasAnchor">
+<a href="#what-are-tabs" class="anchor"></a>What are tabs? 🤔</h1>
+<p>✏️ A <strong>tab</strong> is a design pattern where content is separated into different panes, and each pane is viewable one at a time.</p>
+<p><img src="figures_articles/captura_tabs.png" width="1071" style="display: block; margin: auto;"></p>
 </div>
-<div id="including-plots" class="section level2">
+<div id="how-to-generate-tabs-️" class="section level1">
+<h1 class="hasAnchor">
+<a href="#how-to-generate-tabs-%EF%B8%8F" class="anchor"></a>How to generate tabs? 🗂️</h1>
+<p>🔹 In order to generate the tabs above, the following chunks were necessary:</p>
+<p><img src="figures_articles/captura_tabs_code.png" width="470" style="display: block; margin: auto;"></p>
+<p>🔎 As it can be seen, this is not so difficult. However, <u><strong>what if we wanted to generate 16 tabs instead of 4?</strong></u></p>
+<p><img src="https://media1.tenor.com/images/6f5f6fdc8187c12a0dc085135d708115/tenor.gif?itemid=3571132" width="70%" style="display: block; margin: auto;"></p>
+<p>Using a <strong>tidy approach</strong>, <u>an automatic tab generation</u> 🧙 can be performed by nesting the objects to include in each tab. Let’s see an example.</p>
+</div>
+<div id="data" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data" class="anchor"></a>Data 📊</h1>
+<p>For this example, time series data from the <strong>Argentine monthly economic activity estimator (EMAE)</strong> is used. This data is available in the <a href="https://rafzamb.github.io/sknifedatar/"><strong>sknifedatar</strong></a> package 📦.</p>
+<div id="libraries" class="section level2">
 <h2 class="hasAnchor">
-<a href="#including-plots" class="anchor"></a>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="automatic_tabs_files/figure-html/pressure-1.png" width="700"></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<a href="#libraries" class="anchor"></a>Libraries 📚</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#devtools::install_github("rafzamb/sknifedatar")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rafzamb/sknifedatar">sknifedatar</a></span><span class="op">)</span>
+
+<span class="co">#devtools::install_github("gadenbuie/xaringanExtra")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gadenbuie/xaringanExtra">xaringanExtra</a></span><span class="op">)</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">emae</span> <span class="op">&lt;-</span> <span class="fu">sknifedatar</span><span class="fu">::</span><span class="va"><a href="../reference/emae_series.html">emae_series</a></span> </code></pre></div>
+</div>
+</div>
+<div id="nested-dataframes" class="section level1">
+<h1 class="hasAnchor">
+<a href="#nested-dataframes" class="anchor"></a>Nested dataframes 📂</h1>
+<p>🔹 The first step is to generate a <strong>nested data frame.</strong> It includes <u>a row per economic sector</u>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nest_data</span> <span class="op">&lt;-</span> <span class="va">emae</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span>nested_column <span class="op">=</span> <span class="op">-</span><span class="va">sector</span><span class="op">)</span>
+
+<span class="va">nest_data</span></code></pre></div>
+<pre><code>## # A tibble: 16 x 2
+##    sector                           nested_column     
+##    &lt;chr&gt;                            &lt;list&gt;            
+##  1 Comercio                         &lt;tibble [202 × 2]&gt;
+##  2 Enseñanza                        &lt;tibble [202 × 2]&gt;
+##  3 Administración pública           &lt;tibble [202 × 2]&gt;
+##  4 Transporte y comunicaciones      &lt;tibble [202 × 2]&gt;
+##  5 Servicios sociales/Salud         &lt;tibble [202 × 2]&gt;
+##  6 Impuestos netos                  &lt;tibble [202 × 2]&gt;
+##  7 Sector financiero                &lt;tibble [202 × 2]&gt;
+##  8 Minería                          &lt;tibble [202 × 2]&gt;
+##  9 Agro/Ganadería/Caza/Silvicultura &lt;tibble [202 × 2]&gt;
+## 10 Electricidad/Gas/Agua            &lt;tibble [202 × 2]&gt;
+## 11 Hoteles/Restaurantes             &lt;tibble [202 × 2]&gt;
+## 12 Inmobiliarias                    &lt;tibble [202 × 2]&gt;
+## 13 Otras actividades                &lt;tibble [202 × 2]&gt;
+## 14 Pesca                            &lt;tibble [202 × 2]&gt;
+## 15 Industria manufacturera          &lt;tibble [202 × 2]&gt;
+## 16 Construcción                     &lt;tibble [202 × 2]&gt;</code></pre>
+<p>👀 To better understand the format of <strong>nest_data</strong>, the "<strong>nested_column"</strong> variable is disaggregated below. By clicking on each sector, it can be seen that 👉👉 <u>each nested column includes data for the series of the selected sector</u>. In the first row, data corresponds to the monthly activity estimator from 2004-01-01 to 2020-10-01 for the ‘Commerce’ sector.</p>
+</div>
+<div id="time-series-plots" class="section level1">
+<h1 class="hasAnchor">
+<a href="#time-series-plots" class="anchor"></a>Time series plots 🌠</h1>
+<p>👉 The evolution of each series can be observed by using a tab for each sector. <strong>This allows the visualization to be much clearer 🙌</strong>, allowing the reader to focus on each series, without having to view multiple plots of the same type.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nest_data</span> <span class="op">&lt;-</span> 
+  <span class="va">nest_data</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ts_plots <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">nested_column</span>, 
+                        <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/plot_time_series.html">plot_time_series</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">.x</span>,
+                                           .date_var <span class="op">=</span> <span class="va">date</span>,
+                                           .value <span class="op">=</span> <span class="va">value</span>,
+                                           .color_var <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,
+                                           .interactive <span class="op">=</span> <span class="cn">FALSE</span>,
+                                           .line_size <span class="op">=</span> <span class="fl">1</span>, 
+                                           .smooth_color <span class="op">=</span> <span class="st">'lightgrey'</span>,
+                                           .smooth_size <span class="op">=</span> <span class="fl">0.1</span>,
+                                           .legend_show <span class="op">=</span> <span class="cn">FALSE</span>
+                                          <span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">nest_data</span></code></pre></div>
+<pre><code>## # A tibble: 16 x 3
+##    sector                           nested_column      ts_plots
+##    &lt;chr&gt;                            &lt;list&gt;             &lt;list&gt;  
+##  1 Comercio                         &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  2 Enseñanza                        &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  3 Administración pública           &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  4 Transporte y comunicaciones      &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  5 Servicios sociales/Salud         &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  6 Impuestos netos                  &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  7 Sector financiero                &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  8 Minería                          &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+##  9 Agro/Ganadería/Caza/Silvicultura &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 10 Electricidad/Gas/Agua            &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 11 Hoteles/Restaurantes             &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 12 Inmobiliarias                    &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 13 Otras actividades                &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 14 Pesca                            &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 15 Industria manufacturera          &lt;tibble [202 × 2]&gt; &lt;gg&gt;    
+## 16 Construcción                     &lt;tibble [202 × 2]&gt; &lt;gg&gt;</code></pre>
+<p>📽 First, a column called “<strong>ts_plots</strong>” is added, where we store the visualizations of the time series. For this we apply the function “<strong>plot_time_series</strong>” on each series stored in the column “<strong>nested_column</strong>” through the function "<strong>map"</strong>. The function <strong>plot_time_series</strong> is included on the <u><strong>timetk</strong></u> package 📦. One of the series is displayed below.Notice that we are using <u><strong>lubridate</strong></u> package to add <u>different colors for each year</u>. This allows us to infer if <u>seasonality</u> is present in each time series, although we will analyse this later on this article.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nest_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="st">"ts_plots"</span>,<span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p><img src="automatic_tabs_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+</div>
+<div id="perfect-but-if-we-wanted-to-graph-all-the-time-series-how-could-we-do-it" class="section level1">
+<h1 class="hasAnchor">
+<a href="#perfect-but-if-we-wanted-to-graph-all-the-time-series-how-could-we-do-it" class="anchor"></a>Perfect, but … if we wanted to graph all the time series, how could we do it? 🤔</h1>
+<p>The “<strong>automagic_tabs</strong>” function of the <strong>sknifedatar</strong> package was created for this. It receives 3 main arguments:</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled checked><strong>input_data</strong>: The nested dataframe that we have created 💾, in our case, the “nest_data” object.</p></li>
+<li><p><input type="checkbox" disabled checked><strong>panel_name</strong>: The name of the column of the nested dataframe where the series names are, these names will be the titles of each tabs 📝. In our case, “sector”.</p></li>
+<li><p><input type="checkbox" disabled checked><strong>.output:</strong> The name of the column of the nested dataframe that stores the graphs to be displayed 📈. In our case, “ts_plots”.</p></li>
+</ul>
+<p><strong>🛠 Additional arguments</strong>: you can specify the width of the set of panels in “.layout”, 👉👉👉 <u><strong>in addition to being able to specify all the parameters available on rmarkdown chunks</strong></u> 🙌 (fig.align, fig.width, …)</p>
+<p>🔹 Let’s see the application below, first we invoke the “<strong>use_panelset"</strong> function from the <u><strong>xaringanExtra</strong></u> package 📦 and then the”<strong>automagic_tabs</strong>" function.<br></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">xaringanExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xaringanExtra/man/panelset.html">use_panelset</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots",
+                  .layout = "l-page", fig.heigth=1, fig.width=10)`</span></code></pre></div>
+<p><img src="figures_articles/captura_tabs_final.png" width="70%" style="display: block; margin: auto;"></p>
+<p>⚠ Note something important, 👉👉👉 <u><strong>the function does not run in a chunk, it is invoked “inline”</strong></u> (or an r function between apostrophes) within the Rmarkdown document. Below is the complete code:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#---</span>
+<span class="co">#title: "automagic_tabs"</span>
+<span class="co">#author: "sknifedatar"</span>
+<span class="co">#output: html_document</span>
+<span class="co">#---</span>
+<span class="co">#</span>
+<span class="co">#```{r}</span>
+<span class="co">#library(sknifedatar)</span>
+<span class="co">#library(timetk)</span>
+<span class="co">#```</span>
+<span class="co">#</span>
+<span class="co">#```{r}</span>
+<span class="co">#emae &lt;- sknifedatar::emae_series </span>
+<span class="co">#</span>
+<span class="co">#nest_data &lt;- emae %&gt;%</span>
+<span class="co">#  nest(nested_column = -sector) %&gt;% </span>
+<span class="co">#  mutate(ts_plots = map(nested_column, </span>
+<span class="co">#                        ~ plot_time_series(.data = .x,</span>
+<span class="co">#                                           .date_var = date,</span>
+<span class="co">#                                           .value = value,</span>
+<span class="co">#                                           .interactive = FALSE,</span>
+<span class="co">#                                           .line_size = 0.15)</span>
+<span class="co">#                         ))</span>
+<span class="co">#```</span>
+<span class="co">#</span>
+<span class="co">#```{r}</span>
+<span class="co">#xaringanExtra::use_panelset()</span>
+<span class="co">#```</span>
+<span class="co">#</span>
+<span class="co">#`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots")`</span></code></pre></div>
+<p>🔹 <strong>Copy the code above</strong>, paste it into a new Rmarkdown file, and hit knit the document to get the tabs.</p>
+<p><img src="figures_articles/automagic_tabs_small.gif" style="display: block; margin: auto;"></p>
 </div>
   </div>
 

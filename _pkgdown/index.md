@@ -118,13 +118,13 @@ devtools::install_github("rafzamb/sknifedatar")
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.14  6.08  0.702  6.14 10.6  0.509 
+#> 3 Comercio            3 NNAR(1,1,10… Test  10.8   7.07  0.831  7.32 13.3  0.361 
 #> 4 Enseñanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Enseñanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.29  2.05  2.38   2.02  3.65 0.850 
+#> 6 Enseñanza           3 NNAR(1,1,10… Test   3.03  1.89  2.20   1.86  3.47 0.821 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.71  4.36 13.9    4.25  7.36 0.0762
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.13  3.98 12.7    3.89  6.72 0.0708
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -305,3 +305,6 @@ To consult projects where this package was used, visit:
     Zambrano](https://rafael-zambrano-blog-ds.netlify.app/blog.html)
 -   [Blog Posts / Karina
     Bartolome](https://karbartolome-blog.netlify.app/)
+
+the logo icon was developed by
+[OpenClipart-Vectors](https://pixabay.com/es/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=154314)

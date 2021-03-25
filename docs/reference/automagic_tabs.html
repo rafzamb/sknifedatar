@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generacion automatica de tabs — automagic_tabs • sknifedatar</title>
+<title>Automatic Generation of Tabs — automagic_tabs • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Generacion automatica de tabs — automagic_tabs" />
-<meta property="og:description" content="Permite generar automáticamente el código necesario para agrupar múltiples chunks de Rmarkdown en tabs.
-Concatenando todos los chunks en un string que puede ser posteriormente tejido y renderizado." />
+<meta property="og:title" content="Automatic Generation of Tabs — automagic_tabs" />
+<meta property="og:description" content="It allows to automatically generate the code necessary to group multiple Rmarkdown chunks
+into tabs. Concatenating all the chunks into a string that can be later knitted and rendered." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -136,14 +136,14 @@ Concatenando todos los chunks en un string que puede ser posteriormente tejido y
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generacion automatica de tabs</h1>
+    <h1>Automatic Generation of Tabs</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/automagic_tabs.R'><code>R/automagic_tabs.R</code></a></small>
     <div class="hidden name"><code>automagic_tabs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Permite generar automáticamente el código necesario para agrupar múltiples chunks de Rmarkdown en tabs.
-Concatenando todos los chunks en un string que puede ser posteriormente tejido y renderizado.</p>
+    <p>It allows to automatically generate the code necessary to group multiple Rmarkdown chunks
+into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.</p>
     </div>
 
     <pre class="usage"><span class='fu'>automagic_tabs</span><span class='op'>(</span><span class='va'>input_data</span>, <span class='va'>panel_name</span>, <span class='va'>.output</span>, .layout <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -153,36 +153,38 @@ Concatenando todos los chunks en un string que puede ser posteriormente tejido y
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_data</th>
-      <td><p>tibble con al menos 2 columnas, una para el título de las tabs y otra con la salida a mostrar.</p></td>
+      <td><p>tibble with at least 2 columns, one for the title of the tabs and another with
+the output to be displayed.</p></td>
     </tr>
     <tr>
       <th>panel_name</th>
-      <td><p>string con el nombre de la columna de ID.</p></td>
+      <td><p>string with the name of the ID column.</p></td>
     </tr>
     <tr>
       <th>.output</th>
-      <td><p>string con el nombre de la columna del output.</p></td>
+      <td><p>string with the name of the column of the output.</p></td>
     </tr>
     <tr>
       <th>.layout</th>
-      <td><p>string que representa el layout de las tabs, puede tomar los valores "l-body" ,"l-body-outset",
-"l-page" y "l-screen". Por defecto el valor es NULL y toma como parámetro "l-body".</p></td>
+      <td><p>string that represents the layout of the tabs, can take the values "l-body",
+"l-body-outset", "l-page" and "l-screen". By default the value is NULL and takes
+"l-body" as parameter.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>parámetros adicionales que corresponden a todos los disponibles en los chunks de
-rmarkdown (fig.align, fig.width, …)</p></td>
+      <td><p>additional parameters that correspond to all those available in rmarkdown chunks
+(fig.align, fig.width, ...).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>string que contiene concatenados todos los chunks generados automáticamente.</p>
+    <p>concatenated string of all automatically generated chunks.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>dado un tiblle, que debe contener una columna de “ID” (representará al título de las tabs) y otra columna
-que almacena la salida que se desee generar (gráfico, texto, código, ...), se genera automáticamente un
-string que posteriormente puede ser renderizado en un documento Rmarkdown.</p>
+    <p>given a tiblle, which must contain an "ID" column (representing the title of the tabs) and another
+column that stores the output to be generated (plot, text, code, ...), a string is automatically
+generated which can be later rendered in a Rmarkdown document.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rafzamb.github.io/sknifedatar/'>sknifedatar website</a></p></div>

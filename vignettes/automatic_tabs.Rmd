@@ -3,7 +3,7 @@ title: "Automatic Tabs Distill/Rmarkdown"
 description: "Automatic Tabs Distill/Rmarkdown."
 opengraph:
   image: 
-    src: "figures_articles/automatic_tabs.png"
+    src: "figures_articles/automatic_tabs_card.png"
   twitter:
     creator: "@rafa_zamr"
     card: summary_large_image
@@ -114,7 +114,7 @@ nest_data %>% pluck("ts_plots",1)
 ```
 
 
-## Perfect, but ... if we wanted to graph all the time series, how could we do it? 🤔
+# Perfect, but ... if we wanted to graph all the time series, how could we do it? 🤔
 
 The "**automagic_tabs**" function of the **sknifedatar** package was created for this. It receives 3 main arguments:
 

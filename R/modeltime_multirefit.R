@@ -33,17 +33,19 @@
 #'   step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
 #'
 #' ## Models
-#' m_naive_reg <- naive_reg() %>%  set_engine("naive")
+#' m_ets <- workflow() %>%
+#'   add_model(exp_smoothing() %>% set_engine('ets')) %>%
+#'   add_recipe(recipe_1)
 #'
 #' m_nnetar <- workflow() %>%
 #'   add_model(nnetar_reg() %>% set_engine("nnetar")) %>%
 #'   add_recipe(recipe_1)
 #'
-#' ## modeltime_multifit
-#' model_table_emae <- modeltime_multifit(serie = nested_serie %>% head(2),
-#'                                        .prop = 0.8,
-#'                                        m_naive_reg ,
-#'                                        m_nnetar)
+#' # modeltime_multifit
+#' model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
+#'                                       .prop = 0.8,
+#'                                       m_ets,
+#'                                       m_nnetar)
 #'
 #' table_time <- model_table_emae$table_time
 #'

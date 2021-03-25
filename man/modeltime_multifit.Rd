@@ -53,7 +53,9 @@ recipe_1 = recipe(value ~ ., data = emae_series \%>\% select(-sector)) \%>\%
   step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
 
 ## Models
-m_naive_reg <- naive_reg() \%>\%  set_engine("naive")
+m_ets <- workflow() \%>\%
+  add_model(exp_smoothing() \%>\% set_engine('ets')) \%>\%
+  add_recipe(recipe_1)
 
 m_nnetar <- workflow() \%>\%
   add_model(nnetar_reg() \%>\% set_engine("nnetar")) \%>\%
@@ -62,7 +64,7 @@ m_nnetar <- workflow() \%>\%
 # modeltime_multifit
 model_table_emae = modeltime_multifit(serie = nested_serie \%>\% head(2),
                                       .prop = 0.8,
-                                      m_naive_reg ,
+                                      m_ets,
                                       m_nnetar)
 
 model_table_emae
