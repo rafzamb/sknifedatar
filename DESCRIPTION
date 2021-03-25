@@ -33,7 +33,7 @@ Imports:
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 3.6)
 Suggests: 
     erer,
     workflows,
