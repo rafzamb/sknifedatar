@@ -56,21 +56,21 @@ devtools::install_github("rafzamb/sknifedatar")
 #>    sector                           nested_column     
 #>    <chr>                            <list>            
 #>  1 Comercio                         <tibble [193 × 2]>
-#>  2 Enseñanza                        <tibble [193 × 2]>
-#>  3 Administración pública           <tibble [193 × 2]>
+#>  2 Ensenanza                        <tibble [193 × 2]>
+#>  3 Administracion publica           <tibble [193 × 2]>
 #>  4 Transporte y comunicaciones      <tibble [193 × 2]>
 #>  5 Servicios sociales/Salud         <tibble [193 × 2]>
 #>  6 Impuestos netos                  <tibble [193 × 2]>
 #>  7 Sector financiero                <tibble [193 × 2]>
-#>  8 Minería                          <tibble [193 × 2]>
-#>  9 Agro/Ganadería/Caza/Silvicultura <tibble [193 × 2]>
+#>  8 Mineria                          <tibble [193 × 2]>
+#>  9 Agro/Ganaderia/Caza/Silvicultura <tibble [193 × 2]>
 #> 10 Electricidad/Gas/Agua            <tibble [193 × 2]>
 #> 11 Hoteles/Restaurantes             <tibble [193 × 2]>
 #> 12 Inmobiliarias                    <tibble [193 × 2]>
 #> 13 Otras actividades                <tibble [193 × 2]>
 #> 14 Pesca                            <tibble [193 × 2]>
 #> 15 Industria manufacturera          <tibble [193 × 2]>
-#> 16 Construcción                     <tibble [193 × 2]>
+#> 16 Construccion                     <tibble [193 × 2]>
 ```
 
 -   Recipes
@@ -106,16 +106,16 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   sector   nested_column    m_ets    m_nnetar  nested_model     calibration     
 #>   <chr>    <list>           <list>   <list>    <list>           <list>          
 #> 1 Comercio <tibble [193 × … <workfl… <workflo… <model_time [2 … <model_time [2 …
-#> 2 Enseñan… <tibble [193 × … <workfl… <workflo… <model_time [2 … <model_time [2 …
+#> 2 Ensenan… <tibble [193 × … <workfl… <workflo… <model_time [2 … <model_time [2 …
 #> 
 #> $models_accuracy
 #> # A tibble: 4 x 10
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test   8.73  5.89 0.671  5.84 11.3  0.432
-#> 3 Enseñanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Enseñanza          2 NNAR(1,1,10)[1… Test   2.42  1.51 1.75   1.49  2.70 0.899
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test   9.29  6.17 0.714  6.25 11.0  0.481
+#> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.90  1.80 2.10   1.78  3.24 0.877
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -157,7 +157,7 @@ best_model_emae
 #>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
 #>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
 #> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> 2 Enseña… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
+#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
 ```
 
 ### 🔺 modeltime\_multirefit
@@ -170,7 +170,7 @@ model_refit_emae
 #>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
 #>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
 #> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> 2 Enseña… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
+#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
 ```
 
 ``` r

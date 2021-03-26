@@ -68,7 +68,7 @@
       <a href="articles/Geospatial.html">Geospatial</a>
     </li>
     <li>
-      <a href="articles/automatic_tabs.html">Automatic Tabs Distill/Rmarkdown</a>
+      <a href="articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
   </ul>
 </li>
@@ -137,21 +137,21 @@
 <span class="co">#&gt;    sector                           nested_column     </span>
 <span class="co">#&gt;    &lt;chr&gt;                            &lt;list&gt;            </span>
 <span class="co">#&gt;  1 Comercio                         &lt;tibble [193 × 2]&gt;</span>
-<span class="co">#&gt;  2 Enseñanza                        &lt;tibble [193 × 2]&gt;</span>
-<span class="co">#&gt;  3 Administración pública           &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  2 Ensenanza                        &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  3 Administracion publica           &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt;  4 Transporte y comunicaciones      &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt;  5 Servicios sociales/Salud         &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt;  6 Impuestos netos                  &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt;  7 Sector financiero                &lt;tibble [193 × 2]&gt;</span>
-<span class="co">#&gt;  8 Minería                          &lt;tibble [193 × 2]&gt;</span>
-<span class="co">#&gt;  9 Agro/Ganadería/Caza/Silvicultura &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  8 Mineria                          &lt;tibble [193 × 2]&gt;</span>
+<span class="co">#&gt;  9 Agro/Ganaderia/Caza/Silvicultura &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt; 10 Electricidad/Gas/Agua            &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt; 11 Hoteles/Restaurantes             &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt; 12 Inmobiliarias                    &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt; 13 Otras actividades                &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt; 14 Pesca                            &lt;tibble [193 × 2]&gt;</span>
 <span class="co">#&gt; 15 Industria manufacturera          &lt;tibble [193 × 2]&gt;</span>
-<span class="co">#&gt; 16 Construcción                     &lt;tibble [193 × 2]&gt;</span></code></pre></div>
+<span class="co">#&gt; 16 Construccion                     &lt;tibble [193 × 2]&gt;</span></code></pre></div>
 <ul>
 <li>Recipes</li>
 </ul>
@@ -184,16 +184,16 @@
 <span class="co">#&gt;   sector   nested_column    m_ets    m_nnetar  nested_model     calibration     </span>
 <span class="co">#&gt;   &lt;chr&gt;    &lt;list&gt;           &lt;list&gt;   &lt;list&gt;    &lt;list&gt;           &lt;list&gt;          </span>
 <span class="co">#&gt; 1 Comercio &lt;tibble [193 × … &lt;workfl… &lt;workflo… &lt;model_time [2 … &lt;model_time [2 …</span>
-<span class="co">#&gt; 2 Enseñan… &lt;tibble [193 × … &lt;workfl… &lt;workflo… &lt;model_time [2 … &lt;model_time [2 …</span>
+<span class="co">#&gt; 2 Ensenan… &lt;tibble [193 × … &lt;workfl… &lt;workflo… &lt;model_time [2 … &lt;model_time [2 …</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $models_accuracy</span>
 <span class="co">#&gt; # A tibble: 4 x 10</span>
 <span class="co">#&gt;   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407</span>
-<span class="co">#&gt; 2 Comercio           2 NNAR(1,1,10)[1… Test   8.73  5.89 0.671  5.84 11.3  0.432</span>
-<span class="co">#&gt; 3 Enseñanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732</span>
-<span class="co">#&gt; 4 Enseñanza          2 NNAR(1,1,10)[1… Test   2.42  1.51 1.75   1.49  2.70 0.899</span></code></pre></div>
+<span class="co">#&gt; 2 Comercio           2 NNAR(1,1,10)[1… Test   9.29  6.17 0.714  6.25 11.0  0.481</span>
+<span class="co">#&gt; 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732</span>
+<span class="co">#&gt; 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.90  1.80 2.10   1.78  3.24 0.877</span></code></pre></div>
 </div>
 </div>
 <div id="-modeltime_multiforecast" class="section level3">
@@ -233,7 +233,7 @@
 <span class="co">#&gt;   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;          &lt;list&gt;  &lt;list&gt;   &lt;list&gt;        &lt;list&gt;       &lt;list&gt;    </span>
 <span class="co">#&gt; 1 Comerc… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; 2 Enseña… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
+<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
 </div>
 <div id="-modeltime_multirefit" class="section level3">
 <h3 class="hasAnchor">
@@ -246,7 +246,7 @@
 <span class="co">#&gt;   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;          &lt;list&gt;  &lt;list&gt;   &lt;list&gt;        &lt;list&gt;       &lt;list&gt;    </span>
 <span class="co">#&gt; 1 Comerc… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; 2 Enseña… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
+<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multiforecast.html">modeltime_multiforecast</a></span><span class="op">(</span>
     <span class="va">model_refit_emae</span>,
