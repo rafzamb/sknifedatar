@@ -18,11 +18,11 @@
 #' @export
 #'
 #' @example man/examples/multieval_example.R
-multieval = function(data , observed, predictions, metrica ,plot_view = TRUE, value_table = TRUE){
+multieval <- function(data , observed, predictions, metrica ,plot_view = TRUE, value_table = TRUE){
 
-  names(predictions) = predictions
+  names(predictions) <- predictions
 
-  table_values = mlapply(function(x, y ){
+  table_values <- mlapply(function(x, y ){
 
     x(data = data,
       truth    = .data[[observed]],
@@ -35,14 +35,14 @@ multieval = function(data , observed, predictions, metrica ,plot_view = TRUE, va
     dplyr::bind_rows() %>%
     dplyr::arrange(.data$.metric)
 
-  summary_table =
+  summary_table <-
     table_values %>%
     dplyr::select(-".estimator") %>%
     tidyr::pivot_wider(names_from = .data$.metric, values_from = .data$.estimate)
 
   if(plot_view == "TRUE"){
 
-    plot_metrics = table_values %>%
+    plot_metrics <- table_values %>%
       ggplot2::ggplot(ggplot2::aes(x= .data$model, y= .data$.estimate)) +
       ggplot2::geom_segment(ggplot2::aes(x=.data$model, xend=.data$model, y=0, yend=.data$.estimate, color = .data$model)) +
       ggplot2::geom_point(size=3, color="red", alpha=0.5, shape=21, stroke=1) +

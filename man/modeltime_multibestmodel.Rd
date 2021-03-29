@@ -4,14 +4,14 @@
 \alias{modeltime_multibestmodel}
 \title{Función para obtener el mejor modelo a partir de una modeltime table}
 \usage{
-modeltime_multibestmodel(.table, .metric = "mase", .optimization = which.min)
+modeltime_multibestmodel(.table, .metric = NULL, .minimize = TRUE)
 }
 \arguments{
 \item{.table}{tibble que proviene del objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}".}
 
 \item{.metric}{métrica de evaluación, proviene de "\strong{modeltime_accuracy}": 'mae', 'mape','mase','smape','rmse','rsq'.}
 
-\item{.optimization}{Es posible minimizar una métrica de error ('which.min') o maximizar el rsq ('which.max').}
+\item{.minimize}{valor logico, TRUE para minimizar la métrica de error, FALSE para maximizar, por defeto es TRUE.}
 }
 \value{
 tibble table_time filtrada por el mejor modelo.
@@ -25,46 +25,18 @@ posteriomente se selecciona el mejor modelo en función de la métrica seleccion
 }
 \examples{
 
-# Generate "table_time" object
 ## libraries
 library(modeltime)
-library(rsample)
-library(parsnip)
-library(recipes)
-library(workflows)
-library(dplyr)
-library(tidyr)
 library(sknifedatar)
 
-## Data
-emae_series <- sknifedatar::emae_series
-nested_serie <- emae_series \%>\% filter(date < '2008-02-01') \%>\% nest(nested_column=-sector)
-
-## Recipes
-recipe_1 = recipe(value ~ ., data = emae_series \%>\% select(-sector)) \%>\%
-  step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
-
-## Models
-m_ets <- workflow() \%>\%
-  add_model(exp_smoothing() \%>\% set_engine('ets')) \%>\%
-  add_recipe(recipe_1)
-
-m_nnetar <- workflow() \%>\%
-  add_model(nnetar_reg() \%>\% set_engine("nnetar")) \%>\%
-  add_recipe(recipe_1)
-
-# modeltime_multifit
-model_table_emae = modeltime_multifit(serie = nested_serie \%>\% head(2),
-                                      .prop = 0.8,
-                                      m_ets,
-                                      m_nnetar)
-
-table_time <- model_table_emae$table_time
-
+# Data
+data_serie <- sknifedatar::table_time
+                                      
 # best_model_emae
-best_model_emae <- modeltime_multibestmodel(.table=table_time,
-                                            .metric=rmse,
-                                            .optimization = which.min)
+best_model_emae <- modeltime_multibestmodel(.table = data_serie$table_time,
+                                            .metric = "rmse",
+                                            .minimize = TRUE)
 
 best_model_emae
+
 }

@@ -31,43 +31,30 @@
 #' # Generate "table_time" object
 #' ## libraries
 #' library(modeltime)
-#' library(rsample)
 #' library(parsnip)
-#' library(recipes)
-#' library(workflows)
-#' library(dplyr)
-#' library(tidyr)
-#' library(sknifedatar)
 #'
 #' ## Data
-#' emae_series <- sknifedatar::emae_series
-#' nested_serie <- emae_series %>% filter(date < '2008-02-01') %>% nest(nested_column=-sector)
-#'
-#' ## Recipes
-#' recipe_1 = recipe(value ~ ., data = emae_series %>% select(-sector)) %>%
-#'   step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+#' nested_serie <- 
+#' tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2007-02-01'),
+#'             nested_column = -sector)
 #'
 #' ## Models
-#' m_ets <- workflow() %>%
-#'   add_model(exp_smoothing() %>% set_engine('ets')) %>%
-#'   add_recipe(recipe_1)
+#' m_ets <- set_engine(exp_smoothing(), 'ets')
 #'
-#' m_nnetar <- workflow() %>%
-#'   add_model(nnetar_reg() %>% set_engine("nnetar")) %>%
-#'   add_recipe(recipe_1)
+#' m_nnetar <- set_engine(nnetar_reg(), "nnetar")
 #'
 #' # modeltime_multifit
-#' model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
-#'                                       .prop = 0.8,
-#'                                       m_ets,
-#'                                       m_nnetar)
+#' model_table_emae <- sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
+#'                                                    .prop = 0.95,
+#'                                                    m_ets,
+#'                                                    m_nnetar)
 #'
 #' model_table_emae
 #'
-modeltime_multifit = function(serie, .prop, ...){
+modeltime_multifit <- function(serie, .prop, ...){
 
   # Funcion de ajuste
-  nest_fit = function(serie, model, .proporcion = .prop){
+  nest_fit <- function(serie, model, .proporcion = .prop){
 
     if (tune::is_workflow(model) == TRUE) {
 
@@ -81,30 +68,30 @@ modeltime_multifit = function(serie, .prop, ...){
   }
 
   # Nombrado de multiples argumentos
-  exprs = substitute(list(...))
-  list_model = list(...)
-  names(list_model) = vapply(as.list(exprs), deparse, "")[-1]
-  nombres = names(list_model)
+  exprs <- substitute(list(...))
+  list_model <- list(...)
+  names(list_model) <- vapply(as.list(exprs), deparse, "")[-1]
+  nombres <- names(list_model)
 
   #Funcion de ajuste multiple
-  models_fits = mapply(function(modelo, name_model, prop){
+  models_fits <- mapply(function(modelo, name_model, prop){
 
-    tabla = serie %>%
+    tabla <- serie %>%
       dplyr::mutate("{name_model}" := purrr::map(nested_column, ~ nest_fit(serie = .x , model = modelo, .proporcion = prop))) %>%
       dplyr::select(3)
 
   },list_model, nombres, prop = .prop, SIMPLIFY = F)
 
-  time_data = dplyr::bind_cols(serie, models_fits)
+  time_data <- dplyr::bind_cols(serie, models_fits)
 
   # Tabla de modeltime_table
   # Captura de la expresion list(model_1, model_2, model_3,....)
-  exp1 = colnames(time_data)[3:ncol(time_data)]
-  exp2 = paste("list(",paste(exp1, collapse = ","),")")
-  exp3 = parse(text = exp2)
+  exp1 <- colnames(time_data)[3:ncol(time_data)]
+  exp2 <- paste("list(",paste(exp1, collapse = ","),")")
+  exp3 <- parse(text = exp2)
 
   # Nueva columna con todos los modelos por serie
-  table_time = time_data %>%
+  table_time <- time_data %>%
 
     dplyr::mutate(nested_model = purrr::pmap(eval(exp3), .f = function(...) {modeltime::modeltime_table(...)}),
 
@@ -120,7 +107,7 @@ modeltime_multifit = function(serie, .prop, ...){
   #names(table_time$calibration) = table_time[,1]
 
   # Metricas de los modelos
-  models_accuracy = mapply(function(calibracion, name_ts) {
+  models_accuracy <- mapply(function(calibracion, name_ts) {
 
     calibracion %>%
       modeltime::modeltime_accuracy() %>%

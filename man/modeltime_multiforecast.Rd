@@ -29,46 +29,12 @@ a cada uno de los múltiples modelos sobre múltiples series.
 }
 \examples{
 
-# Generate "table_time" object
-## libraries
-library(modeltime)
-library(rsample)
-library(parsnip)
-library(recipes)
-library(workflows)
-library(dplyr)
-library(tidyr)
-library(sknifedatar)
-
-## Data
-emae_series <- sknifedatar::emae_series
-nested_serie <- emae_series \%>\% filter(date < '2008-02-01') \%>\% nest(nested_column=-sector)
-
-## Recipes
-recipe_1 = recipe(value ~ ., data = emae_series \%>\% select(-sector)) \%>\%
-  step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
-
-## Models
-m_ets <- workflow() \%>\%
-  add_model(exp_smoothing() \%>\% set_engine('ets')) \%>\%
-  add_recipe(recipe_1)
-
-m_nnetar <- workflow() \%>\%
-  add_model(nnetar_reg() \%>\% set_engine("nnetar")) \%>\%
-  add_recipe(recipe_1)
-
-# modeltime_multifit
-model_table_emae = modeltime_multifit(serie = nested_serie \%>\% head(2),
-                                      .prop = 0.8,
-                                      m_ets,
-                                      m_nnetar)
-
-table_time <- model_table_emae$table_time
-
+# Data
+data_serie <- sknifedatar::table_time
+                                     
 # Forecast
-forecast_emae <- modeltime_multiforecast(table_time,
+forecast_emae <- sknifedatar::modeltime_multiforecast(data_serie$table_time,
                                          .prop=0.8)
-
 
 forecast_emae
 }

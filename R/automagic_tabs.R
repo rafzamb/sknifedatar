@@ -28,10 +28,11 @@
 #' library(dplyr)
 #' library(ggplot2)
 #' library(purrr)
+#' library(sknifedatar)
 #'
 #' dataset <-
-#'  tibble::tibble(ID = c("A","B","C","D"),
-#'                 numbers = list(rnorm(10), runif(10), rpois(10,2), rexp(10))) %>%
+#'  tibble::tibble(ID = c("A","B"),
+#'                 numbers = list(rnorm(5), runif(5))) %>%
 #'  mutate(plots = map(numbers,
 #'                     ~ data.frame(plots = .x) %>% ggplot(aes(x=plots)) + geom_histogram()))
 #'

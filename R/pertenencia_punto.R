@@ -18,28 +18,28 @@
 #'
 #' @examples
 #' pertenencia_punto(data = crimes, referencia = intercepcion_calles[1:10,], metros = 150)
-pertenencia_punto = function(data, referencia, metros){
+pertenencia_punto <- function(data, referencia, metros){
 
-  crime = data %>%
+  crime <- data %>%
     dplyr::select(.data$long,.data$lat) %>%
     split(1:nrow(data))
 
-  esquinas = referencia[,c("long","lat")]
+  esquinas <- referencia[,c("long","lat")]
 
-  vector_esquinas= c()
+  vector_esquinas <- c()
 
-  Esquina = parallel::mclapply(crime, function(x){
+  Esquina <- parallel::mclapply(crime, function(x){
 
     for (i in 1:nrow(esquinas)) {
 
-      vector_localizacion = geosphere::distm(x,  esquinas[i,], fun = geosphere::distHaversine)
+      vector_localizacion <- geosphere::distm(x,  esquinas[i,], fun = geosphere::distHaversine)
 
-      vector_esquinas[i] = vector_localizacion
+      vector_esquinas[i] <- vector_localizacion
     }
 
-    vector = which(vector_esquinas <= metros)
+    vector <- which(vector_esquinas <= metros)
 
-    n_total = ifelse(length(vector) == 0, 0, vector)
+    n_total <- ifelse(length(vector) == 0, 0, vector)
   })
   return(Esquina)
 }

@@ -36,36 +36,23 @@ of the models separated by commas. The function admits as many models as require
 # Generate "table_time" object
 ## libraries
 library(modeltime)
-library(rsample)
 library(parsnip)
-library(recipes)
-library(workflows)
-library(dplyr)
-library(tidyr)
-library(sknifedatar)
 
 ## Data
-emae_series <- sknifedatar::emae_series
-nested_serie <- emae_series \%>\% filter(date < '2008-02-01') \%>\% nest(nested_column=-sector)
-
-## Recipes
-recipe_1 = recipe(value ~ ., data = emae_series \%>\% select(-sector)) \%>\%
-  step_date(date, features = c("month", "quarter", "year"), ordinal = TRUE)
+nested_serie <- 
+tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2007-02-01'),
+            nested_column = -sector)
 
 ## Models
-m_ets <- workflow() \%>\%
-  add_model(exp_smoothing() \%>\% set_engine('ets')) \%>\%
-  add_recipe(recipe_1)
+m_ets <- set_engine(exp_smoothing(), 'ets')
 
-m_nnetar <- workflow() \%>\%
-  add_model(nnetar_reg() \%>\% set_engine("nnetar")) \%>\%
-  add_recipe(recipe_1)
+m_nnetar <- set_engine(nnetar_reg(), "nnetar")
 
 # modeltime_multifit
-model_table_emae = modeltime_multifit(serie = nested_serie \%>\% head(2),
-                                      .prop = 0.8,
-                                      m_ets,
-                                      m_nnetar)
+model_table_emae <- sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
+                                                   .prop = 0.95,
+                                                   m_ets,
+                                                   m_nnetar)
 
 model_table_emae
 

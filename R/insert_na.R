@@ -13,12 +13,12 @@
 #'
 #' @examples
 #' insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
-insert_na = function(data , columnas, p = 0.01 , seed = 123){
+insert_na <- function(data , columnas, p = 0.01 , seed = 123){
 
   set.seed(seed)
-  q = 1-p
+  q <- 1-p
 
-  data_na = purrr::map_df(data %>%  dplyr::select(columnas), function(x) {
+  data_na <- purrr::map_df(data %>%  dplyr::select(columnas), function(x) {
     x[sample(c(TRUE, NA),
              prob = c(q, p),
              size = length(x),

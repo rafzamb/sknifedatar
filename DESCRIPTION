@@ -29,7 +29,8 @@ Imports:
     stringi,
     stringr,
     tune,
-    knitr
+    knitr,
+    utils
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 

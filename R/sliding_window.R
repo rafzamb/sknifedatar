@@ -44,19 +44,19 @@
 #'                inicio = 13,
 #'                pliegues = pliegues,
 #'                variables = variables)
-sliding_window = function(data, inicio, pliegues, variables){
+sliding_window <- function(data, inicio, pliegues, variables){
 
-  list_data = lapply(variables, function(x){data %>% dplyr::select(1,dplyr::contains(x))}) # Seleccion de variables (Id y variables de un tipo)
+  list_data <- lapply(variables, function(x){data %>% dplyr::select(1,dplyr::contains(x))}) # Seleccion de variables (Id y variables de un tipo)
 
-  list_sliding_window = lapply(list_data, function(y){
+  list_sliding_window <- lapply(list_data, function(y){
 
-    splits = lapply(pliegues, function(x){
+    splits <- lapply(pliegues, function(x){
 
-      nombre = names(y)[2]
-      nombre = sub("_.*", "", nombre)
+      nombre <- names(y)[2]
+      nombre <- sub("_.*", "", nombre)
       #nombre = deparse(substitute(y))
 
-      a = y %>%
+      a <- y %>%
         dplyr::transmute(
           .data$esquina,
           "{nombre}_last_year" := rowSums(.[(inicio + x -12)]),
@@ -71,15 +71,15 @@ sliding_window = function(data, inicio, pliegues, variables){
     splits
   })
 
-  data_sliding_window = purrr::map(list_sliding_window,dplyr::bind_rows)
+  data_sliding_window <- purrr::map(list_sliding_window,dplyr::bind_rows)
 
-  drop_pliegue = ncol(data_sliding_window[[1]])
+  drop_pliegue <- ncol(data_sliding_window[[1]])
 
-  id = data_sliding_window[[1]][[1]]
+  id <- data_sliding_window[[1]][[1]]
 
-  id_pliegue = data_sliding_window[[1]][[drop_pliegue]]
+  id_pliegue <- data_sliding_window[[1]][[drop_pliegue]]
 
-  data_def = do.call(dplyr::bind_cols, lapply(data_sliding_window, `[`, -c(1,drop_pliegue))) %>%
+  data_def <- do.call(dplyr::bind_cols, lapply(data_sliding_window, `[`, -c(1,drop_pliegue))) %>%
     dplyr::mutate(
       id = id,
       pliegue = id_pliegue
