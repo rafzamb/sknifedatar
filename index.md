@@ -113,9 +113,9 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test   9.29  6.17 0.714  6.25 11.0  0.481
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test   8.82  5.91 0.677  5.92 10.4  0.518
 #> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.90  1.80 2.10   1.78  3.24 0.877
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.08  1.92 2.23   1.90  3.43 0.843
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -148,16 +148,17 @@ forecast_emae %>%
 ``` r
 best_model_emae <- modeltime_multibestmodel(
     .table = model_table_emae$table_time,
-    .metric = rmse,
-    .optimization = which.min
+    .metric = "rmse",
+    .minimize = TRUE
   )
 
 best_model_emae
-#> # A tibble: 2 x 7
+#> # A tibble: 2 x 8
 #>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
 #>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
 #> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
+#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
+#> # … with 1 more variable: calibrationx <list>
 ```
 
 ### 🔺 modeltime\_multirefit
@@ -166,11 +167,12 @@ best_model_emae
 model_refit_emae <- modeltime_multirefit(models_table = best_model_emae)
 
 model_refit_emae
-#> # A tibble: 2 x 7
+#> # A tibble: 2 x 8
 #>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
 #>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
 #> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
+#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
+#> # … with 1 more variable: calibrationx <list>
 ```
 
 ``` r

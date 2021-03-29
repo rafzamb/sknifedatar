@@ -72,6 +72,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -191,9 +194,9 @@
 <span class="co">#&gt;   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407</span>
-<span class="co">#&gt; 2 Comercio           2 NNAR(1,1,10)[1… Test   9.29  6.17 0.714  6.25 11.0  0.481</span>
+<span class="co">#&gt; 2 Comercio           2 NNAR(1,1,10)[1… Test   8.82  5.91 0.677  5.92 10.4  0.518</span>
 <span class="co">#&gt; 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732</span>
-<span class="co">#&gt; 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.90  1.80 2.10   1.78  3.24 0.877</span></code></pre></div>
+<span class="co">#&gt; 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.08  1.92 2.23   1.90  3.43 0.843</span></code></pre></div>
 </div>
 </div>
 <div id="-modeltime_multiforecast" class="section level3">
@@ -224,16 +227,17 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">best_model_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multibestmodel.html">modeltime_multibestmodel</a></span><span class="op">(</span>
     .table <span class="op">=</span> <span class="va">model_table_emae</span><span class="op">$</span><span class="va">table_time</span>,
-    .metric <span class="op">=</span> <span class="va">rmse</span>,
-    .optimization <span class="op">=</span> <span class="va">which.min</span>
+    .metric <span class="op">=</span> <span class="st">"rmse"</span>,
+    .minimize <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>
 
 <span class="va">best_model_emae</span>
-<span class="co">#&gt; # A tibble: 2 x 7</span>
+<span class="co">#&gt; # A tibble: 2 x 8</span>
 <span class="co">#&gt;   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;          &lt;list&gt;  &lt;list&gt;   &lt;list&gt;        &lt;list&gt;       &lt;list&gt;    </span>
 <span class="co">#&gt; 1 Comerc… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
+<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
+<span class="co">#&gt; # … with 1 more variable: calibrationx &lt;list&gt;</span></code></pre></div>
 </div>
 <div id="-modeltime_multirefit" class="section level3">
 <h3 class="hasAnchor">
@@ -242,11 +246,12 @@
 <code class="sourceCode R"><span class="va">model_refit_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multirefit.html">modeltime_multirefit</a></span><span class="op">(</span>models_table <span class="op">=</span> <span class="va">best_model_emae</span><span class="op">)</span>
 
 <span class="va">model_refit_emae</span>
-<span class="co">#&gt; # A tibble: 2 x 7</span>
+<span class="co">#&gt; # A tibble: 2 x 8</span>
 <span class="co">#&gt;   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;          &lt;list&gt;  &lt;list&gt;   &lt;list&gt;        &lt;list&gt;       &lt;list&gt;    </span>
 <span class="co">#&gt; 1 Comerc… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
+<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
+<span class="co">#&gt; # … with 1 more variable: calibrationx &lt;list&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multiforecast.html">modeltime_multiforecast</a></span><span class="op">(</span>
     <span class="va">model_refit_emae</span>,
