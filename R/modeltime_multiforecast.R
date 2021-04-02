@@ -46,8 +46,7 @@ modeltime_multiforecast <- function(models_table,
                                                       actual_data = y) %>%
                                                     dplyr::mutate(
                                                       .model_details = .model_desc,
-                                                      .model_desc = stringr::str_replace_all(.model_desc,
-                                                                                             "[[:punct:][:digit:][:cntrl:]]", "")
+                                                      .model_desc = gsub("[[:punct:][:digit:][:cntrl:]]","", .model_desc)
                                                     )
                                                 }))
 }

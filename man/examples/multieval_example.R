@@ -2,16 +2,17 @@ set.seed(123)
 library(yardstick) # métricas
 library(erer) # función listn
 
-predictions =
+predictions <-
   data.frame(truth = runif(100),
              predict_model_1 = rnorm(100, mean = 1,sd =2),
              predict_model_2 = rnorm(100, mean = 0,sd =2),
              predict_model_3 = rnorm(100, mean = 0,sd =3))
 
-multieval(data = predictions,
-          observed = "truth",
-          predictions = c("predict_model_1","predict_model_2","predict_model_3"),
-          metrica = listn(rmse, rsq, mae))
+multieval(.dataset = predictions,
+          .observed = "truth",
+          .predictions = c("predict_model_1","predict_model_2","predict_model_3"),
+          .metrics = listn(rmse, rsq, mae),
+          value_table = TRUE)
 
 # Output ----------------------
 # A tibble: 9 x 4

@@ -4,26 +4,17 @@
 \alias{multieval}
 \title{Evaluación de múltiples métricas y predicciones}
 \usage{
-multieval(
-  data,
-  observed,
-  predictions,
-  metrica,
-  plot_view = TRUE,
-  value_table = TRUE
-)
+multieval(.dataset, .observed, .predictions, .metrics, value_table = FALSE)
 }
 \arguments{
-\item{data}{data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.}
+\item{.dataset}{data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.}
 
-\item{observed}{string con el nombre de la columna que contiene los datos observados.}
+\item{.observed}{string con el nombre de la columna que contiene los datos observados.}
 
-\item{predictions}{string o vector de strings las columnas donde se almacenan las predicicones.}
+\item{.predictions}{string o vector de strings las columnas donde se almacenan las predicicones.}
 
-\item{metrica}{métrica o conjunto de métricas que se desean evaluar, las métricas hacen referencias a las permitidas por
+\item{.metrics}{métrica o conjunto de métricas que se desean evaluar, las métricas hacen referencias a las permitidas por
 el paquete \href{https://yardstick.tidymodels.org/}{yardstick} de tidymodels.}
-
-\item{plot_view}{TRUE para hacer un gráfico de las métricas resultantes.}
 
 \item{value_table}{TRUE para mostrar las métricas desagregadas.}
 }
@@ -38,16 +29,17 @@ set.seed(123)
 library(yardstick) # métricas
 library(erer) # función listn
 
-predictions =
+predictions <-
   data.frame(truth = runif(100),
              predict_model_1 = rnorm(100, mean = 1,sd =2),
              predict_model_2 = rnorm(100, mean = 0,sd =2),
              predict_model_3 = rnorm(100, mean = 0,sd =3))
 
-multieval(data = predictions,
-          observed = "truth",
-          predictions = c("predict_model_1","predict_model_2","predict_model_3"),
-          metrica = listn(rmse, rsq, mae))
+multieval(.dataset = predictions,
+          .observed = "truth",
+          .predictions = c("predict_model_1","predict_model_2","predict_model_3"),
+          .metrics = listn(rmse, rsq, mae),
+          value_table = TRUE)
 
 # Output ----------------------
 # A tibble: 9 x 4

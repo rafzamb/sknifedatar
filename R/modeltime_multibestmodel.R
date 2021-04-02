@@ -54,7 +54,7 @@ modeltime_multibestmodel <- function(.table,
           eval(parse(text = .optimization))(eval(parse(text = .metric)), n = 1) %>% head(1) %>% dplyr::pull(.model_id)   
       })) %>% 
     dplyr::mutate(
-      calibrationx = purrr::map2(calibration, best_model, ~ function(x,y) x  %>% dplyr::filter(.model_id == y))
+      calibration = purrr::map2(calibration, best_model, function(x,y) x  %>% dplyr::filter(.model_id == y))
     )
   
   return(calibration_table_best)

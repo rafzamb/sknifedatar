@@ -35,7 +35,7 @@
 #'
 #' ## Data
 #' nested_serie <- 
-#' tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2007-02-01'),
+#' tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2006-02-01'),
 #'             nested_column = -sector)
 #'
 #' ## Models
@@ -44,12 +44,10 @@
 #' m_nnetar <- set_engine(nnetar_reg(), "nnetar")
 #'
 #' # modeltime_multifit
-#' model_table_emae <- sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
-#'                                                    .prop = 0.95,
-#'                                                    m_ets,
-#'                                                    m_nnetar)
-#'
-#' model_table_emae
+#' sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
+#'                                 .prop = 0.97,
+#'                                 m_ets,
+#'                                 m_nnetar)
 #'
 modeltime_multifit <- function(serie, .prop, ...){
 
