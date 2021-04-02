@@ -123,13 +123,13 @@ devtools::install_github("rafzamb/sknifedatar")
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.56  6.44  0.735  6.46 11.1  0.441 
+#> 3 Comercio            3 NNAR(1,1,10… Test   9.66  6.32  0.742  6.51 11.8  0.490 
 #> 4 Ensenanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Ensenanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Ensenanza           3 NNAR(1,1,10… Test   3.48  2.17  2.52   2.14  3.94 0.818 
+#> 6 Ensenanza           3 NNAR(1,1,10… Test   3.14  1.96  2.28   1.94  3.48 0.834 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.84  4.45 14.2    4.33  7.53 0.0736
+#> 9 Administra…         3 NNAR(1,1,10… Test   5.96  3.88 12.4    3.79  6.55 0.0613
 ```
 
 ### modeltime\_multiforecast
