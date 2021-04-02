@@ -15,19 +15,12 @@ Imports:
     magrittr,
     purrr,
     data.table,
-    geosphere,
-    parallel,
     rlang,
-    yardstick,
-    ggplot2,
-    scales,
     tidyr,
     tibble,
     modeltime,
     rsample,
     parsnip,
-    stringi,
-    stringr,
     tune,
     knitr,
     utils
@@ -38,4 +31,7 @@ Depends:
 Suggests: 
     erer,
     workflows,
-    recipes
+    recipes,
+    ggplot2,
+    yardstick
+    

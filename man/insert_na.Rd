@@ -2,16 +2,16 @@
 % Please edit documentation in R/insert_na.R
 \name{insert_na}
 \alias{insert_na}
-\title{Función para agregar valores NA a un data frame}
+\title{Function para agregar valores NA a un data frame}
 \usage{
-insert_na(data, columnas, p = 0.01, seed = 123)
+insert_na(.dataset, columns, .p = 0.01, seed = 123)
 }
 \arguments{
-\item{data}{data frame}
+\item{.dataset}{data frame}
 
-\item{columnas}{vector que indica el nombre de las columnas donde se agregaran los valores NA, ejemplo de formato c("X1","X2").}
+\item{columns}{vector que indica el nombre de las columnas donde se agregaran los valores NA, ejemplo de formato c("X1","X2").}
 
-\item{p}{valor entre 0 y 1, indica la proporción de valores NA que se agregaran.}
+\item{.p}{valor entre 0 y 1, indica la proporción de valores NA que se agregaran.}
 
 \item{seed}{semilla de números aleatorios.}
 }
@@ -23,5 +23,5 @@ Esta función permite agregar valores NA a un data frame, pudiendo seleccionar l
 y la propòrcion de NAs deseados.
 }
 \examples{
-insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
+insert_na(.dataset = iris, columns = c("Sepal.Length","Petal.Length"), .p = 0.25)
 }
