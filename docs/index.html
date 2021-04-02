@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -194,9 +194,9 @@
 <span class="co">#&gt;   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;           &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407</span>
-<span class="co">#&gt; 2 Comercio           2 NNAR(1,1,10)[1… Test   8.82  5.91 0.677  5.92 10.4  0.518</span>
+<span class="co">#&gt; 2 Comercio           2 NNAR(1,1,10)[1… Test   9.69  6.37 0.745  6.51 11.4  0.493</span>
 <span class="co">#&gt; 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732</span>
-<span class="co">#&gt; 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.08  1.92 2.23   1.90  3.43 0.843</span></code></pre></div>
+<span class="co">#&gt; 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.13  1.95 2.27   1.93  3.52 0.836</span></code></pre></div>
 </div>
 </div>
 <div id="-modeltime_multiforecast" class="section level3">
@@ -232,12 +232,11 @@
   <span class="op">)</span>
 
 <span class="va">best_model_emae</span>
-<span class="co">#&gt; # A tibble: 2 x 8</span>
+<span class="co">#&gt; # A tibble: 2 x 7</span>
 <span class="co">#&gt;   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;          &lt;list&gt;  &lt;list&gt;   &lt;list&gt;        &lt;list&gt;       &lt;list&gt;    </span>
 <span class="co">#&gt; 1 Comerc… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; # … with 1 more variable: calibrationx &lt;list&gt;</span></code></pre></div>
+<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
 </div>
 <div id="-modeltime_multirefit" class="section level3">
 <h3 class="hasAnchor">
@@ -246,12 +245,11 @@
 <code class="sourceCode R"><span class="va">model_refit_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multirefit.html">modeltime_multirefit</a></span><span class="op">(</span>models_table <span class="op">=</span> <span class="va">best_model_emae</span><span class="op">)</span>
 
 <span class="va">model_refit_emae</span>
-<span class="co">#&gt; # A tibble: 2 x 8</span>
+<span class="co">#&gt; # A tibble: 2 x 7</span>
 <span class="co">#&gt;   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;          &lt;list&gt;  &lt;list&gt;   &lt;list&gt;        &lt;list&gt;       &lt;list&gt;    </span>
 <span class="co">#&gt; 1 Comerc… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt; </span>
-<span class="co">#&gt; # … with 1 more variable: calibrationx &lt;list&gt;</span></code></pre></div>
+<span class="co">#&gt; 2 Ensena… &lt;tibble [193 ×… &lt;workf… &lt;workfl… &lt;model_time … &lt;model_time… &lt;int [1]&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">forecast_emae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modeltime_multiforecast.html">modeltime_multiforecast</a></span><span class="op">(</span>
     <span class="va">model_refit_emae</span>,
@@ -306,37 +304,23 @@
 <span class="co">#&gt; 10 0.457            1.43           -0.749</span>
 <span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/multieval.html">multieval</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">predictions</span>,
-          observed <span class="op">=</span> <span class="st">"truth"</span>,
-          predictions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"predict_model_1"</span>,<span class="st">"predict_model_2"</span><span class="op">)</span>,
-          metrica <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/erer/man/listn.html">listn</a></span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span>, <span class="va">mae</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; $table_values</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
-<span class="co">#&gt;   .metric .estimator .estimate model          </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;          </span>
-<span class="co">#&gt; 1 mae     standard    1.59     predict_model_1</span>
-<span class="co">#&gt; 2 mae     standard    1.61     predict_model_2</span>
-<span class="co">#&gt; 3 rmse    standard    1.99     predict_model_1</span>
-<span class="co">#&gt; 4 rmse    standard    1.95     predict_model_2</span>
-<span class="co">#&gt; 5 rsq     standard    0.000704 predict_model_1</span>
-<span class="co">#&gt; 6 rsq     standard    0.00115  predict_model_2</span>
-<span class="co">#&gt; </span>
+<code class="sourceCode R"><span class="fu"><a href="reference/multieval.html">multieval</a></span><span class="op">(</span>.dataset <span class="op">=</span> <span class="va">predictions</span>,
+          .observed <span class="op">=</span> <span class="st">"truth"</span>,
+          .predictions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"predict_model_1"</span>,<span class="st">"predict_model_2"</span><span class="op">)</span>,
+          .metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/erer/man/listn.html">listn</a></span><span class="op">(</span><span class="va">rmse</span>, <span class="va">rsq</span>, <span class="va">mae</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $summary_table</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   model             mae  rmse      rsq</span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 predict_model_1  1.59  1.99 0.000704</span>
-<span class="co">#&gt; 2 predict_model_2  1.61  1.95 0.00115 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $plot_metrics</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-16-1.png" width="100%"></p>
+<span class="co">#&gt;   modelo           rmse      rsq   mae</span>
+<span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 predict_model_1  1.99 0.000704  1.59</span>
+<span class="co">#&gt; 2 predict_model_2  1.95 0.00115   1.61</span></code></pre></div>
 </div>
 <div id="-function-insert_na" class="section level4">
 <h4 class="hasAnchor">
 <a href="#-function-insert_na" class="anchor"></a>🔹 Function insert_na</h4>
 <p>This function allows adding NA values to a data frame, being able to select the columns and the proportion of NAs desired.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/insert_na.html">insert_na</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span>, columnas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>,<span class="st">"Petal.Length"</span><span class="op">)</span>, p <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/insert_na.html">insert_na</a></span><span class="op">(</span>.dataset <span class="op">=</span> <span class="va">iris</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>,<span class="st">"Petal.Length"</span><span class="op">)</span>, .p <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 150 x 5</span>
 <span class="co">#&gt;    Sepal.Width Petal.Width Species Sepal.Length Petal.Length</span>
 <span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span>

@@ -85,7 +85,7 @@ from the modeltime package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -195,7 +195,7 @@ of the models separated by commas. The function admits as many models as require
 
 <span class='co'>## Data</span>
 <span class='va'>nested_serie</span> <span class='op'>&lt;-</span> 
-<span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'>sknifedatar</span><span class='fu'>::</span><span class='va'><a href='emae_series.html'>emae_series</a></span>, <span class='va'>date</span> <span class='op'>&lt;</span> <span class='st'>'2007-02-01'</span><span class='op'>)</span>,
+<span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'>sknifedatar</span><span class='fu'>::</span><span class='va'><a href='emae_series.html'>emae_series</a></span>, <span class='va'>date</span> <span class='op'>&lt;</span> <span class='st'>'2006-02-01'</span><span class='op'>)</span>,
             nested_column <span class='op'>=</span> <span class='op'>-</span><span class='va'>sector</span><span class='op'>)</span>
 
 <span class='co'>## Models</span>
@@ -204,27 +204,25 @@ of the models separated by commas. The function admits as many models as require
 <span class='va'>m_nnetar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://parsnip.tidymodels.org/reference/set_engine.html'>set_engine</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/nnetar_reg.html'>nnetar_reg</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"nnetar"</span><span class='op'>)</span>
 
 <span class='co'># modeltime_multifit</span>
-<span class='va'>model_table_emae</span> <span class='op'>&lt;-</span> <span class='fu'>sknifedatar</span><span class='fu'>::</span><span class='fu'>modeltime_multifit</span><span class='op'>(</span>serie <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>nested_serie</span>,<span class='fl'>2</span><span class='op'>)</span>,
-                                                   .prop <span class='op'>=</span> <span class='fl'>0.95</span>,
-                                                   <span class='va'>m_ets</span>,
-                                                   <span class='va'>m_nnetar</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='input'>
-<span class='va'>model_table_emae</span>
-</div><div class='output co'>#&gt; $table_time
+<span class='fu'>sknifedatar</span><span class='fu'>::</span><span class='fu'>modeltime_multifit</span><span class='op'>(</span>serie <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>nested_serie</span>,<span class='fl'>2</span><span class='op'>)</span>,
+                                .prop <span class='op'>=</span> <span class='fl'>0.97</span>,
+                                <span class='va'>m_ets</span>,
+                                <span class='va'>m_nnetar</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>frequency = 3 observations per 1 quarter</span></div><div class='output co'>#&gt; $table_time
 #&gt; <span style='color: #949494;'># A tibble: 2 x 6</span><span>
 #&gt;   sector   nested_column    m_ets   m_nnetar nested_model      calibration      
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio </span><span style='color: #949494;'>&lt;tibble [37 × 2</span><span>… </span><span style='color: #949494;'>&lt;fit[+</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span> </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>… </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Ensenan… </span><span style='color: #949494;'>&lt;tibble [37 × 2</span><span>… </span><span style='color: #949494;'>&lt;fit[+</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span> </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>… </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio </span><span style='color: #949494;'>&lt;tibble [25 × 2</span><span>… </span><span style='color: #949494;'>&lt;fit[+</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span> </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>… </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>…
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Ensenan… </span><span style='color: #949494;'>&lt;tibble [25 × 2</span><span>… </span><span style='color: #949494;'>&lt;fit[+</span><span>… </span><span style='color: #949494;'>&lt;fit[+]&gt;</span><span> </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>… </span><span style='color: #949494;'>&lt;model_time [2 ×</span><span>…
 #&gt; 
 #&gt; $models_accuracy
-#&gt; </span><span style='color: #949494;'># A tibble: 4 x 10</span><span>
-#&gt;   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio           1 ETS(A,A,N)      Test   5.64  4.70 1.69   4.58  5.78  1   
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Comercio           2 NNAR(1,1,10)[3] Test  11.3   9.45 3.39  10.0  12.3   1   
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Ensenanza          1 ETS(M,A,A)      Test   1.35  1.20 0.475  1.19  1.66  1   
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Ensenanza          2 NNAR(1,1,10)[3] Test   1.43  1.27 0.504  1.26  1.74  1.00
+#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+#&gt;   name_serie .model_id .model_desc     .type
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Comercio           1 ETS(A,A,N)      Test 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Comercio           2 NNAR(1,1,10)[3] Test 
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Ensenanza          1 ETS(M,A,N)      Test 
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Ensenanza          2 NNAR(1,1,10)[3] Test 
 #&gt; </div><div class='input'>
 </div></span></pre>
   </div>

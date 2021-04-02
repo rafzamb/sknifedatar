@@ -57,39 +57,6 @@ sliding_window(data = data_longer_crime %>% dplyr::select(-c(long,lat)),
 ```
 
 
-## Function pertenencia_punto 📍
-
-Given two sets of geolocated points, this function allows to determine for each point of the first data set, which or which of the points of the second data set are within a certain radius of meters.
-
-* Sample of 100 crimes that occurred in CABA.
-
-```{r}
-head(crimes)
-```
-
-* 2023 corners of CABA evenly distributed over the city.
-
-```{r}
-head(intercepcion_calles)
-```
-
-* For each crime, the corner that is within a proximity radius of less than 150 meters is determined.
-
-```{r}
-esquina = data.frame(pertenencia_esquina = pertenencia_punto(data = crimes[1:10,], 
-                                                             referencia = intercepcion_calles[1:300,],
-                                                             metros = 150) %>% 
-                       unlist())
-```
-
-* Data frame with crimes and their cercaria corners.
-
-```{r}
-crimes[1:10,] %>% 
-  select(id) %>% 
-  bind_cols(esquina)
-```
-
 To consult projects where this functions was used, visit:
 
 * [Crime occurrence prediction](https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/)

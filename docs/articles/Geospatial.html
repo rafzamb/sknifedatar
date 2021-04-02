@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -156,66 +156,6 @@
 #&gt; #   dias_last_3 &lt;dbl&gt;, dias_last_1 &lt;dbl&gt;, dias &lt;dbl&gt;, veloc_last_year &lt;dbl&gt;,
 #&gt; #   veloc_last_12 &lt;dbl&gt;, veloc_last_6 &lt;dbl&gt;, veloc_last_3 &lt;dbl&gt;,
 #&gt; #   veloc_last_1 &lt;dbl&gt;, veloc &lt;dbl&gt;</code></pre>
-</div>
-<div id="function-pertenencia_punto" class="section level2">
-<h2 class="hasAnchor">
-<a href="#function-pertenencia_punto" class="anchor"></a>Function pertenencia_punto 📍</h2>
-<p>Given two sets of geolocated points, this function allows to determine for each point of the first data set, which or which of the points of the second data set are within a certain radius of meters.</p>
-<ul>
-<li>Sample of 100 crimes that occurred in CABA.</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 6 x 9
-#&gt;       id fecha      franja_horaria tipo_delito    subtipo_delito comuna barrio  
-#&gt;    &lt;dbl&gt; &lt;date&gt;              &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;   
-#&gt; 1 341734 2018-08-29              0 Robo (con vio… &lt;NA&gt;                5 Boedo   
-#&gt; 2 257029 2018-09-17             15 Hurto (sin vi… &lt;NA&gt;                6 Caballi…
-#&gt; 3 307285 2018-03-16             18 Robo (con vio… &lt;NA&gt;               14 Palermo 
-#&gt; 4 314525 2018-02-12             12 Robo (con vio… &lt;NA&gt;                3 Balvane…
-#&gt; 5 347997 2018-06-15              9 Robo (con vio… &lt;NA&gt;                7 Parque …
-#&gt; 6 240042 2017-12-12             14 Robo (con vio… &lt;NA&gt;               13 Nuñez   
-#&gt; # … with 2 more variables: lat &lt;dbl&gt;, long &lt;dbl&gt;</code></pre>
-<ul>
-<li>2023 corners of CABA evenly distributed over the city.</li>
-</ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">intercepcion_calles</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt;   id      long       lat
-#&gt; 1  1 -58.47533 -34.53936
-#&gt; 2  2 -58.49107 -34.54576
-#&gt; 3  3 -58.46640 -34.53487
-#&gt; 4  4 -58.49474 -34.54741
-#&gt; 5  5 -58.39515 -34.57223
-#&gt; 6  6 -58.38185 -34.59158</code></pre>
-<ul>
-<li>For each crime, the corner that is within a proximity radius of less than 150 meters is determined.</li>
-</ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">esquina</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pertenencia_esquina <span class="op">=</span> <span class="fu"><a href="../reference/pertenencia_punto.html">pertenencia_punto</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">crimes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, 
-                                                             referencia <span class="op">=</span> <span class="va">intercepcion_calles</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">300</span>,<span class="op">]</span>,
-                                                             metros <span class="op">=</span> <span class="fl">150</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-                       <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<ul>
-<li>Data frame with crimes and their cercaria corners.</li>
-</ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">crimes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">esquina</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 10 x 2
-#&gt;        id pertenencia_esquina
-#&gt;  *  &lt;dbl&gt;               &lt;dbl&gt;
-#&gt;  1 341734                   0
-#&gt;  2 257029                   0
-#&gt;  3 307285                 241
-#&gt;  4 314525                   0
-#&gt;  5 347997                   0
-#&gt;  6 240042                   0
-#&gt;  7 420664                   0
-#&gt;  8 304656                   0
-#&gt;  9 253948                   0
-#&gt; 10 265219                   0</code></pre>
 <p>To consult projects where this functions was used, visit:</p>
 <ul>
 <li><a href="https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/">Crime occurrence prediction</a></li>
