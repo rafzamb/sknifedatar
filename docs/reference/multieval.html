@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -147,38 +147,27 @@
     <p>Para un conjunto de predicciones de distintos modelos, permite evaluar múltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>multieval</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  <span class='va'>observed</span>,
-  <span class='va'>predictions</span>,
-  <span class='va'>metrica</span>,
-  plot_view <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  value_table <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>multieval</span><span class='op'>(</span><span class='va'>.dataset</span>, <span class='va'>.observed</span>, <span class='va'>.predictions</span>, <span class='va'>.metrics</span>, value_table <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
+      <th>.dataset</th>
       <td><p>data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.</p></td>
     </tr>
     <tr>
-      <th>observed</th>
+      <th>.observed</th>
       <td><p>string con el nombre de la columna que contiene los datos observados.</p></td>
     </tr>
     <tr>
-      <th>predictions</th>
+      <th>.predictions</th>
       <td><p>string o vector de strings las columnas donde se almacenan las predicicones.</p></td>
     </tr>
     <tr>
-      <th>metrica</th>
+      <th>.metrics</th>
       <td><p>métrica o conjunto de métricas que se desean evaluar, las métricas hacen referencias a las permitidas por
 el paquete <a href='https://yardstick.tidymodels.org/'>yardstick</a> de tidymodels.</p></td>
-    </tr>
-    <tr>
-      <th>plot_view</th>
-      <td><p>TRUE para hacer un gráfico de las métricas resultantes.</p></td>
     </tr>
     <tr>
       <th>value_table</th>
@@ -205,39 +194,39 @@ el paquete <a href='https://yardstick.tidymodels.org/'>yardstick</a> de tidymode
 #&gt; <span class='message'>  method  from    </span>
 #&gt; <span class='message'>  head.ts forecast</span>
 #&gt; <span class='message'>  tail.ts forecast</span></div><div class='input'>
-<span class='va'>predictions</span> <span class='op'>=</span>
+<span class='va'>predictions</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>truth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,
              predict_model_1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>1</span>,sd <span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>,
              predict_model_2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span>,sd <span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>,
              predict_model_3 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span>,sd <span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>multieval</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>predictions</span>,
-          observed <span class='op'>=</span> <span class='st'>"truth"</span>,
-          predictions <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"predict_model_1"</span>,<span class='st'>"predict_model_2"</span>,<span class='st'>"predict_model_3"</span><span class='op'>)</span>,
-          metrica <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/erer/man/listn.html'>listn</a></span><span class='op'>(</span><span class='va'>rmse</span>, <span class='va'>rsq</span>, <span class='va'>mae</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>multieval</span><span class='op'>(</span>.dataset <span class='op'>=</span> <span class='va'>predictions</span>,
+          .observed <span class='op'>=</span> <span class='st'>"truth"</span>,
+          .predictions <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"predict_model_1"</span>,<span class='st'>"predict_model_2"</span>,<span class='st'>"predict_model_3"</span><span class='op'>)</span>,
+          .metrics <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/erer/man/listn.html'>listn</a></span><span class='op'>(</span><span class='va'>rmse</span>, <span class='va'>rsq</span>, <span class='va'>mae</span><span class='op'>)</span>,
+          value_table <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $table_values
 #&gt; <span style='color: #949494;'># A tibble: 9 x 4</span><span>
-#&gt;   .metric .estimator .estimate model          
+#&gt;   .metric .estimator .estimate modelo         
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mae     standard   1.59      predict_model_1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> mae     standard   1.61      predict_model_2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> mae     standard   2.37      predict_model_3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> rmse    standard   1.99      predict_model_1
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> rmse    standard   1.95      predict_model_2
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> rmse    standard   2.97      predict_model_3
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> rsq     standard   0.000</span><span style='text-decoration: underline;'>704</span><span>  predict_model_1
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span> rsq     standard   0.001</span><span style='text-decoration: underline;'>15</span><span>   predict_model_2
-#&gt; </span><span style='color: #BCBCBC;'>9</span><span> rsq     standard   0.000</span><span style='text-decoration: underline;'>089</span><span>2 predict_model_3
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> rmse    standard   1.99      predict_model_1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> rmse    standard   1.95      predict_model_2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> rmse    standard   2.97      predict_model_3
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> rsq     standard   0.000</span><span style='text-decoration: underline;'>704</span><span>  predict_model_1
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> rsq     standard   0.001</span><span style='text-decoration: underline;'>15</span><span>   predict_model_2
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> rsq     standard   0.000</span><span style='text-decoration: underline;'>089</span><span>2 predict_model_3
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> mae     standard   1.59      predict_model_1
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span> mae     standard   1.61      predict_model_2
+#&gt; </span><span style='color: #BCBCBC;'>9</span><span> mae     standard   2.37      predict_model_3
 #&gt; 
 #&gt; $summary_table
 #&gt; </span><span style='color: #949494;'># A tibble: 3 x 4</span><span>
-#&gt;   model             mae  rmse       rsq
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> predict_model_1  1.59  1.99 0.000</span><span style='text-decoration: underline;'>704</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> predict_model_2  1.61  1.95 0.001</span><span style='text-decoration: underline;'>15</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> predict_model_3  2.37  2.97 0.000</span><span style='text-decoration: underline;'>089</span><span>2
-#&gt; 
-#&gt; $plot_metrics</div><div class='img'><img src='multieval-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>
+#&gt;   modelo           rmse       rsq   mae
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> predict_model_1  1.99 0.000</span><span style='text-decoration: underline;'>704</span><span>   1.59
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> predict_model_2  1.95 0.001</span><span style='text-decoration: underline;'>15</span><span>    1.61
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> predict_model_3  2.97 0.000</span><span style='text-decoration: underline;'>089</span><span>2  2.37
+#&gt; </div><div class='input'>
 <span class='co'># Output ----------------------</span>
 <span class='co'># A tibble: 9 x 4</span>
 <span class='co'># .metric .estimator .estimate model</span>

@@ -123,13 +123,13 @@ devtools::install_github("rafzamb/sknifedatar")
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.81  6.52  0.754  6.61 11.6  0.419 
+#> 3 Comercio            3 NNAR(1,1,10… Test   9.56  6.44  0.735  6.46 11.1  0.441 
 #> 4 Ensenanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Ensenanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Ensenanza           3 NNAR(1,1,10… Test   2.73  1.70  1.98   1.68  3.02 0.894 
+#> 6 Ensenanza           3 NNAR(1,1,10… Test   3.48  2.17  2.52   2.14  3.94 0.818 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   6.50  4.22 13.5    4.12  7.15 0.0915
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.84  4.45 14.2    4.33  7.53 0.0736
 ```
 
 ### modeltime\_multiforecast
@@ -167,14 +167,13 @@ best_model_emae <- modeltime_multibestmodel(
   )
 
 best_model_emae
-#> # A tibble: 3 x 9
+#> # A tibble: 3 x 8
 #>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
 #>   <chr>        <list>          <list>       <list>       <list>   <list>        
 #> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> 2 Ensenanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 3 more variables: calibration <list>, best_model <list>,
-#> #   calibrationx <list>
+#> # … with 2 more variables: calibration <list>, best_model <list>
 ```
 
 ### modeltime\_multirefit
@@ -184,22 +183,15 @@ model_refit_emae <- modeltime_multirefit(models_table = best_model_emae)
 #> frequency = 12 observations per 1 year
 #> frequency = 12 observations per 1 year
 #> frequency = 12 observations per 1 year
-#> frequency = 12 observations per 1 year
-#> frequency = 12 observations per 1 year
-#> frequency = 12 observations per 1 year
-#> frequency = 12 observations per 1 year
-#> frequency = 12 observations per 1 year
-#> frequency = 12 observations per 1 year
 
 model_refit_emae
-#> # A tibble: 3 x 9
+#> # A tibble: 3 x 8
 #>   sector       nested_column   m_auto_arima m_stlm_arima m_nnetar nested_model  
 #>   <chr>        <list>          <list>       <list>       <list>   <list>        
 #> 1 Comercio     <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> 2 Ensenanza    <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
 #> 3 Administrac… <tibble [193 ×… <fit[+]>     <fit[+]>     <workfl… <model_time […
-#> # … with 3 more variables: calibration <list>, best_model <list>,
-#> #   calibrationx <list>
+#> # … with 2 more variables: calibration <list>, best_model <list>
 ```
 
 ``` r

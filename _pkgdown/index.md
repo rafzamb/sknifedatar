@@ -113,9 +113,9 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test   8.95  6.04 0.688  6.03 10.6  0.474
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test   9.38  6.25 0.720  6.31 11.1  0.470
 #> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.81  1.75 2.04   1.73  3.12 0.910
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.95  1.83 2.14   1.81  3.30 0.873
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -153,12 +153,11 @@ best_model_emae <- modeltime_multibestmodel(
   )
 
 best_model_emae
-#> # A tibble: 2 x 8
+#> # A tibble: 2 x 7
 #>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
 #>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
 #> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> # … with 1 more variable: calibrationx <list>
+#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
 ```
 
 ### 🔺 modeltime\_multirefit
@@ -167,12 +166,11 @@ best_model_emae
 model_refit_emae <- modeltime_multirefit(models_table = best_model_emae)
 
 model_refit_emae
-#> # A tibble: 2 x 8
+#> # A tibble: 2 x 7
 #>   sector  nested_column   m_ets   m_nnetar nested_model  calibration  best_model
 #>   <chr>   <list>          <list>  <list>   <list>        <list>       <list>    
 #> 1 Comerc… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]> 
-#> # … with 1 more variable: calibrationx <list>
+#> 2 Ensena… <tibble [193 ×… <workf… <workfl… <model_time … <model_time… <int [1]>
 ```
 
 ``` r
@@ -236,40 +234,25 @@ tibble(predictions)
 ```
 
 ``` r
-multieval(data = predictions,
-          observed = "truth",
-          predictions = c("predict_model_1","predict_model_2"),
-          metrica = listn(rmse, rsq, mae))
-#> $table_values
-#> # A tibble: 6 x 4
-#>   .metric .estimator .estimate model          
-#>   <chr>   <chr>          <dbl> <chr>          
-#> 1 mae     standard    1.59     predict_model_1
-#> 2 mae     standard    1.61     predict_model_2
-#> 3 rmse    standard    1.99     predict_model_1
-#> 4 rmse    standard    1.95     predict_model_2
-#> 5 rsq     standard    0.000704 predict_model_1
-#> 6 rsq     standard    0.00115  predict_model_2
-#> 
+multieval(.dataset = predictions,
+          .observed = "truth",
+          .predictions = c("predict_model_1","predict_model_2"),
+          .metrics = listn(rmse, rsq, mae))
 #> $summary_table
 #> # A tibble: 2 x 4
-#>   model             mae  rmse      rsq
-#>   <chr>           <dbl> <dbl>    <dbl>
-#> 1 predict_model_1  1.59  1.99 0.000704
-#> 2 predict_model_2  1.61  1.95 0.00115 
-#> 
-#> $plot_metrics
+#>   modelo           rmse      rsq   mae
+#>   <chr>           <dbl>    <dbl> <dbl>
+#> 1 predict_model_1  1.99 0.000704  1.59
+#> 2 predict_model_2  1.95 0.00115   1.61
 ```
 
-<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
-
-#### 🔹 Functionn insert\_na
+#### 🔹 Function insert\_na
 
 This function allows adding NA values to a data frame, being able to
 select the columns and the proportion of NAs desired.
 
 ``` r
-insert_na(data = iris, columnas = c("Sepal.Length","Petal.Length"), p = 0.25)
+insert_na(.dataset = iris, columns = c("Sepal.Length","Petal.Length"), .p = 0.25)
 #> # A tibble: 150 x 5
 #>    Sepal.Width Petal.Width Species Sepal.Length Petal.Length
 #>          <dbl>       <dbl> <fct>          <dbl>        <dbl>

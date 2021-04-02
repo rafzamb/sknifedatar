@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -141,6 +141,35 @@
       <small>Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sknifedatar-0009001-2021-04-02" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9001">
+<a href="#sknifedatar-0009001-2021-04-02" class="anchor"></a>sknifedatar 0.0.0.9001 (2021-04-02)</h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li><p><code>multieval</code> no longer generates a graph for calculated metrics.</p></li>
+<li><p><code>mlapply</code> was removed, a reduced version is included internally within the <code>multieval</code> function.</p></li>
+<li><p><code>pertenencia_punto</code> was removed.</p></li>
+<li><p>removed dependency on <code>stringr</code>, <code>stringi</code>, <code>yardstick</code>, <code>ggplot2</code> and <code>parallel</code> packages.</p></li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>
+<code>modeltime_multibestmode</code> corrected a detail in the code that was not selecting the best models correctly.</li>
+</ul>
+</div>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li>multieval change from “metric”" parameter to “.metrics”.</li>
+</ul>
+</div>
+</div>
     <div id="sknifedatar-0009000-2021-03-28" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9000">
 <a href="#sknifedatar-0009000-2021-03-28" class="anchor"></a>sknifedatar 0.0.0.9000 (2021-03-28)</h1>
