@@ -3,20 +3,19 @@
 #' @description It allows to automatically generate the code necessary to group multiple Rmarkdown chunks
 #'              into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.
 #'
-#' @details given a tiblle, which must contain an "ID" column (representing the title of the tabs) and another
+#' @details given a tibble, which must contain an "ID" column (representing the title of the tabs) and another
 #'          column that stores the output to be generated (plot, text, code, ...), a string is automatically
 #'          generated which can be later rendered in a Rmarkdown document.
 #'
 #' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
-#' @param input_data  tibble with at least 2 columns, one for the title of the tabs and another with
+#' @param input_data tibble with at least 2 columns, one for the title of the tabs and another with
 #'                    the output to be displayed.
-#' @param panel_name string with the name of the ID column.
-#' @param .output string with the name of the column of the output.
-#' @param .layout string that represents the layout of the tabs, can take the values "l-body",
-#'                "l-body-outset", "l-page" and "l-screen". By default the value is NULL and takes
-#'                "l-body" as parameter.
-#' @param ... additional parameters that correspond to all those available in rmarkdown chunks
+#' @param panel_name column with the ID variable.
+#' @param ... nested columns that contain outputs to display.
+#' @param tabset_title string title of the .tabset 
+#' @param tabset_props string defining .tabset properties
+#' @param chunk_props named list with additional parameters that correspond to all those available in rmarkdown chunks
 #'            (fig.align, fig.width, ...).
 #'
 #' @return concatenated string of all automatically generated chunks.
@@ -38,51 +37,47 @@
 #'
 #' dataset
 #'
-#' automagic_tabs(input_data = dataset, panel_name = "ID", .output = "plots")
+#' automagic_tabs(input_data = dataset, panel_name = ID, numbers, plots)
 #'
 #' unlink("figure", recursive = TRUE)
 #'
-automagic_tabs <- function(input_data , panel_name, .output, .layout = NULL, ...){
-
-  #Capture extra arguments
-  list_arguments <- list(...)
-  .arguments <- names(list_arguments)
-  .inputs <- list_arguments %>% unlist() %>% unname()
-  parse_extra_argumnets <- NULL
-  if(!is.null(.arguments)) parse_extra_argumnets <- purrr::map2(.arguments,.inputs, ~paste(.x,.y, sep = " = ")
-  ) %>% unlist() %>% paste(collapse=" , ")
-
-  #Capture name of data
-  data_name <- match.call()
-  data_name <- as.list(data_name[-1])$input_data %>% as.character()
-
-  #Layaout page
-  if(is.null(.layout)) .layout <- "l-body"
-  if(!.layout %in% c("l-body","l-body-outset","l-page","l-screen")) stop('the specified layout does not match those available. c("l-body","l-body-outset","l-page","l-screen")')
-  layaout_code <- paste0("::: {.",.layout,"}\n::: {.panelset}\n")
-
-  #knit code
-  knit_code <- NULL
-  for (i in 1:nrow(input_data)) {
-
-    #Capture time to diference same chunks
-    time_acual <- Sys.time() %>% as.character()
-
-    knit_code_individual <- paste0(":::{.panel}\n### `r ", data_name,"$",panel_name,"[[",i,
-                                   "]]` {.panel-name}\n```{r   `r ", time_acual," ", data_name,"$",panel_name,"[[",i,
-                                   "]]`, echo=FALSE, layout='",.layout,"', ",
-                                   parse_extra_argumnets,
-                                   "}\n\n ",data_name,"$",.output,"[[",i,
-                                   "]] \n\n```\n:::")
-
-    knit_code <- c(knit_code, knit_code_individual)
-
+automagic_tabs <- function(input_data, panel_name, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills', 
+                            chunk_props = list(echo = F, fig.align = "'center'")){
+  
+  # Quosures
+  dataset_name <- rlang::enquo(input_data) %>% rlang::as_name()
+  panel_col <- rlang::enquo(panel_name)
+  vars <- rlang::enquos(..., .named = TRUE) %>% names()
+  
+  # Parse Columns to extract
+  subsets <- paste0(dataset_name, '$', vars)
+  
+  # Parse Chunk options
+  .chunk_props <- paste0(paste(names(chunk_props), unname(chunk_props), sep = ' = '), collapse = ', ')  
+  
+  # Loop variables
+  chunks <- list()
+  for(rown in 1:nrow(input_data)){
+    
+    .panel_output <- sprintf('%s[[%s]]', subsets, rown) %>% paste0(collapse = ' \n ')
+    .panel_name <- input_data %>% dplyr::slice(rown) %>% dplyr::pull(!!panel_col)
+    
+    # Create Individual Chunks
+    individual_chunk <- sprintf('::: {}\n
+### %s \n
+```{r `r automagic_chunk_%s_%s`, %s} \n %s \n ``` \n
+:::', .panel_name, dataset_name, .panel_name, .chunk_props, .panel_output)
+    
+    chunks <- c(chunks, individual_chunk)
+    
   }
-
-  #layout code + knit code + close ::: :::
-  knit_code <- c(layaout_code,knit_code,"\n:::\n:::")
-
-  #knirt code
-  paste(knitr::knit(text = knit_code), collapse = '\n')
-
+  
+  # Create tabset panel
+  final_chunk <- sprintf('::::: {}\n
+## %s {.tabset %s} \n
+%s \n
+:::::', tabset_title, tabset_props, paste0(chunks, collapse = '\n'))
+  
+  knitr::knit(text = final_chunk)
+  
 }
