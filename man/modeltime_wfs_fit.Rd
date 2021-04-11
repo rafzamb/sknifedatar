@@ -35,13 +35,13 @@ library(timetk)
 
 data <- sknifedatar::data_avellaneda \%>\% 
   mutate(date=as.Date(date)) \%>\% 
-  filter(date<'2012-01-01')
+  filter(date<'2012-06-01')
 
 recipe_date <- recipe(value ~ ., data = data) \%>\% 
-  step_date(date, features = c('week','month', 'quarter', 'semester', 'year')) 
+  step_date(date, features = c('dow','doy','week','month','year')) 
 
 recipe_date_lag <- recipe_date \%>\% 
-  step_lag(value, lag = 1) \%>\% 
+  step_lag(value, lag = 7) \%>\% 
   step_ts_impute(all_numeric(), period=365)
 
 mars <- mars(mode = 'regression') \%>\%
