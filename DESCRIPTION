@@ -23,7 +23,9 @@ Imports:
     parsnip,
     tune,
     knitr,
-    utils
+    utils,
+    workflowsets,
+    cli
 URL: https://github.com/rafzamb/sknifedatar
 BugReports: https://github.com/rafzamb/sknifedatar/issues
 Depends: 
@@ -33,5 +35,5 @@ Suggests:
     workflows,
     recipes,
     ggplot2,
-    yardstick
-    
+    yardstick,
+    timetk

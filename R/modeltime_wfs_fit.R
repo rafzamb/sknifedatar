@@ -17,49 +17,39 @@
 #' @export
 #'
 #' @examples
-#'
-#'
-#'library(sknifedatar)
-#'library(recipes)
-#'library(modeltime)
-#'library(workflowsets)
-#'library(workflows)
-#'library(parsnip)
-#'library(timetk)
-#'
-#'df <- sknifedatar::data_avellaneda %>% 
+#' library(sknifedatar)
+#' library(recipes)
+#' library(modeltime)
+#' library(workflowsets)
+#' library(workflows)
+#' library(parsnip)
+#' library(timetk)
+#' 
+#' data <- sknifedatar::data_avellaneda %>% 
 #'   mutate(date=as.Date(date)) %>% 
-#'   filter(date<'2011-01-01')
-#'
-#'recipe_date <- recipe(value ~ ., data = df) %>% 
-#'  step_date(date, features = c('quarter', 'semester', 'month', 'year')) 
-#'
-#'recipe_date_lag <- recipe_date %>% 
-#'  step_lag(value, lag = 1) %>% 
-#'  step_ts_impute(all_numeric(), period=365)
-#'
-#'prophet_boost <- prophet_boost(mode = 'regression') %>%
-#'  set_engine("prophet_xgboost")
-#'
-#'mars <- mars(mode = 'regression') %>%
-#'  set_engine('earth')
-#'
-#'wfsets <- workflow_set(
-#'  preproc = list(
-#'    R_date = recipe_date,
-#'    R_date_lag = recipe_date_lag
-#'  ),
-#'  models  = list(
-#'    M_prophet = prophet_boost, 
-#'    M_mars = mars
-#'  ),
-#'  cross   = TRUE
-#')
-#'
-#'wffits <- modeltime_wfs_fit(.wfsets = wfsets, 
-#'                            .split_prop = 0.8, 
-#'                            .serie=df)
-#'wffits
+#'   filter(date<'2012-01-01')
+#' 
+#' recipe_date <- recipe(value ~ ., data = data) %>% 
+#'   step_date(date, features = c('week','month', 'quarter', 'semester', 'year')) 
+#' 
+#' recipe_date_lag <- recipe_date %>% 
+#'   step_lag(value, lag = 1) %>% 
+#'   step_ts_impute(all_numeric(), period=365)
+#' 
+#' mars <- mars(mode = 'regression') %>%
+#'   set_engine('earth')
+#' 
+#' wfsets <- workflow_set(
+#'   preproc = list(
+#'     R_date = recipe_date,
+#'     R_date_lag = recipe_date_lag),
+#'   models  = list(M_mars = mars),
+#'   cross   = TRUE)
+#' 
+#' wffits <- modeltime_wfs_fit(.wfsets = wfsets, 
+#'                             .split_prop = 0.8, 
+#'                             .serie=data)
+#' wffits
 modeltime_wfs_fit <- function(.wfsets, .split_prop, .serie) {
   list_models <- .wfsets %>% split(.$wflow_id)
   
@@ -69,7 +59,7 @@ modeltime_wfs_fit <- function(.wfsets, .split_prop, .serie) {
   # Fit models in splits
   table_wfsets <-
     purrr::map(list_models,
-               function(.wf = .x,
+               function(.wf = list_models,
                         .splits = rsample::initial_time_split(.serie, prop = .split_prop)) {
                  pb$tick()$print()
                  
@@ -79,9 +69,9 @@ modeltime_wfs_fit <- function(.wfsets, .split_prop, .serie) {
                  tryCatch({
                    # Get workflow, fit and convert to modeltime_table
                    .model <- .wf %>%
-                     dplyr::pull(info) %>%
+                     dplyr::pull(2) %>%
                      purrr::pluck(1, 'workflow', 1) %>%
-                     fit(.splits %>% rsample::training()) %>%
+                     parsnip::fit(.splits %>% rsample::training()) %>%
                      modeltime::modeltime_table()
                    
                    cli::cli_alert_success('Training finished OK.')
@@ -114,10 +104,3 @@ modeltime_wfs_fit <- function(.wfsets, .split_prop, .serie) {
   ))
   return(table_wfsets)
 }
-
-
-
-
-
-
-
