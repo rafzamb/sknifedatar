@@ -9,15 +9,14 @@
 #'
 #' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
-#' @param input_data  tibble with at least 2 columns, one for the title of the tabs and another with
+#' @param input_data Ungrouped tibble with at least 2 columns, one for the title of the tabs and another with
 #'                    the output to be displayed.
 #' @param panel_name string with the name of the ID column.
 #' @param .output string with the name of the column of the output.
-#' @param .layout string that represents the layout of the tabs, can take the values "l-body",
-#'                "l-body-outset", "l-page" and "l-screen". By default the value is NULL and takes
-#'                "l-body" as parameter.
 #' @param ... additional parameters that correspond to all those available in rmarkdown chunks
 #'            (fig.align, fig.width, ...).
+#' @param tabset_title string title of the .tabset 
+#' @param tabset_props string defining .tabset properties
 #'
 #' @return concatenated string of all automatically generated chunks.
 #'
@@ -30,59 +29,61 @@
 #' library(purrr)
 #' library(sknifedatar)
 #'
-#' dataset <-
-#'  tibble::tibble(ID = c("A","B"),
-#'                 numbers = list(rnorm(5), runif(5))) %>%
-#'  mutate(plots = map(numbers,
-#'                     ~ data.frame(plots = .x) %>% ggplot(aes(x=plots)) + geom_histogram()))
+#' dataset <- iris %>% 
+#'   group_by(Species) %>% 
+#'   nest() %>% 
+#'   mutate(
+#'     .plot = map(data, ~ggplot(.x, aes(x = Sepal.Length, y = Petal.Length)) + geom_point())
+#'   ) %>% 
+#'   ungroup()
 #'
-#' dataset
+#' automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot")
 #'
-#' automagic_tabs(input_data = dataset, panel_name = "ID", .output = "plots")
 #'
-#' unlink("figure", recursive = TRUE)
-#'
-automagic_tabs <- function(input_data , panel_name, .output, .layout = NULL, ...){
-
-  #Capture extra arguments
-  list_arguments <- list(...)
-  .arguments <- names(list_arguments)
-  .inputs <- list_arguments %>% unlist() %>% unname()
-  parse_extra_argumnets <- NULL
-  if(!is.null(.arguments)) parse_extra_argumnets <- purrr::map2(.arguments,.inputs, ~paste(.x,.y, sep = " = ")
-  ) %>% unlist() %>% paste(collapse=" , ")
-
-  #Capture name of data
-  data_name <- match.call()
-  data_name <- as.list(data_name[-1])$input_data %>% as.character()
-
-  #Layaout page
-  if(is.null(.layout)) .layout <- "l-body"
-  if(!.layout %in% c("l-body","l-body-outset","l-page","l-screen")) stop('the specified layout does not match those available. c("l-body","l-body-outset","l-page","l-screen")')
-  layaout_code <- paste0("::: {.",.layout,"}\n::: {.panelset}\n")
-
-  #knit code
-  knit_code <- NULL
-  for (i in 1:nrow(input_data)) {
-
-    #Capture time to diference same chunks
-    time_acual <- Sys.time() %>% as.character()
-
-    knit_code_individual <- paste0(":::{.panel}\n### `r ", data_name,"$",panel_name,"[[",i,
-                                   "]]` {.panel-name}\n```{r   `r ", time_acual," ", data_name,"$",panel_name,"[[",i,
-                                   "]]`, echo=FALSE, layout='",.layout,"', ",
-                                   parse_extra_argumnets,
-                                   "}\n\n ",data_name,"$",.output,"[[",i,
-                                   "]] \n\n```\n:::")
-
-    knit_code <- c(knit_code, knit_code_individual)
-
+automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills'){
+  
+  # Quosures
+  chunk_props <- list(...)
+  dataset_name <- rlang::enquo(input_data) %>% rlang::as_name()
+  
+  if(dplyr::is_grouped_df(input_data)){stop('input_data must be ungrouped')}
+  
+  # Parse Columns to extract
+  subsets <- paste0(dataset_name, '$', .output)
+  
+  # Parse Chunk options
+  if(purrr::is_empty(chunk_props)){
+    warning('chunk_props can not be empty, adding echo = FALSE to every chunk in this tabset')
+    chunk_props <- list(echo = F)
   }
-
-  #layout code + knit code + close ::: :::
-  knit_code <- c(layaout_code,knit_code,"\n:::\n:::")
-
-  #knirt code
-  paste(knitr::knit(text = knit_code), collapse = '\n')
-
+  
+  chunk_props_values <- unname(chunk_props) %>% purrr::map_if(is.character, ~sprintf("'%s'", .x))
+  .chunk_props <- paste0(paste(names(chunk_props), chunk_props_values, sep = ' = '), collapse = ', ')  
+  
+  # Loop variables
+  chunks <- list()
+  for(rown in 1:nrow(input_data)){
+    
+    .panel_output <- sprintf('%s[[%s]]', subsets, rown) %>% paste0(collapse = ' \n ')
+    .panel_name <- input_data %>% dplyr::slice(rown) %>% dplyr::pull(!!panel_name)
+    
+    # Create Individual Chunks
+    individual_chunk <- sprintf('::: {}\n
+### %s \n
+```{r `r automagic_chunk_%s_%s`, %s} \n %s \n ``` \n
+:::', .panel_name, dataset_name, .panel_name, .chunk_props, .panel_output)
+    
+    chunks <- c(chunks, individual_chunk)
+    
+  }
+  
+  # Create tabset panel
+  final_chunk <- sprintf('::::: {}\n
+## %s {.tabset %s} \n
+%s \n
+:::::', tabset_title, tabset_props, paste0(chunks, collapse = '\n'))
+  
+  knitr::knit(text = final_chunk)
+  
 }
+
