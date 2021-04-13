@@ -1,6 +1,10 @@
-# sknifedatar 0.0.0.9001 (2021-04-02)
+# sknifedatar 0.0.0.9002 (2021-04-13)
 
 ## Major changes
+
+* create `automagic_tabs2` to include more outputs in tabsets
+
+* removed dependency on `xaringanExtra::use_panelset` before call `automagic_tabs`
 
 * `multieval` no longer generates a graph for calculated metrics.
 
