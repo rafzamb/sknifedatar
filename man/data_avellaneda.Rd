@@ -3,9 +3,9 @@
 \docType{data}
 \name{data_avellaneda}
 \alias{data_avellaneda}
-\title{Flujo vehicular por peaje Avellaneda en la Ciudad Autónoma de Buenos Aires.}
+\title{Vehicle flow through Avellaneda toll in Ciudad Autónoma de Buenos Aires, Argentina.}
 \format{
-Un data frame con 4383 filas y 2 columnas, la variable date representa la fecha diaria, value la cantidad de vehículos que pasaron ese día por ese peaje.
+A dataframe with 4383 rows y 2 columns: date is the daily date, value is the number of vehicles no that day.
 }
 \source{
 \url{https://data.buenosaires.gob.ar/dataset/flujo-vehicular-por-unidades-peaje-ausa}
@@ -14,7 +14,7 @@ Un data frame con 4383 filas y 2 columnas, la variable date representa la fecha 
 data_avellaneda
 }
 \description{
-Los datos corresponden al \href{https://data.buenosaires.gob.ar/dataset/flujo-vehicular-por-unidades-peaje-ausa}{Flujo de vehículos livianos por Peaje Avellaneda en la Ciudad Autónoma de Buenos Aires}.
-Los datos disponibles incluyen el período Enero 2009 a Diciembre 2020.
+Data corresponds to \href{https://data.buenosaires.gob.ar/dataset/flujo-vehicular-por-unidades-peaje-ausa}{Vehicle flow through Avellaneda toll in Ciudad Autónoma de Buenos Aires.}.
+From January 2009 to December 2020.
 }
 \keyword{datasets}

@@ -2,30 +2,26 @@
 % Please edit documentation in R/modeltime_multiforecast.R
 \name{modeltime_multiforecast}
 \alias{modeltime_multiforecast}
-\title{Forecasting de múltiples modelos sobre múltiples series de tiempo}
+\title{Forecasting of multiple models over multiple time series}
 \usage{
 modeltime_multiforecast(models_table, .h = NULL, .prop = NULL)
 }
 \arguments{
-\item{models_table}{tibble que proviene del objeto "\strong{table_time de la salida}" de la función "\strong{modeltime_multifit}".}
+\item{models_table}{"\strong{table_time}" tibble generated with the "\strong{modeltime_multifit}" function.}
 
-\item{.h}{horizonte de predicción de la función "\strong{modeltime_forecast}".}
+\item{.h}{prediction horizon of the "\strong{modeltime_forecast}" function.}
 
-\item{.prop}{proporción de la partición de splits de las series de tiempo. En caso de no especificar "h", esta función
-predice sobre la particion de testing.}
+\item{.prop}{time series split partition ratio. If "h" is specified, this function predicts on the testing partition.}
 }
 \value{
-tibble correspondiente al mismmo suministardo en el parámetro "models_table", agregando una nueva columna llamada
-"nested_forecast" donde se guardan las predicciones.
+"models_table" tibble with a new column called "nested_forecast" where the predictions are stored.
 }
 \description{
-Esta función permite realizar un forecasting sobre múltiples series de tiempo a partir de
-múltiples modelos entrenados.
+This function allows forecasting on multiple time series from multiple fitted models
 }
 \details{
-Esta función toma el objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}", posteriormente
-aplica la función "\strong{modeltime_forecast}" del paquete de \href{https://business-science.github.io/modeltime/}{\strong{modeltime}}
-a cada uno de los múltiples modelos sobre múltiples series.
+This function takes the "\strong{table_time}" object generated with the "\strong{modeltime_multifit}" function, the "\strong{modeltime_forecast}"
+from the package \href{https://business-science.github.io/modeltime/}{\strong{modeltime}} is applied to each model for each series.
 }
 \examples{
 
