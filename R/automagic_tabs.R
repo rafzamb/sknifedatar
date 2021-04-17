@@ -3,7 +3,7 @@
 #' @description It allows to automatically generate the code necessary to group multiple Rmarkdown chunks
 #'              into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.
 #'
-#' @details given a tiblle, which must contain an "ID" column (representing the title of the tabs) and another
+#' @details given a tibble, which must contain an "ID" column (representing the title of the tabs) and another
 #'          column that stores the output to be generated (plot, text, code, ...), a string is automatically
 #'          generated which can be later rendered in a Rmarkdown document.
 #'

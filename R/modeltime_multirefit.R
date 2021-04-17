@@ -1,14 +1,14 @@
-#' @title Función para reajustar el o los modelos para múltiples series de tiempo
+#' @title Function to readjust the model or models for multiple time series
 #'
-#' @description Esta función permite aplicar la función "**modeltime_refit()**" de \href{https://business-science.github.io/modeltime/}{**modeltime**}
-#'              a múltiples series y modelos.
+#' @description This functions applies the "**modeltime_refit()**" function from the  \href{https://business-science.github.io/modeltime/}{**modeltime**} 
+#'              package to multiple series and models.
 #'
-#' @details Toma como input el objeto "**table_time**" de la salida de la función "**modeltime_multifit**" y
-#'          devuelve el mismo objeto pero entrenado en todo el período.
+#' @details It takes the "**table_time**" tibble generated with the  "**modeltime_multifit**" function and returns the same object but with
+#'          the models fitted for the complete period. 
 #'
-#' @param models_table tibble que proviene del objeto "**table_time**" de la salida de la función "**modeltime_multifit**".
+#' @param models_table "**table_time**" tibble generated from the "**modeltime_multifit**" function.
 #'
-#' @return Devuelve el objeto "**table_time**" recalibrado.
+#' @return Retrained "**table_time**" object
 #' @export
 #'
 #' @examples

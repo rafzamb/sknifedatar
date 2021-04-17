@@ -1,15 +1,15 @@
-#' @title Función para obtener el mejor modelo a partir de una modeltime table
+#' @title Function to obtain the best model from a modeltime table
 #'
-#' @description Esta función permite seleccionar el mejor modelo para cada serie, en función de determinada métrica de evaluación.
+#' @description This feature allows you to select the best model for each series, based on a specific evaluation metric.
 #'
-#' @details Esta función toma el objeto "**table_time**" de la salida de la función "**modeltime_multifit**",
-#'          posteriomente se selecciona el mejor modelo en función de la métrica seleccionada.
+#' @details This function takes the object "** table_time **" from the output of the function "** modeltime_multifit **",
+#'          and selects the best model based on the selected metric. 
 #'
-#' @param .table tibble que proviene del objeto "**table_time**" de la salida de la función "**modeltime_multifit**".
-#' @param .metric métrica de evaluación, proviene de "**modeltime_accuracy**": 'mae', 'mape','mase','smape','rmse','rsq'.
-#' @param .minimize valor logico, TRUE para minimizar la métrica de error, FALSE para maximizar, por defeto es TRUE.
+#' @param .table "**table_time**" tibble generated with the "**modeltime_multifit**" function.
+#' @param .metric evaluation metric, from "**modeltime_accuracy**": 'mae', 'mape','mase','smape','rmse','rsq'.
+#' @param .minimize boolean (default = TREUE), TRUE if the error metric should be minimized, FALSE in order to maximize it. 
 #'
-#' @return tibble table_time filtrada por el mejor modelo.
+#' @return table_time tibble filtered by the best model. 
 #' @export
 #' @importFrom utils head
 #'
