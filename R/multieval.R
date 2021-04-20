@@ -1,19 +1,18 @@
-#' @title Evaluación de múltiples métricas y predicciones
+#' @title Evaluation of multiple metrics and predictions
 #'
-#' @description Para un conjunto de predicciones de distintos modelos, permite evaluar múltiples métricas y devolver los resultados en un formato tabular que facilita la comparación de las predicciones.
+#' @description For a set of predictions from different models, evaluate multiple metrics and return the results in a tabular format that makes it easy to compare the predictions.
 #'
-#' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#modelos-de-series-de-tiempo}{Predicción de delitos/multieval}
+#' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#modelos-de-series-de-tiempo}{Crime prediction /multieval}
 #'
-#' @param .dataset data frame con las predicciones, debe tener como mínimo la columna con los datos observados y al menos una columna que haga referencia a las predicciones de un modelo.
-#' @param .observed string con el nombre de la columna que contiene los datos observados.
-#' @param .predictions string o vector de strings las columnas donde se almacenan las predicicones.
-#' @param .metrics métrica o conjunto de métricas que se desean evaluar, las métricas hacen referencias a las permitidas por
-#'   el paquete \href{https://yardstick.tidymodels.org/}{yardstick} de tidymodels.
-#' @param value_table TRUE para mostrar las métricas desagregadas.
+#' @param .dataset data frame with the predictions, it must have at least the column with the observed data and at least one column that refers to the predictions of a model.
+#' @param .observed string with the name of the column that contains the observed data.
+#' @param .predictions string or vector of strings the columns where the predictions are stored.
+#' @param .metrics metric or set of metrics to be evaluated, the metrics refer to those allowed by the package \href{https://yardstick.tidymodels.org/}{yardstick} from tidymodels.
+#' @param value_table TRUE to display disaggregated metrics.
 #'
 #' @importFrom rlang .data
 #'
-#' @return data frame con 4 columnas, siendo las mismas las métricas de evaluación, el estimador usado, el valor de la métrica y el nombre del modelo.
+#' @return data frame with 4 columns: the evaluation metrics, the estimator used, the value of the metric and the name of the model.
 #' @export
 #'
 #' @example man/examples/multieval_example.R
