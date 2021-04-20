@@ -12,17 +12,17 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    dplyr,
+    dplyr (>= 1.0.0),
     magrittr,
     purrr,
     data.table,
-    rlang,
+    rlang (>= 0.1.2),
     tidyr,
-    tibble,
+    tibble (>= 3.1.0),
     modeltime,
-    rsample,
-    parsnip,
-    tune,
+    rsample (>= 0.0.9),
+    parsnip (>= 0.1.4),
+    tune (>= 0.1.3),
     knitr,
     utils,
     workflowsets,
@@ -33,8 +33,8 @@ Depends:
     R (>= 3.6)
 Suggests: 
     erer,
-    workflows,
-    recipes,
+    workflows (>= 0.2.2),
+    recipes (>= 0.1.15),
     ggplot2,
-    yardstick,
-    timetk
+    yardstick (>= 0.0.8),
+    timetk (>= 2.6.0)
