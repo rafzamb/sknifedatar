@@ -45,7 +45,7 @@
 #' unlink("figure", recursive = TRUE)
 #'
 automagic_tabs2 <- function(input_data, panel_name, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills', 
-                            chunk_props = list(echo = FALSE, fig.align = "center"), is_output_distill = FALSE){
+                            chunk_props = list(echo = FALSE, fig.align = "center"), is_output_distill = TRUE){
   
   # Quosures
   dataset_name <- rlang::enquo(input_data) %>% rlang::as_name()

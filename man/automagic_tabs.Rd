@@ -11,7 +11,7 @@ automagic_tabs(
   ...,
   tabset_title = "",
   tabset_props = ".tabset-fade .tabset-pills",
-  is_output_distill = FALSE
+  is_output_distill = TRUE
 )
 }
 \arguments{
@@ -59,7 +59,7 @@ dataset <- iris \%>\%
   ) \%>\% 
   ungroup()
 
-automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot")
+automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot", fig.align='center')
 
 unlink("figure", recursive = TRUE)
 

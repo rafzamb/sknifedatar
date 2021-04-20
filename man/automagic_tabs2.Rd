@@ -11,7 +11,7 @@ automagic_tabs2(
   tabset_title = "",
   tabset_props = ".tabset-fade .tabset-pills",
   chunk_props = list(echo = FALSE, fig.align = "center"),
-  is_output_distill = FALSE
+  is_output_distill = TRUE
 )
 }
 \arguments{
