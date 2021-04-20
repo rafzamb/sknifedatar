@@ -29,6 +29,7 @@
 #' library(ggplot2)
 #' library(purrr)
 #' library(sknifedatar)
+#' library(tidyr)
 #'
 #' dataset <- iris %>% 
 #'   group_by(Species) %>% 
@@ -39,9 +40,11 @@
 #'   ungroup()
 #'
 #' automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot")
-#'
-#'
-automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills', is_output_distill = F){
+#' 
+#' unlink("figure", recursive = TRUE)
+#' 
+automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '',
+                           tabset_props = '.tabset-fade .tabset-pills', is_output_distill = FALSE){
   
   # Quosures
   chunk_props <- list(...)
