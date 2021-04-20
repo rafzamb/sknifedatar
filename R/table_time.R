@@ -1,11 +1,8 @@
-#' @title Modelos ajustados para el indicador EMAE
+#' @title Adjusted models for the EMAE indicator
 #'
-#' @description Conjunto de modelos ajustados sobre el "emae_series" dataset, este objeto proviene de la salida de la función
-#'              modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time
+#' @description Set of models fitted on the "emae_series" dataset, this object comes from the output of the modeltime_multifit function. For example, if object = modeltime_multifit then object$table_time is the fitted models table.
 #'
-#' @format un tibble que contiene una primera columna con el nombre de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-#'         modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie. Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
-#'         partición de test.
+#' @format a tibble that contains a first column with the name of the series, then the "nested_column" column that stores the time series, then a column for each supplied model where the models or trained workflows for each series are stored. Finally the columns "nested_model" and "calibration" that store the "n" trained models for each series and the adjustment metrics on the test partition.
 #'
 #' @source \url{https://rafzamb.github.io/sknifedatar}
 "table_time"

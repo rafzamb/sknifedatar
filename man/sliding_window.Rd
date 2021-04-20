@@ -2,39 +2,34 @@
 % Please edit documentation in R/sliding_window.R
 \name{sliding_window}
 \alias{sliding_window}
-\title{Trasnformación de ventana deslizante movil}
+\title{Mobile sliding window transformation}
 \usage{
 sliding_window(data, inicio, pliegues, variables)
 }
 \arguments{
-\item{data}{data frame que contiene conteos históricos de distintos eventos en espacios de tiempo mensuales.
-Cada fila es una observación única y las columnas corresponden a los distintos meses de estudio. Las
-variables deben tener palabras claves para poder seleccionarlas en conjunto. Para ver un ejemplo de la estructura de
-los datos, puede consultarse el dataset tal contenido en este paquete.}
+\item{data}{dataframe that contains historical counts of different events in monthly time frames.
+Each row is a unique observation and the columns corresponding to the different months of study. The
+variables must have keywords to be able to select them together. To see an example of the structure of
+the data, the dataset such contained in this package can be used}
 
-\item{inicio}{mes inicial, formato numerico entero}
+\item{inicio}{initial month, integer numeric format}
 
-\item{pliegues}{vector que inicia en 1 y termina en el número de periodos que se desee recorrer.}
+\item{pliegues}{vector that starts at 1 and ends in the number of periods to be traversed.}
 
-\item{variables}{una palabra o vector que permita seleccionar las variables en conjunto e implementar la función
-para cada grupo}
+\item{variables}{a word or vector that allows you to select the variables together and implement the function
+for each group}
 }
 \value{
-Un data frame con el ID de la observaciones y los distintos espacios de tiempo de conteo calculados por
+A data frame with the ID of the observations and the different counting time slots calculated by
 variables
 }
 \description{
-Esta función permite aplicar una trasnformación de ventana deslizante movil mensual sobre un
-conjunto de datos.
+This function allows to apply a monthly moving sliding window transformation on a data set.
 }
 \details{
-El funcionamiento es el siguiente, es seleccionado el mes intermedio “t” de todo el periodo de estudio,
-posteriormente se calcula el número de eventos ocurridos para cada obervacion  en el mes anterior,
-en los últimos 3 meses, 6 meses, 12 meses y el mismo mes del año anterior.
+The operation is as follows, the intermediate month "t" of the entire study period is selected, then the number of events that occurred for each observation in the previous month is calculated, in the last 3 months, 6 months, 12 months and the same month of the previous year.
 
-El procedimiento descrito anteriormente es replicado de manera móvil, es decir, rodando la ventana temporal
-desde t+1 hasta n, siendo n el último mes de estudio. Para ver un caso de uso real,
-visitar \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci\%C3\%B3n-de-ventanas-deslizantes}{Crime analysis with tidymodels}
+The procedure described above is replicated in a mobile manner, that is, rolling the time window from t + 1 to n, where n is the last month of study. To see a real use case, visit \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci\%C3\%B3n-de-ventanas-deslizantes}{Crime analysis with tidymodels}
 }
 \examples{
 pliegues = 1:13

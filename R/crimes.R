@@ -1,19 +1,20 @@
-#' Muestra de delitos ocurridos en la ciudad de Buenos Aires
+#' Buenos Aires crimes data
 #'
-#' Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019.
-#' Los datos fueron extraídos del repositorio público del \href{https://data.buenosaires.gob.ar/dataset/delitos/}{GCABA}
+#' @description 
+#' Data set that records the date, time, type of crime and geolocation of crimes that occurred between 2017 and 2019.
+#' The data was extracted from the public repository of \href{https://data.buenosaires.gob.ar/dataset/delitos/}{GCBA}
 #'
-#' @format data frame con 100 filas y 9 columnas:
+#' @format data frame with 100 rows y 9 columns:
 #' \describe{
 #'   \item{id:}{id}
-#'   \item{fecha:}{fecha}
-#'   \item{franja_horaria:}{horas del 0 al 23}
-#'   \item{tipo_delito:}{tipo_delito}
-#'   \item{subtipo_delito:}{subtipo_delito}
-#'   \item{comuna:}{comuna de CABA}
-#'   \item{barrio:}{barrio de CABA}
-#'   \item{lat:}{latitud}
-#'   \item{long:}{longitud}
+#'   \item{fecha:}{date}
+#'   \item{franja_horaria:}{hour from 0 to 23}
+#'   \item{tipo_delito:}{crime type}
+#'   \item{subtipo_delito:}{crime subtype}
+#'   \item{comuna:}{commune}
+#'   \item{barrio:}{neighborhood}
+#'   \item{lat:}{latitude}
+#'   \item{long:}{longitude}
 #'   ...
 #' }
 #'

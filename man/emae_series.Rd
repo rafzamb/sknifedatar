@@ -3,10 +3,9 @@
 \docType{data}
 \name{emae_series}
 \alias{emae_series}
-\title{Series del indicaro EMAE}
+\title{Time series of the monthly estimator of Argentine economic activity, grouped by sector}
 \format{
-Un data frame con 3104 filas y 3 columnas, la variable "date" representa la fecha mensual, "value" el valor mensual del indicador y
-la columna sector indica el id o sector económico de las series.
+A data frame with 3104 rows and 3 columns, the variable "date" represents the monthly date, "value" the monthly value of the indicator and the sector column indicates the id or economic sector of the series.
 }
 \source{
 \url{https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13}
@@ -15,9 +14,7 @@ la columna sector indica el id o sector económico de las series.
 emae_series
 }
 \description{
-El EMAE es un indicador que refleja la evolución mensual de la actividad económica del conjunto de los
-sectores productivos a nivel nacional para Argentina, para mas detalles consultar \href{https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-9-48}{EMAE indicador}.
-Se obtuvieron datos de todas las series de EMAE sectorial, desde Enero 2004 hasta Octubre 2020, los datos
-fueron extraidos desde \href{https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13}{Series de Tiempo (API)} del Gobierno de la Ciudad de Buenos Aires.
+The EMAE is an indicator that reflects the monthly evolution of the economic activity of all the
+productive sectors nationwide for Argentina, for more details: \href{https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-9-48}{EMAE indicador}. Data was obtained from all the sectoral EMAE series, from January 2004 to October 2020, from \href{https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13}{Time Series (API)} from the Government Open Data Portal.
 }
 \keyword{datasets}

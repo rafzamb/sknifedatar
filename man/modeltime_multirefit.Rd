@@ -2,23 +2,23 @@
 % Please edit documentation in R/modeltime_multirefit.R
 \name{modeltime_multirefit}
 \alias{modeltime_multirefit}
-\title{Función para reajustar el o los modelos para múltiples series de tiempo}
+\title{Function to readjust the model or models for multiple time series}
 \usage{
 modeltime_multirefit(models_table)
 }
 \arguments{
-\item{models_table}{tibble que proviene del objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}".}
+\item{models_table}{"\strong{table_time}" tibble generated from the "\strong{modeltime_multifit}" function.}
 }
 \value{
-Devuelve el objeto "\strong{table_time}" recalibrado.
+Retrained "\strong{table_time}" object
 }
 \description{
-Esta función permite aplicar la función "\strong{modeltime_refit()}" de \href{https://business-science.github.io/modeltime/}{\strong{modeltime}}
-a múltiples series y modelos.
+This functions applies the "\strong{modeltime_refit()}" function from the  \href{https://business-science.github.io/modeltime/}{\strong{modeltime}}
+package to multiple series and models.
 }
 \details{
-Toma como input el objeto "\strong{table_time}" de la salida de la función "\strong{modeltime_multifit}" y
-devuelve el mismo objeto pero entrenado en todo el período.
+It takes the "\strong{table_time}" tibble generated with the  "\strong{modeltime_multifit}" function and returns the same object but with
+the models fitted for the complete period.
 }
 \examples{
 
