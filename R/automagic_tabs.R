@@ -16,7 +16,8 @@
 #' @param ... additional parameters that correspond to all those available in rmarkdown chunks
 #'            (fig.align, fig.width, ...).
 #' @param tabset_title string title of the .tabset 
-#' @param tabset_props string defining .tabset properties
+#' @param tabset_props string defining .tabset properties. Only works with is_output_distill = F
+#' @param is_output_distill boolean. is output a distill article?
 #'
 #' @return concatenated string of all automatically generated chunks.
 #'
@@ -40,16 +41,18 @@
 #' automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot")
 #'
 #'
-automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills'){
+automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills', is_output_distill = F){
   
   # Quosures
   chunk_props <- list(...)
   dataset_name <- rlang::enquo(input_data) %>% rlang::as_name()
+  panel_col <- rlang::enquo(panel_name)
+  vars <-  rlang::enquo(.output) %>% rlang::as_name()
   
   if(dplyr::is_grouped_df(input_data)){stop('input_data must be ungrouped')}
   
   # Parse Columns to extract
-  subsets <- paste0(dataset_name, '$', .output)
+  subsets <- paste0(dataset_name, '$', vars)
   
   # Parse Chunk options
   if(purrr::is_empty(chunk_props)){
@@ -60,28 +63,39 @@ automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = 
   chunk_props_values <- unname(chunk_props) %>% purrr::map_if(is.character, ~sprintf("'%s'", .x))
   .chunk_props <- paste0(paste(names(chunk_props), chunk_props_values, sep = ' = '), collapse = ', ')  
   
+  # Distill Output
+  if(is_output_distill){
+    aux_1 <- ''
+    aux_2 <- '.panelset'
+    aux_3 <- '.panel'
+  } else{
+    aux_1 <- '.tabset'
+    aux_2 <- ''
+    aux_3 <- ''
+  }
+  
   # Loop variables
   chunks <- list()
   for(rown in 1:nrow(input_data)){
     
     .panel_output <- sprintf('%s[[%s]]', subsets, rown) %>% paste0(collapse = ' \n ')
-    .panel_name <- input_data %>% dplyr::slice(rown) %>% dplyr::pull(!!panel_name)
+    .panel_name <- input_data %>% dplyr::slice(rown) %>% dplyr::pull(!!panel_col)
     
     # Create Individual Chunks
-    individual_chunk <- sprintf('::: {}\n
+    individual_chunk <- sprintf('::: {%s}\n
 ### %s \n
 ```{r `r automagic_chunk_%s_%s`, %s} \n %s \n ``` \n
-:::', .panel_name, dataset_name, .panel_name, .chunk_props, .panel_output)
+:::', aux_3, .panel_name, dataset_name, .panel_name, .chunk_props, .panel_output)
     
     chunks <- c(chunks, individual_chunk)
     
   }
   
   # Create tabset panel
-  final_chunk <- sprintf('::::: {}\n
-## %s {.tabset %s} \n
+  final_chunk <- sprintf('## %s {%s %s} \n
+::::: {%s}\n
 %s \n
-:::::', tabset_title, tabset_props, paste0(chunks, collapse = '\n'))
+:::::', tabset_title, aux_1, tabset_props, aux_2, paste0(chunks, collapse = '\n'))
   
   knitr::knit(text = final_chunk)
   
