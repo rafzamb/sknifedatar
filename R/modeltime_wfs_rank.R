@@ -3,9 +3,9 @@
 #' @description This function generates a ranking of models generated with modeltime_wfs_fit 
 #' 
 #' @details The ranking depends on the metric selected
-#' 
-#' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
-#' 
+#'
+#' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
+#'
 #' @param .wfs_results a tibble generated with the modeltime_wfs_fit function
 #' @param rank_metric the metric used to generate the ranking 'mae', 'mape','mase','smape','rmse','rsq'.
 #' @param minimize a boolean indicating whether to minimize (TRUE) or maximize (FALSE) the metric

@@ -21,8 +21,6 @@ This function generates a ranking of models generated with modeltime_wfs_fit
 }
 \details{
 The ranking depends on the metric selected
- 
- @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 }
 \examples{
 library(sknifedatar)
@@ -62,4 +60,7 @@ wffits
 modeltime_wfs_rank(.wfs_results = wffits,
                    rank_metric = 'rsq',
                    minimize = FALSE)
+}
+\seealso{
+\href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 }
