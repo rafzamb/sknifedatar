@@ -112,7 +112,7 @@ modeltime_multifit <- function(serie, .prop, ...){
       dplyr::mutate(name_serie = name_ts) %>%
       dplyr::relocate(.data$name_serie)
 
-  }, table_time$calibration, table_time$sector, SIMPLIFY = F) %>% dplyr::bind_rows()
+  }, table_time$calibration, table_time[[1]], SIMPLIFY = F) %>% dplyr::bind_rows()
 
   list(table_time = table_time,
        models_accuracy = models_accuracy)
