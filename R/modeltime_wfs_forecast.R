@@ -84,5 +84,5 @@ modeltime_wfs_forecast <- function(.wfs_results, .series, .split_prop = NULL, .h
   .forecast %>% 
     modeltime::modeltime_forecast(h = .h, 
                                   actual_data = .series, 
-                                  .new_data = .new_data)
+                                  new_data = .new_data)
 }
