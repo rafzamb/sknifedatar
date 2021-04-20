@@ -2,6 +2,7 @@
 
 export("%>%")
 export(automagic_tabs)
+export(automagic_tabs2)
 export(insert_na)
 export(modeltime_multibestmodel)
 export(modeltime_multifit)

@@ -1,22 +1,22 @@
-#' @title Automatic Generation of Tabs
+#' @title Automatic Generation of Tabs with multiple outputs
 #'
 #' @description It allows to automatically generate the code necessary to group multiple Rmarkdown chunks
 #'              into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.
 #'
-#' @details given a tibble, which must contain an "ID" column (representing the title of the tabs) and another
-#'          column that stores the output to be generated (plot, text, code, ...), a string is automatically
+#' @details Given a tiblle, which must contain an "ID" column (representing the title of the tabs) and other
+#'          columns that stores output to be generated (plot, text, code, ...), a string is automatically
 #'          generated which can be later rendered in a Rmarkdown document.
 #'
 #' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
 #' @param input_data Ungrouped tibble with at least 2 columns, one for the title of the tabs and another with
 #'                    the output to be displayed.
-#' @param panel_name string with the name of the ID column.
-#' @param .output string with the name of the column of the output.
-#' @param ... additional parameters that correspond to all those available in rmarkdown chunks
-#'            (fig.align, fig.width, ...).
+#' @param panel_name column with the ID variable.
+#' @param ... nested columns that contain outputs to display.
 #' @param tabset_title string title of the .tabset 
 #' @param tabset_props string defining .tabset properties. Only works with is_output_distill = F
+#' @param chunk_props named list with additional parameters that correspond to all those available in rmarkdown chunks
+#'            (fig.align, fig.width, ...).
 #' @param is_output_distill boolean. is output a distill article?
 #'
 #' @return concatenated string of all automatically generated chunks.
@@ -35,22 +35,22 @@
 #'   group_by(Species) %>% 
 #'   nest() %>% 
 #'   mutate(
-#'     .plot = map(data, ~ggplot(.x, aes(x = Sepal.Length, y = Petal.Length)) + geom_point())
+#'     .plot = map(data, ~ggplot(.x, aes(x = Sepal.Length, y = Petal.Length)) + geom_point()),
+#'     .table = map(data, ~summary(.x) %>% knitr::kable())
 #'   ) %>% 
 #'   ungroup()
 #'
-#' automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot")
+#' automagic_tabs2(input_data = dataset, panel_name = Species, .plot, .table)
 #' 
 #' unlink("figure", recursive = TRUE)
-#' 
-automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '',
-                           tabset_props = '.tabset-fade .tabset-pills', is_output_distill = FALSE){
+#'
+automagic_tabs2 <- function(input_data, panel_name, ..., tabset_title = '', tabset_props = '.tabset-fade .tabset-pills', 
+                            chunk_props = list(echo = FALSE, fig.align = "center"), is_output_distill = FALSE){
   
   # Quosures
-  chunk_props <- list(...)
   dataset_name <- rlang::enquo(input_data) %>% rlang::as_name()
   panel_col <- rlang::enquo(panel_name)
-  vars <-  rlang::enquo(.output) %>% rlang::as_name()
+  vars <- rlang::enquos(..., .named = TRUE) %>% names()
   
   if(dplyr::is_grouped_df(input_data)){stop('input_data must be ungrouped')}
   
@@ -75,6 +75,7 @@ automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = 
     aux_1 <- '.tabset'
     aux_2 <- ''
     aux_3 <- ''
+    
   }
   
   # Loop variables
@@ -103,4 +104,3 @@ automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = 
   knitr::knit(text = final_chunk)
   
 }
-
