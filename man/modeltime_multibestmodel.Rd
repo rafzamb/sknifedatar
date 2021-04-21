@@ -4,14 +4,23 @@
 \alias{modeltime_multibestmodel}
 \title{Function to obtain the best model from a modeltime table}
 \usage{
-modeltime_multibestmodel(.table, .metric = NULL, .minimize = TRUE)
+modeltime_multibestmodel(
+  .table,
+  .metric = NULL,
+  .minimize = TRUE,
+  .forecast = TRUE
+)
 }
 \arguments{
 \item{.table}{"\strong{table_time}" tibble generated with the "\strong{modeltime_multifit}" function.}
 
 \item{.metric}{evaluation metric, from "\strong{modeltime_accuracy}": 'mae', 'mape','mase','smape','rmse','rsq'.}
 
-\item{.minimize}{boolean (default = TREUE), TRUE if the error metric should be minimized, FALSE in order to maximize it.}
+\item{.minimize}{boolean (default = TRUE), TRUE if the error metric should be minimized, FALSE in order to maximize it.}
+
+\item{.forecast}{boolean (default = TRUE), If it is TRUE, it indicates that the "\strong{modeltime_multi forecast}"
+function has already been applied to the object that enters the "\strong{.table}" parameter.
+This is evaluated by the existence of the column "nested_forecast".}
 }
 \value{
 table_time tibble filtered by the best model.
@@ -25,18 +34,13 @@ and selects the best model based on the selected metric.
 }
 \examples{
 
-## libraries
-library(modeltime)
-library(sknifedatar)
-
 # Data
 data_serie <- sknifedatar::table_time
                                       
 # best_model_emae
-best_model_emae <- modeltime_multibestmodel(.table = data_serie$table_time,
-                                            .metric = "rmse",
-                                            .minimize = TRUE)
-
-best_model_emae
+sknifedatar::modeltime_multibestmodel(.table = data_serie$table_time,
+                                      .metric = "rmse",
+                                      .minimize = TRUE,
+                                      .forecast = FALSE)
 
 }

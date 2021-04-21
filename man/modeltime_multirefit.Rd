@@ -28,7 +28,6 @@ data_serie <- sknifedatar::table_time
 table_time <- data_serie$table_time
 
 # modeltime_multirefit
-table_time_refit <- sknifedatar::modeltime_multirefit(models_table = table_time)
+sknifedatar::modeltime_multirefit(models_table = table_time)
 
-table_time_refit
 }

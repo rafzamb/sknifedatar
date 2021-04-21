@@ -46,17 +46,15 @@ generated which can be later rendered in a Rmarkdown document.
 \examples{
 
 library(dplyr)
-library(ggplot2)
-library(purrr)
 library(sknifedatar)
-library(tidyr)
+library(ggplot2)
 
 dataset <- iris \%>\% 
   group_by(Species) \%>\% 
-  nest() \%>\% 
+  tidyr::nest() \%>\% 
   mutate(
-    .plot = map(data, ~ggplot(.x, aes(x = Sepal.Length, y = Petal.Length)) + geom_point()),
-    .table = map(data, ~summary(.x) \%>\% knitr::kable())
+    .plot = purrr::map(data, ~ ggplot(.x, aes(x = Sepal.Length, y = Petal.Length)) + geom_point()),
+    .table = purrr::map(data, ~ summary(.x) \%>\% knitr::kable())
   ) \%>\% 
   ungroup()
 

@@ -29,8 +29,6 @@ from the package \href{https://business-science.github.io/modeltime/}{\strong{mo
 data_serie <- sknifedatar::table_time
                                      
 # Forecast
-forecast_emae <- sknifedatar::modeltime_multiforecast(data_serie$table_time,
-                                         .prop=0.8)
+sknifedatar::modeltime_multiforecast(data_serie$table_time, .prop=0.8)
 
-forecast_emae
 }

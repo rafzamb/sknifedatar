@@ -19,20 +19,18 @@
 #' table_time <- data_serie$table_time
 #'
 #' # modeltime_multirefit
-#' table_time_refit <- sknifedatar::modeltime_multirefit(models_table = table_time)
+#' sknifedatar::modeltime_multirefit(models_table = table_time)
 #'
-#' table_time_refit
 modeltime_multirefit <- function(models_table){
 
   t_calibration <- models_table$calibration
   t_serie <- models_table$nested_column
 
   m_refit <- mapply(function(t_calibration, t_serie){
-
-    t_calibration %>%
-      modeltime::modeltime_refit(t_serie)
-
-  },t_calibration, t_serie, SIMPLIFY = F)
+    
+    t_calibration %>% modeltime::modeltime_refit(t_serie)
+    
+    }, t_calibration, t_serie, SIMPLIFY = F)
 
   output_def <- models_table
   output_def$calibration <- m_refit

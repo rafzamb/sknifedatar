@@ -18,31 +18,39 @@
 #' data_serie <- sknifedatar::table_time
 #'                                      
 #' # Forecast
-#' forecast_emae <- sknifedatar::modeltime_multiforecast(data_serie$table_time,
-#'                                          .prop=0.8)
+#' sknifedatar::modeltime_multiforecast(data_serie$table_time, .prop=0.8)
 #'
-#' forecast_emae
 modeltime_multiforecast <- function(models_table,
                                     .h = NULL,
                                     .prop = NULL) {
 
   models_table %>%
-    dplyr::mutate(nested_forecast = purrr::pmap(list(calibration, nested_column),
-                                                function(x = calibration, y = nested_column){
-                                                  x %>%
-                                                    modeltime::modeltime_forecast(
-                                                      new_data    =  if (is.null(.h)) {
-
-                                                        rsample::initial_time_split(y, prop = .prop) %>% rsample::testing()
-
-                                                      } else {
-                                                        NULL
-                                                      },
-                                                      h=.h,
-                                                      actual_data = y) %>%
-                                                    dplyr::mutate(
-                                                      .model_details = .model_desc,
-                                                      .model_desc = gsub("[[:punct:][:digit:][:cntrl:]]","", .model_desc)
-                                                    )
-                                                }))
-}
+    
+    dplyr::mutate(
+      
+      nested_forecast = purrr::pmap(list(calibration, nested_column),
+                                    
+                                    function(x = calibration, y = nested_column){
+                                      
+                                      x %>% modeltime::modeltime_forecast(
+                                        
+                                        new_data = if (is.null(.h)) {
+                                          
+                                          rsample::initial_time_split(y, prop = .prop) %>% rsample::testing()
+                                          
+                                          } else {NULL},
+                                        
+                                        h = .h,
+                                        
+                                        actual_data = y) %>%
+                                        
+                                        dplyr::mutate(
+                                          
+                                          .model_details = .model_desc,
+                                          
+                                          .model_desc = gsub("[[:punct:][:digit:][:cntrl:]]","", .model_desc)
+                                          )
+                                      }
+                                    )
+    )
+  }

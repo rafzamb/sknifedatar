@@ -25,39 +25,35 @@ Forecast from a set of recipes and models trained by modeltime_wfs_fit
 Since it uses the modeltime_forecast() function from modeltime, either the forecast can be made on new data or on a number of periods.
 }
 \examples{
-library(sknifedatar)
-library(recipes)
+library(dplyr)
 library(modeltime)
-library(workflowsets)
-library(workflows)
-library(parsnip)
-library(timetk)
-data <- sknifedatar::data_avellaneda \%>\% 
-mutate(date=as.Date(date)) \%>\% 
-  filter(date<'2012-06-01')
 
-recipe_date <- recipe(value ~ ., data = data) \%>\% 
-  step_date(date, features = c('dow','doy','week','month','year')) 
+data <- sknifedatar::data_avellaneda \%>\%  mutate(date=as.Date(date)) \%>\% 
+filter(date<'2012-06-01')
+
+recipe_date <- recipes::recipe(value ~ ., data = data) \%>\% 
+  recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 
 recipe_date_lag <- recipe_date \%>\% 
-  step_lag(value, lag = 7) \%>\% 
-  step_ts_impute(all_numeric(), period=365)
+  recipes::step_lag(value, lag = 7) \%>\% 
+  timetk::step_ts_impute(all_numeric(), period=365)
 
-mars <- mars(mode = 'regression') \%>\%
-  set_engine('earth')
+mars <- parsnip::mars(mode = 'regression') \%>\%
+  parsnip::set_engine('earth')
 
-wfsets <- workflow_set(
+wfsets <- workflowsets::workflow_set(
   preproc = list(
     R_date = recipe_date,
     R_date_lag = recipe_date_lag),
   models  = list(M_mars = mars),
   cross   = TRUE)
 
-wffits <- modeltime_wfs_fit(.wfsets = wfsets, 
-                            .split_prop = 0.8, 
-                            .serie=data)
-wfforecast <- modeltime_wfs_forecast(.wfs_results=wffits, 
-                                     .series = data,
-                                     .split_prop = 0.8) 
-wfforecast
+wffits <- sknifedatar::modeltime_wfs_fit(.wfsets = wfsets, 
+                                         .split_prop = 0.8, 
+                                         .serie=data)
+                            
+sknifedatar::modeltime_wfs_forecast(.wfs_results=wffits, 
+                                    .series = data,
+                                    .split_prop = 0.8) 
+                                     
 }

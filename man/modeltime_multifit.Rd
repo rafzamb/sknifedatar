@@ -34,19 +34,17 @@ of the models separated by commas. The function admits as many models as require
 \examples{
 
 # Generate "table_time" object
-## libraries
-library(modeltime)
-library(parsnip)
 
 ## Data
+library(modeltime)
 nested_serie <- 
 tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2006-02-01'),
             nested_column = -sector)
 
 ## Models
-m_ets <- set_engine(exp_smoothing(), 'ets')
+m_ets <- parsnip::set_engine(modeltime::exp_smoothing(), 'ets')
 
-m_nnetar <- set_engine(nnetar_reg(), "nnetar")
+m_nnetar <- parsnip::set_engine(modeltime::nnetar_reg(), "nnetar")
 
 # modeltime_multifit
 sknifedatar::modeltime_multifit(serie = head(nested_serie,2),

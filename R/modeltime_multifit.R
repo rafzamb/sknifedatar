@@ -29,19 +29,17 @@
 #' @examples
 #'
 #' # Generate "table_time" object
-#' ## libraries
-#' library(modeltime)
-#' library(parsnip)
 #'
 #' ## Data
+#' library(modeltime)
 #' nested_serie <- 
 #' tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2006-02-01'),
 #'             nested_column = -sector)
 #'
 #' ## Models
-#' m_ets <- set_engine(exp_smoothing(), 'ets')
+#' m_ets <- parsnip::set_engine(modeltime::exp_smoothing(), 'ets')
 #'
-#' m_nnetar <- set_engine(nnetar_reg(), "nnetar")
+#' m_nnetar <- parsnip::set_engine(modeltime::nnetar_reg(), "nnetar")
 #'
 #' # modeltime_multifit
 #' sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
@@ -51,49 +49,52 @@
 #'
 modeltime_multifit <- function(serie, .prop, ...){
 
-  # Funcion de ajuste
-  nest_fit <- function(serie, model, .proporcion = .prop){
+  #Fit Function
+  nest_fit <- function(serie, model, .proportion = .prop){
 
     if (tune::is_workflow(model) == TRUE) {
 
-      model %>% parsnip::fit(data = rsample::training(rsample::initial_time_split(serie, prop= .proporcion)))
+      model %>% parsnip::fit(data = rsample::training(rsample::initial_time_split(serie, prop= .proportion)))
 
     }else{
       model %>%
 
-        parsnip::fit(value ~ date, data = rsample::training(rsample::initial_time_split(serie, prop=.proporcion)))
+        parsnip::fit(value ~ date, data = rsample::training(rsample::initial_time_split(serie, prop=.proportion)))
     }
   }
 
-  # Nombrado de multiples argumentos
+  #Naming of multiple arguments
   exprs <- substitute(list(...))
   list_model <- list(...)
   names(list_model) <- vapply(as.list(exprs), deparse, "")[-1]
-  nombres <- names(list_model)
+  names_list_model <- names(list_model)
 
-  #Funcion de ajuste multiple
-  models_fits <- mapply(function(modelo, name_model, prop){
+  #Multiple fit function
+  models_fits <- mapply(function(.model, name_model, prop){
 
-    tabla <- serie %>%
-      dplyr::mutate("{name_model}" := purrr::map(nested_column, ~ nest_fit(serie = .x , model = modelo, .proporcion = prop))) %>%
+    table_models <- serie %>%
+      dplyr::mutate("{name_model}" := purrr::map(nested_column, ~ nest_fit(serie = .x , model = .model, .proportion = prop))) %>%
       dplyr::select(3)
 
-  },list_model, nombres, prop = .prop, SIMPLIFY = F)
+  },list_model, names_list_model, prop = .prop, SIMPLIFY = F)
 
   time_data <- dplyr::bind_cols(serie, models_fits)
 
-  # Tabla de modeltime_table
-  # Captura de la expresion list(model_1, model_2, model_3,....)
+  #modeltime_table table
+  #Expression capture list(model_1, model_2, model_3,....)
   exp1 <- colnames(time_data)[3:ncol(time_data)]
   exp2 <- paste("list(",paste(exp1, collapse = ","),")")
   exp3 <- parse(text = exp2)
 
-  # Nueva columna con todos los modelos por serie
+  # New column with all models per series
   table_time <- time_data %>%
 
-    dplyr::mutate(nested_model = purrr::pmap(eval(exp3), .f = function(...) {modeltime::modeltime_table(...)}),
+    dplyr::mutate(nested_model = purrr::pmap(eval(exp3),
+                                             .f = function(...) {modeltime::modeltime_table(...)})
+                  ) %>% 
 
-                  calibration = purrr::pmap(list(nested_model, nested_column), function(x = nested_model, y = nested_column) {
+    dplyr::mutate(calibration = purrr::pmap(list(nested_model, nested_column),
+                                            .f = function(x = nested_model, y = nested_column) {
 
                     x %>%
 
@@ -101,10 +102,7 @@ modeltime_multifit <- function(serie, .prop, ...){
 
                   }))
 
-  # Nombre a los elementos de la lista de calibration
-  #names(table_time$calibration) = table_time[,1]
-
-  # Metricas de los modelos
+  #Models metrics
   models_accuracy <- mapply(function(calibracion, name_ts) {
 
     calibracion %>%

@@ -18,38 +18,30 @@
 #'
 #' @examples
 #' library(sknifedatar)
-#' library(recipes)
-#' library(modeltime)
-#' library(workflowsets)
-#' library(workflows)
-#' library(parsnip)
-#' library(timetk)
+#' library(dplyr)
 #' 
-#' data <- sknifedatar::data_avellaneda %>% 
-#'   mutate(date=as.Date(date)) %>% 
-#'   filter(date<'2012-06-01')
+#' data <- sknifedatar::data_avellaneda %>% mutate(date=as.Date(date)) %>% filter(date<'2012-06-01')
 #' 
-#' recipe_date <- recipe(value ~ ., data = data) %>% 
-#'   step_date(date, features = c('dow','doy','week','month','year')) 
+#' recipe_date <- recipes::recipe(value ~ ., data = data) %>% 
+#'   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 #' 
 #' recipe_date_lag <- recipe_date %>% 
-#'   step_lag(value, lag = 7) %>% 
-#'   step_ts_impute(all_numeric(), period=365)
+#'   recipes::step_lag(value, lag = 7) %>% 
+#'   timetk::step_ts_impute(all_numeric(), period=365)
 #' 
-#' mars <- mars(mode = 'regression') %>%
-#'   set_engine('earth')
+#' mars <- parsnip::mars(mode = 'regression') %>% parsnip::set_engine('earth')
 #' 
-#' wfsets <- workflow_set(
+#' wfsets <- workflowsets::workflow_set(
 #'   preproc = list(
 #'     R_date = recipe_date,
 #'     R_date_lag = recipe_date_lag),
 #'   models  = list(M_mars = mars),
 #'   cross   = TRUE)
 #' 
-#' wffits <- modeltime_wfs_fit(.wfsets = wfsets, 
-#'                             .split_prop = 0.8, 
-#'                             .serie=data)
-#' wffits
+#' modeltime_wfs_fit(.wfsets = wfsets, 
+#'                   .split_prop = 0.8, 
+#'                   .serie = data)
+#'                             
 modeltime_wfs_fit <- function(.wfsets, .split_prop, .serie) {
   list_models <- .wfsets %>% split(.$wflow_id)
   
