@@ -73,7 +73,7 @@ modeltime_multifit <- function(serie, .prop, ...){
   models_fits <- mapply(function(.model, name_model, prop){
 
     table_models <- serie %>%
-      dplyr::mutate("{name_model}" := purrr::map(nested_column, ~ nest_fit(serie = .x , model = .model, .proportion = prop))) %>%
+      dplyr::mutate("{name_model}" := purrr::map(.data$nested_column, ~ nest_fit(serie = .x , model = .model, .proportion = prop))) %>%
       dplyr::select(3)
 
   },list_model, names_list_model, prop = .prop, SIMPLIFY = F)
@@ -93,8 +93,8 @@ modeltime_multifit <- function(serie, .prop, ...){
                                              .f = function(...) {modeltime::modeltime_table(...)})
                   ) %>% 
 
-    dplyr::mutate(calibration = purrr::pmap(list(nested_model, nested_column),
-                                            .f = function(x = nested_model, y = nested_column) {
+    dplyr::mutate(calibration = purrr::pmap(list(.data$nested_model, .data$nested_column),
+                                            .f = function(x = .data$nested_model, y = .data$nested_column) {
 
                     x %>%
 

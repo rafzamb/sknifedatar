@@ -43,8 +43,8 @@
 #'                   .serie = data)
 #'                             
 modeltime_wfs_fit <- function(.wfsets, .split_prop, .serie) {
-  list_models <- .wfsets %>% split(.$wflow_id)
   
+  list_models <- .wfsets %>% split(.$wflow_id)
   n <- length(list_models)
   pb <- dplyr::progress_estimated(n = n)
   

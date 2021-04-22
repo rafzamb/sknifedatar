@@ -53,8 +53,8 @@ modeltime_multibestmodel <- function(.table,
     
     dplyr::mutate(
       
-      best_model = purrr::map(calibration, 
-                              function(table_time = calibration){
+      best_model = purrr::map(.data$calibration, 
+                              function(table_time = .data$calibration){
                                 
                                 table_time %>%
                                   
@@ -69,7 +69,7 @@ modeltime_multibestmodel <- function(.table,
     
     dplyr::mutate(
       
-      calibration = purrr::map2(calibration, best_model, function(x,y) x  %>% dplyr::filter(.model_id == y))
+      calibration = purrr::map2(.data$calibration, .data$best_model, function(x,y) x  %>% dplyr::filter(.model_id == y))
       
     )
   
@@ -79,7 +79,7 @@ modeltime_multibestmodel <- function(.table,
       
       dplyr::mutate(
         
-        nested_forecast = purrr::map2(nested_forecast, best_model, function(x,y) x %>% dplyr::filter(.model_id %in% c(NA, y)))
+        nested_forecast = purrr::map2(.data$nested_forecast, .data$best_model, function(x,y) x %>% dplyr::filter(.model_id %in% c(NA, y)))
      
      )
  }

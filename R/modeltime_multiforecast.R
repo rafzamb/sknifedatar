@@ -28,9 +28,9 @@ modeltime_multiforecast <- function(models_table,
     
     dplyr::mutate(
       
-      nested_forecast = purrr::pmap(list(calibration, nested_column),
+      nested_forecast = purrr::pmap(list(.data$calibration, .data$nested_column),
                                     
-                                    function(x = calibration, y = nested_column){
+                                    function(x = .data$calibration, y = .data$nested_column){
                                       
                                       x %>% modeltime::modeltime_forecast(
                                         
@@ -46,9 +46,9 @@ modeltime_multiforecast <- function(models_table,
                                         
                                         dplyr::mutate(
                                           
-                                          .model_details = .model_desc,
+                                          .model_details = .data$.model_desc,
                                           
-                                          .model_desc = gsub("[[:punct:][:digit:][:cntrl:]]","", .model_desc)
+                                          .model_desc = gsub("[[:punct:][:digit:][:cntrl:]]","", .data$.model_desc)
                                           )
                                       }
                                     )

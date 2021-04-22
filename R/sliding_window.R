@@ -67,7 +67,7 @@ sliding_window <- function(data, inicio, pliegues, variables){
     splits
   })
 
-  data_sliding_window <- purrr::map(list_sliding_window,dplyr::bind_rows)
+  data_sliding_window <- purrr::map(list_sliding_window, dplyr::bind_rows)
 
   drop_pliegue <- ncol(data_sliding_window[[1]])
 
@@ -80,7 +80,7 @@ sliding_window <- function(data, inicio, pliegues, variables){
       id = id,
       pliegue = id_pliegue
     ) %>%
-    dplyr::relocate(id,.data$pliegue)
+    dplyr::relocate(id, .data$pliegue)
 
   return(data_def)
 }

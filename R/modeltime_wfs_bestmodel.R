@@ -46,8 +46,8 @@
 modeltime_wfs_bestmodel <- function(.wfs_results, .model = NULL, .metric = "rmse", .minimize = TRUE){
   # Rank models
   rank_models <- sknifedatar::modeltime_wfs_rank(.wfs_results, 
-                                             rank_metric = .metric, 
-                                             minimize = .minimize)
+                                                 rank_metric = .metric, 
+                                                 minimize = .minimize)
   #Select model
   if(is.null(.model)){
     best_model <- rank_models %>% head(1)
@@ -79,7 +79,7 @@ modeltime_wfs_bestmodel <- function(.wfs_results, .model = NULL, .metric = "rmse
   }
   
   #Validation of models names
-  if(any(!.model %in% rank_models$.model_id )) stop('some of the model names passed in the ".model" argument do not match the model names in the supplied workflow set object')
+  if(any(!.model %in% rank_models$.model_id)) stop('some of the model names passed in the ".model" argument do not match the model names in the supplied workflow set object')
   
   #Select models def
   
