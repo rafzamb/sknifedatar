@@ -56,9 +56,6 @@ mars_forward <- mars(prune_method = 'forward',
                      mode='regression') \%>\% 
   set_engine('earth')
 
-nnetar <- nnetar_reg() \%>\%
-  set_engine("nnetar")
-
 wfsets <- workflow_set(
   preproc = list(
     date = recipe_date,

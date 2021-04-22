@@ -37,9 +37,6 @@
 #'                      mode='regression') %>% 
 #'   set_engine('earth')
 #' 
-#' nnetar <- nnetar_reg() %>%
-#'   set_engine("nnetar")
-#' 
 #' wfsets <- workflow_set(
 #'   preproc = list(
 #'     date = recipe_date,
