@@ -7,23 +7,22 @@
 modeltime_wfs_rank(.wfs_results, rank_metric = NULL, minimize = TRUE)
 }
 \arguments{
-\item{.wfs_results}{a tibble generated with the modeltime_wfs_fit function}
+\item{.wfs_results}{a tibble generated with the \code{modeltime_wfs_fit()} function.}
 
 \item{rank_metric}{the metric used to generate the ranking 'mae', 'mape','mase','smape','rmse','rsq'.}
 
 \item{minimize}{a boolean indicating whether to minimize (TRUE) or maximize (FALSE) the metric}
 }
 \value{
-A tibble containing the models ranked by a specific metric
+a tibble containing the models ranked by a specific metric.
 }
 \description{
-This function generates a ranking of models generated with modeltime_wfs_fit
+generates a ranking of models generated with \code{modeltime_wfs_fit()} function.
 }
 \details{
-The ranking depends on the metric selected
+the ranking depends on the metric selected.
 }
 \examples{
-
 library(dplyr)
 library(modeltime)
 
@@ -34,16 +33,11 @@ data <- sknifedatar::data_avellaneda \%>\%
 recipe_date <- recipes::recipe(value ~ ., data = data) \%>\% 
   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 
-recipe_date_lag <- recipe_date \%>\% 
-  recipes::step_lag(value, lag = 7) \%>\% 
-  timetk::step_ts_impute(all_numeric(), period=365)
-
 mars <- parsnip::mars(mode = 'regression') \%>\% parsnip::set_engine('earth')
 
 wfsets <- workflowsets::workflow_set(
   preproc = list(
-    R_date = recipe_date,
-    R_date_lag = recipe_date_lag),
+    R_date = recipe_date),
   models  = list(M_mars = mars),
   cross   = TRUE)
 

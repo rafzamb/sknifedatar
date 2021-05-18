@@ -29,7 +29,7 @@ the output to be displayed.}
 
 \item{tabset_props}{string defining .tabset properties. Only works with is_output_distill = F}
 
-\item{is_output_distill}{boolean. is output a distill article?}
+\item{is_output_distill}{boolean. is output a distill article.}
 }
 \value{
 concatenated string of all automatically generated chunks.
@@ -60,7 +60,6 @@ dataset <- iris \%>\%
 automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot", fig.align='center')
 
 unlink("figure", recursive = TRUE)
-
 }
 \seealso{
 \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}

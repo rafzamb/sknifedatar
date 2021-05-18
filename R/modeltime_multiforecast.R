@@ -1,19 +1,18 @@
 #' @title Forecasting of multiple models over multiple time series
 #'
-#' @description This function allows forecasting on multiple time series from multiple fitted models
+#' @description allows forecasting on multiple time series from multiple fitted models.
 #'
-#' @details This function takes the "**table_time**" object generated with the "**modeltime_multifit**" function, the "**modeltime_forecast**"
-#'          from the package \href{https://business-science.github.io/modeltime/}{**modeltime**} is applied to each model for each series. 
+#' @details this function takes the 'table_time' object generated with the `modeltime_multifit()` function,
+#'          the `modeltime_forecast()` from the package 'modeltime' is applied to each model for each series. 
 #'
-#' @param models_table "**table_time**" tibble generated with the "**modeltime_multifit**" function.
-#' @param .h prediction horizon of the "**modeltime_forecast**" function.
+#' @param models_table 'table_time' tibble generated with the `modeltime_multifit()` function.
+#' @param .h prediction horizon of the `modeltime_forecast()` function.
 #' @param .prop time series split partition ratio. If "h" is specified, this function predicts on the testing partition. 
 #'
-#' @return "models_table" tibble with a new column called "nested_forecast" where the predictions are stored.
+#' @return 'models_table' tibble with a new column called 'nested_forecast' where the predictions are stored.
 #' @export
 #'
 #' @examples
-#'
 #' # Data
 #' data_serie <- sknifedatar::table_time
 #'                                      

@@ -2,7 +2,7 @@
 % Please edit documentation in R/modeltime_multibestmodel.R
 \name{modeltime_multibestmodel}
 \alias{modeltime_multibestmodel}
-\title{Function to obtain the best model from a modeltime table}
+\title{Gets the best model from a modeltime table}
 \usage{
 modeltime_multibestmodel(
   .table,
@@ -12,13 +12,13 @@ modeltime_multibestmodel(
 )
 }
 \arguments{
-\item{.table}{"\strong{table_time}" tibble generated with the "\strong{modeltime_multifit}" function.}
+\item{.table}{'table_time**' tibble generated with the \code{modeltime_multifit()} function.}
 
-\item{.metric}{evaluation metric, from "\strong{modeltime_accuracy}": 'mae', 'mape','mase','smape','rmse','rsq'.}
+\item{.metric}{evaluation metric, from \code{modeltime_accuracy()} of 'modeltime' package: 'mae', 'mape','mase','smape','rmse','rsq'.}
 
 \item{.minimize}{boolean (default = TRUE), TRUE if the error metric should be minimized, FALSE in order to maximize it.}
 
-\item{.forecast}{boolean (default = TRUE), If it is TRUE, it indicates that the "\strong{modeltime_multi forecast}"
+\item{.forecast}{boolean (default = TRUE), If it is TRUE, it indicates that the \verb{modeltime_multi forecast()}
 function has already been applied to the object that enters the "\strong{.table}" parameter.
 This is evaluated by the existence of the column "nested_forecast".}
 }
@@ -26,14 +26,13 @@ This is evaluated by the existence of the column "nested_forecast".}
 table_time tibble filtered by the best model.
 }
 \description{
-This feature allows you to select the best model for each series, based on a specific evaluation metric.
+this feature allows you to select the best model for each series, based on a specific evaluation metric.
 }
 \details{
-This function takes the object "** table_time \strong{" from the output of the function "} modeltime_multifit **",
+take the object 'table_time' from the output of the function \code{modeltime_multifit()},
 and selects the best model based on the selected metric.
 }
 \examples{
-
 # Data
 data_serie <- sknifedatar::table_time
                                       

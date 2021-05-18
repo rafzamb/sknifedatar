@@ -29,7 +29,7 @@ the output to be displayed.}
 \item{chunk_props}{named list with additional parameters that correspond to all those available in rmarkdown chunks
 (fig.align, fig.width, ...).}
 
-\item{is_output_distill}{boolean. is output a distill article?}
+\item{is_output_distill}{boolean. is output a distill article.}
 }
 \value{
 concatenated string of all automatically generated chunks.
@@ -39,12 +39,11 @@ It allows to automatically generate the code necessary to group multiple Rmarkdo
 into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.
 }
 \details{
-Given a tiblle, which must contain an "ID" column (representing the title of the tabs) and other
+given a tiblle, which must contain an "ID" column (representing the title of the tabs) and other
 columns that stores output to be generated (plot, text, code, ...), a string is automatically
 generated which can be later rendered in a Rmarkdown document.
 }
 \examples{
-
 library(dplyr)
 library(sknifedatar)
 library(ggplot2)
@@ -61,7 +60,6 @@ dataset <- iris \%>\%
 automagic_tabs2(input_data = dataset, panel_name = Species, .plot, .table)
 
 unlink("figure", recursive = TRUE)
-
 }
 \seealso{
 \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}

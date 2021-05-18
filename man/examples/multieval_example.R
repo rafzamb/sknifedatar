@@ -1,6 +1,5 @@
 set.seed(123)
 library(yardstick) # métricas
-library(erer) # función listn
 
 predictions <-
   data.frame(truth = runif(100),
@@ -11,7 +10,7 @@ predictions <-
 multieval(.dataset = predictions,
           .observed = "truth",
           .predictions = c("predict_model_1","predict_model_2","predict_model_3"),
-          .metrics = listn(rmse, rsq, mae),
+          .metrics = list(rmse = rmse, rsq = rsq, mae = mae),
           value_table = TRUE)
 
 # Output ----------------------

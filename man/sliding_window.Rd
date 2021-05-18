@@ -10,26 +10,29 @@ sliding_window(data, inicio, pliegues, variables)
 \item{data}{dataframe that contains historical counts of different events in monthly time frames.
 Each row is a unique observation and the columns corresponding to the different months of study. The
 variables must have keywords to be able to select them together. To see an example of the structure of
-the data, the dataset such contained in this package can be used}
+the data, the dataset such contained in this package can be used.}
 
-\item{inicio}{initial month, integer numeric format}
+\item{inicio}{initial month, integer numeric format.}
 
 \item{pliegues}{vector that starts at 1 and ends in the number of periods to be traversed.}
 
 \item{variables}{a word or vector that allows you to select the variables together and implement the function
-for each group}
+for each group.}
 }
 \value{
-A data frame with the ID of the observations and the different counting time slots calculated by
-variables
+a data frame with the ID of the observations and the different counting time slots calculated by
+variables.
 }
 \description{
-This function allows to apply a monthly moving sliding window transformation on a data set.
+allows to apply a monthly moving sliding window transformation on a data set.
 }
 \details{
-The operation is as follows, the intermediate month "t" of the entire study period is selected, then the number of events that occurred for each observation in the previous month is calculated, in the last 3 months, 6 months, 12 months and the same month of the previous year.
+the operation is as follows, the intermediate month "t" of the entire study period is selected,
+then the number of events that occurred for each observation in the previous month is calculated,
+in the last 3 months, 6 months, 12 months and the same month of the previous year.
 
-The procedure described above is replicated in a mobile manner, that is, rolling the time window from t + 1 to n, where n is the last month of study. To see a real use case, visit \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci\%C3\%B3n-de-ventanas-deslizantes}{Crime analysis with tidymodels}
+The procedure described above is replicated in a mobile manner, that is, rolling the time window from t + 1 to n,
+where n is the last month of study. To see a real use case, visit \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#aplicaci\%C3\%B3n-de-ventanas-deslizantes}{Crime analysis with tidymodels}
 }
 \examples{
 pliegues = 1:13

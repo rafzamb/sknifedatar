@@ -1,20 +1,19 @@
 #' Modeltime workflow sets ranking based on a metric
 #' 
-#' @description This function generates a ranking of models generated with modeltime_wfs_fit 
+#' @description generates a ranking of models generated with `modeltime_wfs_fit()` function. 
 #' 
-#' @details The ranking depends on the metric selected
+#' @details the ranking depends on the metric selected.
 #'
 #' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
-#' @param .wfs_results a tibble generated with the modeltime_wfs_fit function
+#' @param .wfs_results a tibble generated with the `modeltime_wfs_fit()` function.
 #' @param rank_metric the metric used to generate the ranking 'mae', 'mape','mase','smape','rmse','rsq'.
 #' @param minimize a boolean indicating whether to minimize (TRUE) or maximize (FALSE) the metric
 #'
-#' @return A tibble containing the models ranked by a specific metric
+#' @return a tibble containing the models ranked by a specific metric.
 #' @export
 #'
 #' @examples
-#' 
 #' library(dplyr)
 #' library(modeltime)
 #' 
@@ -25,16 +24,11 @@
 #' recipe_date <- recipes::recipe(value ~ ., data = data) %>% 
 #'   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 #' 
-#' recipe_date_lag <- recipe_date %>% 
-#'   recipes::step_lag(value, lag = 7) %>% 
-#'   timetk::step_ts_impute(all_numeric(), period=365)
-#' 
 #' mars <- parsnip::mars(mode = 'regression') %>% parsnip::set_engine('earth')
 #' 
 #' wfsets <- workflowsets::workflow_set(
 #'   preproc = list(
-#'     R_date = recipe_date,
-#'     R_date_lag = recipe_date_lag),
+#'     R_date = recipe_date),
 #'   models  = list(M_mars = mars),
 #'   cross   = TRUE)
 #' 

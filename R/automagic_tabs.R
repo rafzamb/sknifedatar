@@ -17,7 +17,7 @@
 #'            (fig.align, fig.width, ...).
 #' @param tabset_title string title of the .tabset 
 #' @param tabset_props string defining .tabset properties. Only works with is_output_distill = F
-#' @param is_output_distill boolean. is output a distill article?
+#' @param is_output_distill boolean. is output a distill article.
 #'
 #' @return concatenated string of all automatically generated chunks.
 #'
@@ -36,11 +36,10 @@
 #'     .plot = purrr::map(data, ~ ggplot(.x, aes(x = Sepal.Length, y = Petal.Length)) + geom_point())
 #'   ) %>% 
 #'   ungroup()
-#'
+#' 
 #' automagic_tabs(input_data = dataset, panel_name = "Species", .output = ".plot", fig.align='center')
 #' 
 #' unlink("figure", recursive = TRUE)
-#' 
 automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = '',
                            tabset_props = '.tabset-fade .tabset-pills', is_output_distill = TRUE){
   

@@ -1,19 +1,14 @@
-#' @title  Fit Multiple Models to Multiple Time Series
+#' @title Fit Multiple Models to Multiple Time Series
 #'
-#' @description This function allows multiple models to be adjusted over multiple time series, using models
-#'              from the \href{https://business-science.github.io/modeltime/}{modeltime} package.
+#' @description allows multiple models to be fitted over multiple time series, using models
+#'              from the 'modeltime' package.
 #'
-#' @details The focus of this function is not related to panel series, it is oriented to multiple individual
+#' @details the focus of this function is not related to panel series, it is oriented to multiple individual
 #'          series. Receiving as the first argument "series" a set of nested series (for example through the
-#'          nest function), then specifying a desired train/test partition ratio for series. The
+#'          `nest()` function), then specifying a desired train/test partition ratio for series. The
 #'          final input to the function are the models to be trained, simply by typing the name
 #'          of the models separated by commas. The function admits as many models as required.
-#'
-#' @importFrom rlang .data
-#'
-#' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
-#'
-#'
+#'          
 #' @param serie nested time series.
 #' @param .prop series train/test partition ratio.
 #' @param ... models or workflows to train (model_1, model2, ...).
@@ -23,14 +18,16 @@
 #'         then a column for each model where the trained models or workflows for each series are stored.
 #'         The last 2 columns, "nested_model" and "calibration", store the "n" trained models for each
 #'         series and the adjustment metrics on the test partition.
+#'         The second element is a tibble saved with the name of 'models_accuracy', it allows to visualize 
+#'         the performance of each model for each series according to a set of metrics.
+#'
+#' @importFrom rlang .data
+#'
+#' @seealso \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
 #'
 #' @export
 #'
 #' @examples
-#'
-#' # Generate "table_time" object
-#'
-#' ## Data
 #' library(modeltime)
 #' nested_serie <- 
 #' tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2006-02-01'),
@@ -39,14 +36,10 @@
 #' ## Models
 #' m_ets <- parsnip::set_engine(modeltime::exp_smoothing(), 'ets')
 #'
-#' m_nnetar <- parsnip::set_engine(modeltime::nnetar_reg(), "nnetar")
-#'
 #' # modeltime_multifit
 #' sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
 #'                                 .prop = 0.97,
-#'                                 m_ets,
-#'                                 m_nnetar)
-#'
+#'                                 m_ets)
 modeltime_multifit <- function(serie, .prop, ...){
 
   #Fit Function

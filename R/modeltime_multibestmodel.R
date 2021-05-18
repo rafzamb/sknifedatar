@@ -1,23 +1,22 @@
-#' @title Function to obtain the best model from a modeltime table
+#' @title Gets the best model from a modeltime table
 #'
-#' @description This feature allows you to select the best model for each series, based on a specific evaluation metric.
+#' @description this feature allows you to select the best model for each series, based on a specific evaluation metric.
 #'
-#' @details This function takes the object "** table_time **" from the output of the function "** modeltime_multifit **",
+#' @details take the object 'table_time' from the output of the function `modeltime_multifit()`,
 #'          and selects the best model based on the selected metric. 
 #'
-#' @param .table "**table_time**" tibble generated with the "**modeltime_multifit**" function.
-#' @param .metric evaluation metric, from "**modeltime_accuracy**": 'mae', 'mape','mase','smape','rmse','rsq'.
+#' @param .table 'table_time**' tibble generated with the `modeltime_multifit()` function.
+#' @param .metric evaluation metric, from `modeltime_accuracy()` of 'modeltime' package: 'mae', 'mape','mase','smape','rmse','rsq'.
 #' @param .minimize boolean (default = TRUE), TRUE if the error metric should be minimized, FALSE in order to maximize it. 
-#' @param .forecast boolean (default = TRUE), If it is TRUE, it indicates that the "**modeltime_multi forecast**" 
-#' function has already been applied to the object that enters the "**.table**" parameter.
-#'  This is evaluated by the existence of the column "nested_forecast". 
+#' @param .forecast boolean (default = TRUE), If it is TRUE, it indicates that the `modeltime_multi forecast()` 
+#'                  function has already been applied to the object that enters the "**.table**" parameter.
+#'                  This is evaluated by the existence of the column "nested_forecast". 
 #'
 #' @return table_time tibble filtered by the best model. 
 #' @export
 #' @importFrom utils head
 #'
 #' @examples
-#' 
 #' # Data
 #' data_serie <- sknifedatar::table_time
 #'                                       

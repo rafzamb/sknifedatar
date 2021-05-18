@@ -7,24 +7,23 @@
 modeltime_multiforecast(models_table, .h = NULL, .prop = NULL)
 }
 \arguments{
-\item{models_table}{"\strong{table_time}" tibble generated with the "\strong{modeltime_multifit}" function.}
+\item{models_table}{'table_time' tibble generated with the \code{modeltime_multifit()} function.}
 
-\item{.h}{prediction horizon of the "\strong{modeltime_forecast}" function.}
+\item{.h}{prediction horizon of the \code{modeltime_forecast()} function.}
 
 \item{.prop}{time series split partition ratio. If "h" is specified, this function predicts on the testing partition.}
 }
 \value{
-"models_table" tibble with a new column called "nested_forecast" where the predictions are stored.
+'models_table' tibble with a new column called 'nested_forecast' where the predictions are stored.
 }
 \description{
-This function allows forecasting on multiple time series from multiple fitted models
+allows forecasting on multiple time series from multiple fitted models.
 }
 \details{
-This function takes the "\strong{table_time}" object generated with the "\strong{modeltime_multifit}" function, the "\strong{modeltime_forecast}"
-from the package \href{https://business-science.github.io/modeltime/}{\strong{modeltime}} is applied to each model for each series.
+this function takes the 'table_time' object generated with the \code{modeltime_multifit()} function,
+the \code{modeltime_forecast()} from the package 'modeltime' is applied to each model for each series.
 }
 \examples{
-
 # Data
 data_serie <- sknifedatar::table_time
                                      

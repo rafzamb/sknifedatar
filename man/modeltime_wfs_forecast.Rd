@@ -7,22 +7,23 @@
 modeltime_wfs_forecast(.wfs_results, .series, .split_prop = NULL, .h = NULL)
 }
 \arguments{
-\item{.wfs_results}{tibble of combination of recipes and models fitted, generated with the modeltime_wfs_fit function}
+\item{.wfs_results}{tibble of combination of recipes and models fitted, generated with the \code{modeltime_wfs_fit()} function.}
 
-\item{.series}{time series dataframe}
+\item{.series}{time series dataframe.}
 
-\item{.split_prop}{time series split proportion}
+\item{.split_prop}{time series split proportion.}
 
-\item{.h}{time series horizon from the modeltime_forecast() function}
+\item{.h}{time series horizon from the \code{modeltime_forecast()} function from 'modeltime' package.}
 }
 \value{
-a tibble containing the forecast for each model
+a tibble containing the forecast for each model.
 }
 \description{
-Forecast from a set of recipes and models trained by modeltime_wfs_fit
+forecast from a set of recipes and models trained by \code{modeltime_wfs_fit()} function.
 }
 \details{
-Since it uses the modeltime_forecast() function from modeltime, either the forecast can be made on new data or on a number of periods.
+since it uses the \code{modeltime_forecast()} function from 'modeltime' package, either the forecast
+can be made on new data or on a number of periods.
 }
 \examples{
 library(dplyr)
@@ -34,17 +35,12 @@ filter(date<'2012-06-01')
 recipe_date <- recipes::recipe(value ~ ., data = data) \%>\% 
   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 
-recipe_date_lag <- recipe_date \%>\% 
-  recipes::step_lag(value, lag = 7) \%>\% 
-  timetk::step_ts_impute(all_numeric(), period=365)
-
 mars <- parsnip::mars(mode = 'regression') \%>\%
   parsnip::set_engine('earth')
 
 wfsets <- workflowsets::workflow_set(
   preproc = list(
-    R_date = recipe_date,
-    R_date_lag = recipe_date_lag),
+    R_date = recipe_date),
   models  = list(M_mars = mars),
   cross   = TRUE)
 

@@ -1,18 +1,16 @@
-#' @title Function to readjust the model or models for multiple time series
+#' @title Refit the model or models for multiple time series
 #'
-#' @description This functions applies the "**modeltime_refit()**" function from the  \href{https://business-science.github.io/modeltime/}{**modeltime**} 
-#'              package to multiple series and models.
+#' @description applies the `modeltime_refit()` function from the 'modeltime' package to multiple series and models.
 #'
-#' @details It takes the "**table_time**" tibble generated with the  "**modeltime_multifit**" function and returns the same object but with
-#'          the models fitted for the complete period. 
+#' @details it takes the 'table_time' tibble generated with the  `modeltime_multifit()` function and 
+#'          returns the same object but with the models fitted for the complete period. 
 #'
-#' @param models_table "**table_time**" tibble generated from the "**modeltime_multifit**" function.
+#' @param models_table 'table_time' tibble generated from the `modeltime_multifit()` function.
 #'
-#' @return Retrained "**table_time**" object
+#' @return retrained 'table_time' object.
 #' @export
 #'
 #' @examples
-#'
 #' # Data
 #' library(modeltime)
 #' data_serie <- sknifedatar::table_time
