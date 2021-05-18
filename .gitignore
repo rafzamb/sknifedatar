@@ -1,9 +1,8 @@
 .Rproj.user
 .Rhistory
 .RData
+.Ruserdata
 paquetes.R
 Paquetes_pasos.R
 README.Rmd
-index.Rmd
-sas.html
-sas.Rmd
+inst/doc
