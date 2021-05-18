@@ -1,13 +1,16 @@
 #' @title Evaluation of multiple metrics and predictions
 #'
-#' @description For a set of predictions from different models, evaluate multiple metrics and return the results in a tabular format that makes it easy to compare the predictions.
+#' @description for a set of predictions from different models, evaluate multiple metrics and return the results
+#'              in a tabular format that makes it easy to compare the predictions.
 #'
 #' @seealso \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/#modelos-de-series-de-tiempo}{Crime prediction /multieval}
 #'
-#' @param .dataset data frame with the predictions, it must have at least the column with the observed data and at least one column that refers to the predictions of a model.
+#' @param .dataset data frame with the predictions, it must have at least the column with the observed data and at
+#'                 least one column that refers to the predictions of a model.
 #' @param .observed string with the name of the column that contains the observed data.
 #' @param .predictions string or vector of strings the columns where the predictions are stored.
-#' @param .metrics metric or set of metrics to be evaluated, the metrics refer to those allowed by the package \href{https://yardstick.tidymodels.org/}{yardstick} from tidymodels.
+#' @param .metrics metric or set of metrics to be evaluated, the metrics refer to those allowed by the package 
+#'                 'yardstick' from 'tidymodels'.
 #' @param value_table TRUE to display disaggregated metrics.
 #'
 #' @importFrom rlang .data

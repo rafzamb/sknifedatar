@@ -1,15 +1,16 @@
 #' Modeltime workflow sets forecast
 #' 
-#' @description Forecast from a set of recipes and models trained by modeltime_wfs_fit
+#' @description forecast from a set of recipes and models trained by `modeltime_wfs_fit()` function.
 #' 
-#' @details Since it uses the modeltime_forecast() function from modeltime, either the forecast can be made on new data or on a number of periods. 
+#' @details since it uses the `modeltime_forecast()` function from 'modeltime' package, either the forecast 
+#'          can be made on new data or on a number of periods. 
 #' 
-#' @param .wfs_results tibble of combination of recipes and models fitted, generated with the modeltime_wfs_fit function
-#' @param .series time series dataframe
-#' @param .split_prop time series split proportion
-#' @param .h time series horizon from the modeltime_forecast() function
+#' @param .wfs_results tibble of combination of recipes and models fitted, generated with the `modeltime_wfs_fit()` function.
+#' @param .series time series dataframe.
+#' @param .split_prop time series split proportion.
+#' @param .h time series horizon from the `modeltime_forecast()` function from 'modeltime' package.
 #'
-#' @return a tibble containing the forecast for each model
+#' @return a tibble containing the forecast for each model.
 #' @export
 #'
 #' @examples
@@ -22,17 +23,12 @@
 #' recipe_date <- recipes::recipe(value ~ ., data = data) %>% 
 #'   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 #' 
-#' recipe_date_lag <- recipe_date %>% 
-#'   recipes::step_lag(value, lag = 7) %>% 
-#'   timetk::step_ts_impute(all_numeric(), period=365)
-#' 
 #' mars <- parsnip::mars(mode = 'regression') %>%
 #'   parsnip::set_engine('earth')
 #' 
 #' wfsets <- workflowsets::workflow_set(
 #'   preproc = list(
-#'     R_date = recipe_date,
-#'     R_date_lag = recipe_date_lag),
+#'     R_date = recipe_date),
 #'   models  = list(M_mars = mars),
 #'   cross   = TRUE)
 #' 

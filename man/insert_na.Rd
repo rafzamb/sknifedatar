@@ -2,24 +2,25 @@
 % Please edit documentation in R/insert_na.R
 \name{insert_na}
 \alias{insert_na}
-\title{Function to add NA values to a dataframe}
+\title{Add NA values to a dataframe}
 \usage{
 insert_na(.dataset, columns, .p = 0.01, seed = 123)
 }
 \arguments{
-\item{.dataset}{data frame}
+\item{.dataset}{data frame.}
 
-\item{columns}{vector that indicates the name of the columns where the NA values will be added, in the format: c("X1", "X2") for variables X1, X2.}
+\item{columns}{vector that indicates the name of the columns where the NA values will be added,
+in the format: c("X1", "X2") for variables X1, X2.}
 
 \item{.p}{value between 0 and 1, indicating the proportion of NA values that will be added.}
 
 \item{seed}{random number seed.}
 }
 \value{
-The original data frame, but with the NA values added in the indicated columns.
+the original data frame, but with the NA values added in the indicated columns.
 }
 \description{
-This function allows adding NA values to a data frame, selecting the columns
+allows adding NA values to a data frame, selecting the columns
 and the proportion of desired NAs.
 }
 \examples{

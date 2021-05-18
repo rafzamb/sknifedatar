@@ -1,0 +1,139 @@
+---
+title: "Workflowsets for time series"
+description: "Functions related to the calculation of distance between geographic points and data partitioning in sliding windowsn"
+opengraph:
+  image: 
+    src: "figures_articles/automatic_tabs.png"
+  twitter:
+    creator: "@rafa_zamr"
+    card: summary_large_image
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Workflowsets for time series}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introducion
+
+
+# Libraries
+
+```{r}
+library(sknifedatar)
+library(recipes)
+library(modeltime)
+library(workflowsets)
+library(workflows)
+library(parsnip)
+library(timetk)
+```
+
+# Data
+
+```{r}
+data <- sknifedatar::data_avellaneda %>% mutate(date=as.Date(date)) %>% 
+  filter(date<='2020-01-01' & date>='2017-01-01')
+```
+
+# Recipes
+
+```{r}
+# Preprocessors -----------------------------------------------------------
+recipe_date <- recipe(value ~ ., data = data) %>% 
+ step_date(date, features = c('dow','doy','week','month','year')) 
+
+recipe_date_fourier <- recipe_date %>% step_fourier(date, period = 365, K=1)
+```
+
+# Models
+
+```{r}
+# Models ------------------------------------------------------------------
+mars <- mars(mode = 'regression') %>% set_engine('earth')
+
+prophet_boost <- prophet_boost(mode = 'regression') %>% set_engine("prophet_xgboost")
+```
+
+# Workflowsets
+
+```{r}
+wfsets <- workflow_set(
+ preproc = list(base = recipe_date,
+                fourier = recipe_date_fourier),
+ models  = list(M_mars = mars, 
+                M_prophet_boost = prophet_boost),
+ cross   = TRUE)
+
+wfsets 
+```
+
+# Fitted a Workflowset into a time serie
+
+```{r}
+# Workflowsets fit --------------------------------------------------------
+wffits <- modeltime_wfs_fit(.wfsets = wfsets, 
+                           .split_prop = 0.8, 
+                           .serie=data)
+wffits
+```
+
+
+# Analisis 
+
+## Tabluar
+
+
+```{r}
+modeltime_wfs_heatmap(wffits, 'rsq')
+```
+
+## Visual Forecast in test
+
+
+```{r}
+modeltime_wfs_forecast(.wfs_results=wffits, 
+                       .series = data,
+                       .split_prop = 0.8) %>% 
+  plot_modeltime_forecast(.line_size=0.3, .interactive=FALSE)
+```
+
+## Ranking workflows
+
+```{r}
+ranking <- modeltime_wfs_rank(wffits, 'rsq')
+ranking
+```
+
+# Select a top of workflows
+
+```{r}
+# Select best model -------------------------------------------------------
+wfbests <- modeltime_wfs_bestmodel(.wfs_results = wffits,
+                                   .metric='rsq',
+                                   .model = "top 2", 
+                                   .minimize = FALSE)
+wfbests
+```
+
+# Refit in all data
+
+```{r}
+# Refit -------------------------------------------------------------------
+wfrefit <- modeltime_wfs_refit(.wfs_results = wfbests, data)
+```
+
+# Forecast to the future
+
+```{r}
+# Future forecast ---------------------------------------------------------
+modeltime_wfs_forecast(.wfs_results=wfrefit, 
+                                    .series = data,
+                                    .h='4 months',
+                                    .split_prop = 0.8)  %>% 
+  plot_modeltime_forecast(.line_size=0.3, .interactive=FALSE)
+```
+
+
+
+

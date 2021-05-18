@@ -7,13 +7,15 @@
 multieval(.dataset, .observed, .predictions, .metrics, value_table = FALSE)
 }
 \arguments{
-\item{.dataset}{data frame with the predictions, it must have at least the column with the observed data and at least one column that refers to the predictions of a model.}
+\item{.dataset}{data frame with the predictions, it must have at least the column with the observed data and at
+least one column that refers to the predictions of a model.}
 
 \item{.observed}{string with the name of the column that contains the observed data.}
 
 \item{.predictions}{string or vector of strings the columns where the predictions are stored.}
 
-\item{.metrics}{metric or set of metrics to be evaluated, the metrics refer to those allowed by the package \href{https://yardstick.tidymodels.org/}{yardstick} from tidymodels.}
+\item{.metrics}{metric or set of metrics to be evaluated, the metrics refer to those allowed by the package
+'yardstick' from 'tidymodels'.}
 
 \item{value_table}{TRUE to display disaggregated metrics.}
 }
@@ -21,12 +23,12 @@ multieval(.dataset, .observed, .predictions, .metrics, value_table = FALSE)
 data frame with 4 columns: the evaluation metrics, the estimator used, the value of the metric and the name of the model.
 }
 \description{
-For a set of predictions from different models, evaluate multiple metrics and return the results in a tabular format that makes it easy to compare the predictions.
+for a set of predictions from different models, evaluate multiple metrics and return the results
+in a tabular format that makes it easy to compare the predictions.
 }
 \examples{
 set.seed(123)
 library(yardstick) # métricas
-library(erer) # función listn
 
 predictions <-
   data.frame(truth = runif(100),
@@ -37,7 +39,7 @@ predictions <-
 multieval(.dataset = predictions,
           .observed = "truth",
           .predictions = c("predict_model_1","predict_model_2","predict_model_3"),
-          .metrics = listn(rmse, rsq, mae),
+          .metrics = list(rmse = rmse, rsq = rsq, mae = mae),
           value_table = TRUE)
 
 # Output ----------------------

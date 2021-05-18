@@ -1,13 +1,15 @@
 #' Modeltime workflowsets heatmap plot
 #'
-#' @description Function to generate a heatmap for each recipe and model on a wffits object generated with the modeltime_wfs_fit function
-#' @details This function assumes that the models included in the wffits object are named M_{name_of_model}, since the .model_id is {recipe_name}_M_{name_of_model} and the '_M_' is used to separate the recipe from the model name. 
-#' @param .wfs_results a tibble generated with the modeltime_wfs_fit function 
+#' @description generate a heatmap for each recipe and model on a object generated with the `modeltime_wfs_fit()` function.
+#' @details assumes that the workflows included in the 'workflow_set' object are named M_{name_of_model},
+#'          since the .model_id is {recipe_name}_M_{name_of_model} and the '_M_' is used to separate the 
+#'          recipe from the model name. 
+#' @param .wfs_results a tibble generated with the `modeltime_wfs_fit()` function.
 #' @param metric a metric the metric used for the heatmap values: 'mae', 'mape','mase','smape','rmse','rsq'.
-#' @param low_color color for the worst metric (highest error or lowest rsq)
-#' @param high_color color for the better metric (lowest error or highest rsq)
+#' @param low_color color for the worst metric (highest error or lowest rsq).
+#' @param high_color color for the better metric (lowest error or highest rsq).
 #'
-#' @return a ggplot heatmap
+#' @return a ggplot heatmap.
 #' @export
 #' 
 #' @examples
@@ -15,13 +17,10 @@
 #' library(dplyr)
 #' library(parsnip)
 #' 
-#' data <- sknifedatar::data_avellaneda %>% mutate(date=as.Date(date)) %>% 
-#'   filter(date<'2011-01-01')
+#' data <- sknifedatar::data_avellaneda %>% mutate(date=as.Date(date)) %>% filter(date<'2011-01-01')
 #' 
 #' recipe_date <- recipes::recipe(value ~ ., data = data) %>% 
 #'   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
-#' 
-#' recipe_date_fourier <- recipe_date %>% timetk::step_fourier(date, period = 365, K = 1)
 #' 
 #' mars_backward <- mars(prune_method ='backward', mode = 'regression') %>% set_engine('earth')
 #' 
@@ -29,8 +28,7 @@
 #' 
 #' wfsets <- workflowsets::workflow_set(
 #'   preproc = list(
-#'     date = recipe_date,
-#'     fourier = recipe_date_fourier),
+#'     date = recipe_date),
 #'   models  = list(M_mars_backward = mars_backward, 
 #'                  M_mars_forward = mars_forward),
 #'   cross   = TRUE)
@@ -43,23 +41,33 @@
 #' 
 modeltime_wfs_heatmap <- function(.wfs_results, metric='rsq', 
                                   low_color = '#c7e9b4',high_color = '#253494'){
+  
   data <- .wfs_results %>% dplyr::select(-.fit_model) %>%
     tidyr::separate(.model_id,
                     c('recipe', 'model'),
                     sep = '_M_',
                     remove = FALSE)
-  data <- data %>% tidyr::expand(.data$recipe,  .data$model) %>%
+    
+  
+  data <- data %>% 
+    tidyr::expand(.data$recipe,  .data$model) %>% 
     dplyr::left_join(data, by = c('recipe', 'model')) %>%
     dplyr::mutate(na_text = ifelse(is.na(.model_id), 'Not fitted', ''))
+  
   if (metric != 'rsq') {
+    
     data <- data %>%
       dplyr::select(.data$recipe, .data$model, metric = !!metric, .data$na_text) %>%
       dplyr::mutate(metric_color = metric * (-1))
+    
   } else{
+    
     data <- data %>%
       dplyr::select(.data$recipe, .data$model, metric = !!metric, .data$na_text) %>%
       dplyr::mutate(metric_color = metric)
+    
   }
+  
   ggplot2::ggplot(data,
                   ggplot2::aes(x = .data$recipe,y = .data$model,
                                fill = .data$metric_color,

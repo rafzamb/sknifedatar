@@ -1,14 +1,15 @@
-#' @title Function to add NA values to a dataframe
+#' @title Add NA values to a dataframe
 #'
-#' @description This function allows adding NA values to a data frame, selecting the columns
+#' @description allows adding NA values to a data frame, selecting the columns
 #'              and the proportion of desired NAs.
 #'
-#' @param .dataset data frame
-#' @param columns vector that indicates the name of the columns where the NA values will be added, in the format: c("X1", "X2") for variables X1, X2.
+#' @param .dataset data frame.
+#' @param columns vector that indicates the name of the columns where the NA values will be added, 
+#'                in the format: c("X1", "X2") for variables X1, X2.
 #' @param .p value between 0 and 1, indicating the proportion of NA values that will be added.
 #' @param seed random number seed.
 #'
-#' @return The original data frame, but with the NA values added in the indicated columns.
+#' @return the original data frame, but with the NA values added in the indicated columns.
 #' @export
 #'
 #' @examples

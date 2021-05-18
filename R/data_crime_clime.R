@@ -3,19 +3,29 @@
 #' @description Data set that contains 2023 corners of the city of Buenos Aires, product of the interception of
 #'   the main streets and avenues. Each row is a corner, the columns represent climatic factors,
 #'   elements of the physical environment and counts of crimes that occurred in the vicinity of each corner. The original data were extracted from 
-#'    \href{https://www.openstreetmap.org/}{Openstreetmap} and \href{https://data.buenosaires.gob.ar/dataset/delitos/}{GCABA}.
+#'    \href{https://www.openstreetmap.org/}{Openstreetmap} and \href{http://data.buenosaires.gob.ar/dataset/delitos}{GCABA}.
 #'   They were transformed until obtaining the tabular structure that is presented here.
 #'
 #' @section Crime variables:
-#' For each corner, the number of crimes that occurred in each month of the December 2017 - December-2019 period is recorded. In total there are 25 columns of crime, which refer to the 25 months of the study period. The attributes are arranged chronologically, they can be identified with the prefix "crimes", followed by the month and year, for example: crimes_dec_2017.
+#' For each corner, the number of crimes that occurred in each month of the December 2017 - December-2019 period is recorded. 
+#' In total there are 25 columns of crime, which refer to the 25 months of the study period. The attributes are arranged 
+#' chronologically, they can be identified with the prefix "crimes", followed by the month and year, 
+#' for example: crimes_dec_2017.
 #'
 #' @section Climate variables:
-#' 4 climatic factors are studied: average temperature, average wind speed, millimeters of water and rainy days. Storing their values in 25 columns for each variable, referring to the 25 months of the December 2017 - December-2019 period. The attributes are ordered chronologically, they can be identified with the prefix of the climatic factor, followed by the month and year, for example: rainydays_feb_2018.
+#' 4 climatic factors are studied: average temperature, average wind speed, millimeters of water and rainy days. 
+#' Storing their values in 25 columns for each variable, referring to the 25 months of the December 2017 - December-2019 
+#' period. The attributes are ordered chronologically, they can be identified with the prefix of the climatic factor,
+#'  followed by the month and year.
 #'
 #' @section close environment variables:
-#' For each corner, the elements of the physical environment that are within a radius of 250 meters are counted, for example the number of metro stations, police stations, universities, gastronomic places, among others. In total there are 38 environment attributes.
+#' For each corner, the elements of the physical environment that are within a radius of 250 meters are counted, 
+#' for example the number of metro stations, police stations, universities, gastronomic places, among others.
+#'  In total there are 38 environment attributes.
 #'
-#' @format A data frame with 2023 rows and 136 columns, the variables corner, long and lat, represent the ID of the corner and its geolocation. To see a data science project applied to this dataset see \href{https://rafael-zambrano-blog-ds.netlify.app/posts}{Predicción de delitos en CABA}
+#' @format A data frame with 2023 rows and 136 columns, the variables corner, long and lat, represent the ID of the corner
+#'  and its geolocation. To see a data science project applied to this dataset
+#'   see \href{https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/}{Crime prediction in CABA}
 #'
-#' @source \url{https://rafzamb.github.io/sknifedatar}
+#' @source \url{https://rafzamb.github.io/sknifedatar/}
 "data_crime_clime"

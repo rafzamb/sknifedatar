@@ -12,25 +12,28 @@ modeltime_wfs_bestmodel(
 )
 }
 \arguments{
-\item{.wfs_results}{a tibble generated from the modeltime_wfs_fit function}
+\item{.wfs_results}{a tibble generated from the \code{modeltime_wfs_fit()} function.}
 
-\item{.model}{model to select best model from}
+\item{.model}{string or number, It can be supplied as follows: “top n,” “Top n” or “tOp n”, where n is the number
+of best models to select; n, where n is the number of best models to select; name of the
+workflow or workflows to select.}
 
 \item{.metric}{metric to get best model from ('mae', 'mape','mase','smape','rmse','rsq')}
 
-\item{.minimize}{a boolean indicating whether to minimize (TRUE) or maximize (FALSE) the metric}
+\item{.minimize}{a boolean indicating whether to minimize (TRUE) or maximize (FALSE) the metric.}
 }
 \value{
-a tibble containing the best model based on the selected metric
+a tibble containing the best model based on the selected metric.
 }
 \description{
-Get best combination of model and recipe based on a a wffits object generated from the modeltime_wfs_fit function
+get best workflows generated from the \code{modeltime_wfs_fit()} function output.
 }
 \details{
-The best model is selected based on a specific metric ('mae', 'mape','mase','smape','rmse','rsq'). The default is to minimize the metric. However, if the model is being selected based on rsq minimize should be FALSE.
+the best model is selected based on a specific metric ('mae', 'mape','mase','smape','rmse','rsq').
+The default is to minimize the metric. However, if the model is being selected based on rsq
+minimize should be FALSE.
 }
 \examples{
-library(sknifedatar)
 library(dplyr)
 
 data <- sknifedatar::data_avellaneda \%>\% mutate(date=as.Date(date)) \%>\% filter(date<'2012-06-01')
@@ -38,26 +41,21 @@ data <- sknifedatar::data_avellaneda \%>\% mutate(date=as.Date(date)) \%>\% filt
 recipe_date <- recipes::recipe(value ~ ., data = data) \%>\% 
   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
 
-recipe_date_lag <- recipe_date \%>\% 
-  recipes::step_lag(value, lag = 7) \%>\% 
-  timetk::step_ts_impute(all_numeric(), period=365)
-
 mars <- parsnip::mars(mode = 'regression') \%>\%
   parsnip::set_engine('earth')
 
 wfsets <- workflowsets::workflow_set(
   preproc = list(
-    R_date = recipe_date,
-    R_date_lag = recipe_date_lag),
+    R_date = recipe_date),
   models  = list(M_mars = mars),
   cross   = TRUE)
 
-wffits <- modeltime_wfs_fit(.wfsets = wfsets, 
-                            .split_prop = 0.8, 
-                            .serie=data)
+wffits <- sknifedatar::modeltime_wfs_fit(.wfsets = wfsets, 
+                                         .split_prop = 0.8, 
+                                         .serie=data)
 
-modeltime_wfs_bestmodel(.wfs_results = wffits,
-                        .metric='rsq',
-                        .minimize = FALSE)
+sknifedatar::modeltime_wfs_bestmodel(.wfs_results = wffits,
+                                     .metric='rsq',
+                                     .minimize = FALSE)
                                   
 }

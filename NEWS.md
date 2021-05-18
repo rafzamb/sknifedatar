@@ -1,4 +1,4 @@
-# sknifedatar 0.0.0.9002 (development version)
+# sknifedatar 0.0.0.9002 (2021-05-16)
 
 ## Major changes
 
@@ -6,7 +6,9 @@
 
 * removed dependency on `xaringanExtra::use_panelset` before call `automagic_tabs` for html_document output.
 
-* workflow set compatibility with modeltime by creating `modeltime_wfs_bestmodel` , `modeltime_wfs_fit` , `modeltime_wfs_forecast` , `modeltime_wfs_rank` , `modeltime_wfs_refit` functions.
+* 'workflowsets' compatibility with 'modeltime' by creating `modeltime_wfs_bestmodel` , `modeltime_wfs_fit` , `modeltime_wfs_forecast` , `modeltime_wfs_rank` , `modeltime_wfs_refit` functions.
+
+* 'workflowsets' compatibility with 'modeltime', allows to adjust a workflow set over multiple time series by means of the `modeltime_wfs_multibestmodel` , `modeltime_wfs_multifit` , `modeltime_wfs_multiforecast` , `modeltime_wfs_multirefit` functions.
 
 ## Bug fixes
 

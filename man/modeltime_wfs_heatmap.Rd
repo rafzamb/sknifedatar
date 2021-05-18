@@ -12,35 +12,34 @@ modeltime_wfs_heatmap(
 )
 }
 \arguments{
-\item{.wfs_results}{a tibble generated with the modeltime_wfs_fit function}
+\item{.wfs_results}{a tibble generated with the \code{modeltime_wfs_fit()} function.}
 
 \item{metric}{a metric the metric used for the heatmap values: 'mae', 'mape','mase','smape','rmse','rsq'.}
 
-\item{low_color}{color for the worst metric (highest error or lowest rsq)}
+\item{low_color}{color for the worst metric (highest error or lowest rsq).}
 
-\item{high_color}{color for the better metric (lowest error or highest rsq)}
+\item{high_color}{color for the better metric (lowest error or highest rsq).}
 }
 \value{
-a ggplot heatmap
+a ggplot heatmap.
 }
 \description{
-Function to generate a heatmap for each recipe and model on a wffits object generated with the modeltime_wfs_fit function
+generate a heatmap for each recipe and model on a object generated with the \code{modeltime_wfs_fit()} function.
 }
 \details{
-This function assumes that the models included in the wffits object are named M_{name_of_model}, since the .model_id is {recipe_name}\emph{M}{name_of_model} and the '\emph{M}' is used to separate the recipe from the model name.
+assumes that the workflows included in the 'workflow_set' object are named M_{name_of_model},
+since the .model_id is {recipe_name}\emph{M}{name_of_model} and the '\emph{M}' is used to separate the
+recipe from the model name.
 }
 \examples{
 library(modeltime)
 library(dplyr)
 library(parsnip)
 
-data <- sknifedatar::data_avellaneda \%>\% mutate(date=as.Date(date)) \%>\% 
-  filter(date<'2011-01-01')
+data <- sknifedatar::data_avellaneda \%>\% mutate(date=as.Date(date)) \%>\% filter(date<'2011-01-01')
 
 recipe_date <- recipes::recipe(value ~ ., data = data) \%>\% 
   recipes::step_date(date, features = c('dow','doy','week','month','year')) 
-
-recipe_date_fourier <- recipe_date \%>\% timetk::step_fourier(date, period = 365, K = 1)
 
 mars_backward <- mars(prune_method ='backward', mode = 'regression') \%>\% set_engine('earth')
 
@@ -48,8 +47,7 @@ mars_forward <- mars(prune_method = 'forward', mode = 'regression') \%>\% set_en
 
 wfsets <- workflowsets::workflow_set(
   preproc = list(
-    date = recipe_date,
-    fourier = recipe_date_fourier),
+    date = recipe_date),
   models  = list(M_mars_backward = mars_backward, 
                  M_mars_forward = mars_forward),
   cross   = TRUE)
