@@ -22,10 +22,8 @@ returns the same object but with the models fitted for the complete period.
 \examples{
 # Data
 library(modeltime)
-data_serie <- sknifedatar::table_time
-table_time <- data_serie$table_time
-
+data_serie <- head(sknifedatar::table_time$table_time,1)
 # modeltime_multirefit
-sknifedatar::modeltime_multirefit(models_table = table_time)
+sknifedatar::modeltime_multirefit(models_table = data_serie)
 
 }

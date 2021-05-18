@@ -1,6 +1,6 @@
-# sknifedatar 0.1.0
+# sknifedatar 0.0.0.9003 (development version)
 
-* cran release
+* CRAN release
 
 # sknifedatar 0.0.0.9002 (2021-05-16)
 

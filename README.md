@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sknifedatar 📦 “Swiss Knife of Data for R” <img src="man/figures/logo.png" align="right" height="139" />
+# sknifedatar 📦 “Swiss Knife of Data” <img src="man/figures/logo.png" align="right" height="139" />
 
-sknifedatar is a package that serves primarily as an extension to the
+Serves primarily as an extension to the
 [modeltime](https://business-science.github.io/modeltime/) 📦 ecosystem.
 In addition to some functionalities of spatial data and visualization.
 
@@ -92,7 +92,7 @@ devtools::install_github("rafzamb/sknifedatar")
 ### modeltime\_multifit
 
 ``` r
- model_table_emae = modeltime_multifit(serie = nested_serie %>% head(3),
+ model_table_emae <- modeltime_multifit(serie = nested_serie %>% head(3),
                                        .prop = 0.8,
                                        m_auto_arima,
                                        m_stlm_arima,
@@ -123,13 +123,13 @@ devtools::install_github("rafzamb/sknifedatar")
 #>   <chr>           <int> <chr>        <chr> <dbl> <dbl>  <dbl> <dbl> <dbl>  <dbl>
 #> 1 Comercio            1 ARIMA(0,1,1… Test   8.54  5.55  0.656  5.69 10.7  0.588 
 #> 2 Comercio            2 SEASONAL DE… Test   9.33  6.28  0.717  6.24 11.2  0.415 
-#> 3 Comercio            3 NNAR(1,1,10… Test   9.66  6.32  0.742  6.51 11.8  0.490 
+#> 3 Comercio            3 NNAR(1,1,10… Test   8.41  5.70  0.646  5.65 10.2  0.517 
 #> 4 Ensenanza           1 ARIMA(1,1,1… Test   5.38  3.35  3.90   3.28  6.00 0.730 
 #> 5 Ensenanza           2 SEASONAL DE… Test   5.56  3.46  4.03   3.38  6.21 0.726 
-#> 6 Ensenanza           3 NNAR(1,1,10… Test   3.14  1.96  2.28   1.94  3.48 0.834 
+#> 6 Ensenanza           3 NNAR(1,1,10… Test   2.97  1.85  2.16   1.83  3.32 0.863 
 #> 7 Administra…         1 ARIMA(0,1,1… Test   6.10  3.96 12.6    3.86  7.05 0.0384
 #> 8 Administra…         2 SEASONAL DE… Test   6.45  4.19 13.4    4.07  7.61 0.0480
-#> 9 Administra…         3 NNAR(1,1,10… Test   5.96  3.88 12.4    3.79  6.55 0.0613
+#> 9 Administra…         3 NNAR(1,1,10… Test   6.54  4.25 13.5    4.14  7.21 0.0668
 ```
 
 ### modeltime\_multiforecast
@@ -163,7 +163,8 @@ forecast_emae %>%
 best_model_emae <- modeltime_multibestmodel(
     .table = model_table_emae$table_time,
     .metric = "rmse",
-    .minimize = TRUE
+    .minimize = TRUE,
+    .forecast = FALSE
   )
 
 best_model_emae
@@ -221,4 +222,4 @@ forecast_emae %>%
 
 ## Website
 
-[sknifedatar website](https://rafzamb.github.io/sknifedatar/)
+[sknifedatar website](http://rafzamb.github.io/sknifedatar/)
