@@ -1,6 +1,6 @@
 Package: sknifedatar
 Title: Swiss Knife of Data
-Version: 0.0.0.9002
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Rafael", family = "Zambrano", role = c("aut", "cre"), email = "rafazambragit@gmail.com"),
       person(given = "Karina", family = "Bartolome", role = c("aut")),
