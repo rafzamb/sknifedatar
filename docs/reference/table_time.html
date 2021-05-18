@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Modelos ajustados para el indicador EMAE — table_time • sknifedatar</title>
+<title>Fitted models for the EMAE indicator — table_time • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="Modelos ajustados para el indicador EMAE — table_time" />
-<meta property="og:description" content="Conjunto de modelos ajustados sobre el &quot;emae_series&quot; dataset, este objeto proviene de la salida de la función
-modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time" />
+<meta property="og:title" content="Fitted models for the EMAE indicator — table_time" />
+<meta property="og:description" content="set of models fitted on the &quot;emae_series&quot; dataset, this object comes from the output of the
+modeltime_multifit() function. For example, if object = modeltime_multifit then 'object$table_time'
+is the fitted models table." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo_twitter_sknidatar.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -85,7 +86,7 @@ modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -113,6 +114,9 @@ modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -139,14 +143,15 @@ modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Modelos ajustados para el indicador EMAE</h1>
+    <h1>Fitted models for the EMAE indicator</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/table_time.R'><code>R/table_time.R</code></a></small>
     <div class="hidden name"><code>table_time.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Conjunto de modelos ajustados sobre el "emae_series" dataset, este objeto proviene de la salida de la función
-modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time</p>
+    <p>set of models fitted on the "emae_series" dataset, this object comes from the output of the
+<code><a href='modeltime_multifit.html'>modeltime_multifit()</a></code> function. For example, if object = modeltime_multifit then 'object$table_time'
+is the fitted models table.</p>
     </div>
 
     <pre class="usage"><span class='va'>table_time</span></pre>
@@ -154,12 +159,13 @@ modeltime_multifit. Por ejemplo  object = modeltime_multifit ; object$table_time
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>un tibble que contiene una primera columna con el nombre de las series, seguidamente la comuna "nested_column" que almacena las series de tiempo, luego una columna para cada
-modelo suministrado donde se almacenan los modelos o workflows entrenados para cada serie. Finalmente las columnas "nested_model" y "calibration" que guardan los "n" modelos entrenados para cada serie y las métricas de ajuste sobre la
-partición de test.</p>
+    <p>a tibble that contains a first column with the name of the series, then the "nested_column" column
+that stores the time series, then a column for each supplied model where the models or trained workflows
+for each series are stored. Finally the columns "nested_model" and "calibration" that store the "n"
+trained models for each series and the adjustment metrics on the test partition.</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://rafzamb.github.io/sknifedatar'>https://rafzamb.github.io/sknifedatar</a></p>
+    <p><a href='https://rafzamb.github.io/sknifedatar/'>https://rafzamb.github.io/sknifedatar/</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

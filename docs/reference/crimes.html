@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Muestra de delitos ocurridos en la ciudad de Buenos Aires — crimes • sknifedatar</title>
+<title>Buenos Aires crimes data — crimes • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Muestra de delitos ocurridos en la ciudad de Buenos Aires — crimes" />
-<meta property="og:description" content="Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019.
-Los datos fueron extraídos del repositorio público del GCABA" />
+<meta property="og:title" content="Buenos Aires crimes data — crimes" />
+<meta property="og:description" content="Data set that records the date, time, type of crime and geolocation of crimes that occurred between 2017 and 2019.
+The data was extracted from the public repository of GCBA" />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo_twitter_sknidatar.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -85,7 +85,7 @@ Los datos fueron extraídos del repositorio público del GCABA" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -113,6 +113,9 @@ Los datos fueron extraídos del repositorio público del GCABA" />
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -139,14 +142,14 @@ Los datos fueron extraídos del repositorio público del GCABA" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Muestra de delitos ocurridos en la ciudad de Buenos Aires</h1>
+    <h1>Buenos Aires crimes data</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/crimes.R'><code>R/crimes.R</code></a></small>
     <div class="hidden name"><code>crimes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019.
-Los datos fueron extraídos del repositorio público del <a href='https://data.buenosaires.gob.ar/dataset/delitos/'>GCABA</a></p>
+    <p>Data set that records the date, time, type of crime and geolocation of crimes that occurred between 2017 and 2019.
+The data was extracted from the public repository of <a href='http://data.buenosaires.gob.ar/dataset/delitos'>GCBA</a></p>
     </div>
 
     <pre class="usage"><span class='va'>crimes</span></pre>
@@ -154,23 +157,23 @@ Los datos fueron extraídos del repositorio público del <a href='https://data.b
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>data frame con 100 filas y 9 columnas:</p><dl>
+    <p>data frame with 100 rows y 9 columns:</p><dl>
 <dt>id:</dt><dd><p>id</p></dd>
-<dt>fecha:</dt><dd><p>fecha</p></dd>
-<dt>franja_horaria:</dt><dd><p>horas del 0 al 23</p></dd>
-<dt>tipo_delito:</dt><dd><p>tipo_delito</p></dd>
-<dt>subtipo_delito:</dt><dd><p>subtipo_delito</p></dd>
-<dt>comuna:</dt><dd><p>comuna de CABA</p></dd>
-<dt>barrio:</dt><dd><p>barrio de CABA</p></dd>
-<dt>lat:</dt><dd><p>latitud</p></dd>
-<dt>long:</dt><dd><p>longitud</p></dd>
+<dt>fecha:</dt><dd><p>date</p></dd>
+<dt>franja_horaria:</dt><dd><p>hour from 0 to 23</p></dd>
+<dt>tipo_delito:</dt><dd><p>crime type</p></dd>
+<dt>subtipo_delito:</dt><dd><p>crime subtype</p></dd>
+<dt>comuna:</dt><dd><p>commune</p></dd>
+<dt>barrio:</dt><dd><p>neighborhood</p></dd>
+<dt>lat:</dt><dd><p>latitude</p></dd>
+<dt>long:</dt><dd><p>longitude</p></dd>
 ...
 
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://data.buenosaires.gob.ar/dataset/delitos/'>https://data.buenosaires.gob.ar/dataset/delitos/</a></p>
+    <p><a href='http://data.buenosaires.gob.ar/dataset/delitos'>http://data.buenosaires.gob.ar/dataset/delitos</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

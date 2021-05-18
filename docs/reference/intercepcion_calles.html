@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Muestra la intercepciòn de las principales calles y avenidas de la ciudad de Buenos Aires — intercepcion_calles • sknifedatar</title>
+<title>Dataset of the intersection of the main streets and avenues of the city of Buenos Aires, Argentina. — intercepcion_calles • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,11 @@
 
 
 
-<meta property="og:title" content="Muestra la intercepciòn de las principales calles y avenidas de la ciudad de Buenos Aires — intercepcion_calles" />
-<meta property="og:description" content="Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019
-diamonds.  Los datos fueron extraídos del repositorio de Openstreetmap  a través del
-paquete osmdata, posteriormente fueron transformados hasta obtener la estructura tabular
-que acá se presenta." />
+<meta property="og:title" content="Dataset of the intersection of the main streets and avenues of the city of Buenos Aires, Argentina. — intercepcion_calles" />
+<meta property="og:description" content="Data set that records the date, time slot, type of crime and geolocation of crimes that occurred between 2017 and 2019
+The data was obtained from the Openstreetmap  using the
+osmdata package, later they were transformed until obtaining the
+tabular structure that is presented here." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo_twitter_sknidatar.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -87,7 +87,7 @@ que acá se presenta." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -115,6 +115,9 @@ que acá se presenta." />
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -141,16 +144,16 @@ que acá se presenta." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Muestra la intercepciòn de las principales calles y avenidas de la ciudad de Buenos Aires</h1>
+    <h1>Dataset of the intersection of the main streets and avenues of the city of Buenos Aires, Argentina.</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/intercepcion_calles.R'><code>R/intercepcion_calles.R</code></a></small>
     <div class="hidden name"><code>intercepcion_calles.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Conjunto de datos que registra la fecha, franja horaria, tipo de delito y geolocalización de crimenes ocurridos entre el 2017 y 2019
-diamonds.  Los datos fueron extraídos del repositorio de <a href='https://www.openstreetmap.org/'>Openstreetmap</a>  a través del
-paquete <a href='https://docs.ropensci.org/osmdata'>osmdata</a>, posteriormente fueron transformados hasta obtener la estructura tabular
-que acá se presenta.</p>
+    <p>Data set that records the date, time slot, type of crime and geolocation of crimes that occurred between 2017 and 2019
+The data was obtained from the <a href='https://www.openstreetmap.org/'>Openstreetmap</a>  using the
+<a href='https://docs.ropensci.org/osmdata/'>osmdata</a> package, later they were transformed until obtaining the
+tabular structure that is presented here.</p>
     </div>
 
     <pre class="usage"><span class='va'>intercepcion_calles</span></pre>
@@ -158,10 +161,10 @@ que acá se presenta.</p>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame con 2417 filas y 3 columnas:</p><dl>
-<dt>id</dt><dd><p>id de la esquina</p></dd>
-<dt>lat</dt><dd><p>latitud</p></dd>
-<dt>long</dt><dd><p>longitud</p></dd>
+    <p>A data frame with 2417 rows y 3 columns:</p><dl>
+<dt>id</dt><dd><p>corner id</p></dd>
+<dt>lat</dt><dd><p>latitude</p></dd>
+<dt>long</dt><dd><p>longitude</p></dd>
 ...
 
 </dl>

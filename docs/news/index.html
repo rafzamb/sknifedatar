@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -110,6 +110,9 @@
     </li>
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
     </li>
   </ul>
 </li>
@@ -141,17 +144,24 @@
       <small>Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="sknifedatar-0009001-2021-04-02" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9001">
-<a href="#sknifedatar-0009001-2021-04-02" class="anchor"></a>sknifedatar 0.0.0.9001 (2021-04-02)</h1>
+    <div id="sknifedatar-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#sknifedatar-010" class="anchor"></a>sknifedatar 0.1.0</h1>
+<ul>
+<li>CRAN release</li>
+</ul>
+</div>
+    <div id="sknifedatar-0009002-2021-05-16" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9002">
+<a href="#sknifedatar-0009002-2021-05-16" class="anchor"></a>sknifedatar 0.0.0.9002 (2021-05-16)</h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li><p><code>multieval</code> no longer generates a graph for calculated metrics.</p></li>
-<li><p><code>mlapply</code> was removed, a reduced version is included internally within the <code>multieval</code> function.</p></li>
-<li><p><code>pertenencia_punto</code> was removed.</p></li>
-<li><p>removed dependency on <code>stringr</code>, <code>stringi</code>, <code>yardstick</code>, <code>ggplot2</code> and <code>parallel</code> packages.</p></li>
+<li><p>create <code>automagic_tabs2</code> to include more outputs in tabsets</p></li>
+<li><p>removed dependency on <code><a href="https://rdrr.io/pkg/xaringanExtra/man/panelset.html">xaringanExtra::use_panelset</a></code> before call <code>automagic_tabs</code> for html_document output.</p></li>
+<li><p>‘workflowsets’ compatibility with ‘modeltime’ by creating <code>modeltime_wfs_bestmodel</code> , <code>modeltime_wfs_fit</code> , <code>modeltime_wfs_forecast</code> , <code>modeltime_wfs_rank</code> , <code>modeltime_wfs_refit</code> functions.</p></li>
+<li><p>‘workflowsets’ compatibility with ‘modeltime’, allows to adjust a workflow set over multiple time series by means of the <code>modeltime_wfs_multibestmodel</code> , <code>modeltime_wfs_multifit</code> , <code>modeltime_wfs_multiforecast</code> , <code>modeltime_wfs_multirefit</code> functions.</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -159,14 +169,29 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<code>modeltime_multibestmode</code> corrected a detail in the code that was not selecting the best models correctly.</li>
+<code>modeltime_multifit</code> corrected a name of nested serie column.</li>
 </ul>
 </div>
-<div id="minor-changes" class="section level2">
+</div>
+    <div id="sknifedatar-0009001-2021-04-02" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9001">
+<a href="#sknifedatar-0009001-2021-04-02" class="anchor"></a>sknifedatar 0.0.0.9001 (2021-04-02)</h1>
+<div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
-<li>multieval change from “metric”" parameter to “.metrics”.</li>
+<li><p><code>multieval</code> no longer generates a graph for calculated metrics.</p></li>
+<li><p><code>mlapply</code> was removed, a reduced version is included internally within the <code>multieval</code> function.</p></li>
+<li><p><code>pertenencia_punto</code> was removed.</p></li>
+<li><p>removed dependency on <code>stringr</code>, <code>stringi</code>, <code>yardstick</code>, <code>ggplot2</code> and <code>parallel</code> packages.</p></li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>
+<code>modeltime_multibestmodel</code> corrected a detail in the code that was not selecting the best models correctly.</li>
 </ul>
 </div>
 </div>

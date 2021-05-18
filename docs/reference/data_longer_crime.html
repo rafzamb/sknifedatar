@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Esquinas de la ciudad de Buenos Aires con factores meteorológicos y de entorno — data_longer_crime • sknifedatar</title>
+<title>Corners of the city of Buenos Aires with meteorological and environmental factors — data_longer_crime • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,12 @@
 
 
 
-<meta property="og:title" content="Esquinas de la ciudad de Buenos Aires con factores meteorológicos y de entorno — data_longer_crime" />
-<meta property="og:description" content="Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de
-las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos,
-elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina. Los datos originales fueron extraídos de los
-repositorios Openstreetmap y  GCABA,
-posteriormente fueron transformados hasta obtener la estructura tabular que acá se presenta." />
+<meta property="og:title" content="Corners of the city of Buenos Aires with meteorological and environmental factors — data_longer_crime" />
+<meta property="og:description" content="Data set that contains 2023 corners of the city of Buenos Aires, product of the interception of
+the main streets and avenues. Each row is a corner, the columns represent climatic factors,
+elements of physical environment and counts of crimes that occurred in the vicinity of each corner. The original data were extracted from
+Openstreetmap and GCABA.
+They were transformed until obtaining the tabular structure that is presented here." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo_twitter_sknidatar.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -88,7 +88,7 @@ posteriormente fueron transformados hasta obtener la estructura tabular que acá
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@ posteriormente fueron transformados hasta obtener la estructura tabular que acá
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -142,17 +145,17 @@ posteriormente fueron transformados hasta obtener la estructura tabular que acá
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Esquinas de la ciudad de Buenos Aires con factores meteorológicos y de entorno</h1>
+    <h1>Corners of the city of Buenos Aires with meteorological and environmental factors</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/data_longer_crime.R'><code>R/data_longer_crime.R</code></a></small>
     <div class="hidden name"><code>data_longer_crime.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Conjunto de datos que contiene 2023 esquinas de la ciudad de Buenos Aires, producto de la intercepción de
-las principales calles y avenidas. Cada fila es una esquina,  las columnas representan factores climáticos,
-elementos de entorno físico y recuentos de delitos ocurridos en las cercanías de cada esquina. Los datos originales fueron extraídos de los
-repositorios <a href='https://www.openstreetmap.org/'>Openstreetmap</a> y  <a href='https://data.buenosaires.gob.ar/dataset/delitos/'>GCABA</a>,
-posteriormente fueron transformados hasta obtener la estructura tabular que acá se presenta.</p>
+    <p>Data set that contains 2023 corners of the city of Buenos Aires, product of the interception of
+the main streets and avenues. Each row is a corner, the columns represent climatic factors,
+elements of physical environment and counts of crimes that occurred in the vicinity of each corner. The original data were extracted from
+<a href='https://www.openstreetmap.org/'>Openstreetmap</a> and <a href='http://data.buenosaires.gob.ar/dataset/delitos'>GCABA</a>.
+They were transformed until obtaining the tabular structure that is presented here.</p>
     </div>
 
     <pre class="usage"><span class='va'>data_longer_crime</span></pre>
@@ -160,25 +163,34 @@ posteriormente fueron transformados hasta obtener la estructura tabular que acá
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Un data frame con 2023 filas y 136 columnas, las variables esquina, long y lat, representan el ID de la esquina y la gelocalización de la misma. Para ver un proyecto de ciencia de datos aplicado sobre este dataset consultar <a href='https://rafael-zambrano-blog-ds.netlify.app/posts'>Predicción de delitos en CABA</a></p>
+    <p>A data frame with 2023 rows and 136 columns, the variables corner, long and lat, represent the ID
+of the corner and its geolocation. To see a data science project applied to this dataset
+see <a href='https://rafael-zambrano-blog-ds.netlify.app/posts/2020-12-22-prediccin-de-delitos-en-caba/'>Crime prediction in CABA</a></p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://rafzamb.github.io/sknifedatar'>https://rafzamb.github.io/sknifedatar</a></p>
-    <h2 class="hasAnchor" id="variables-de-criminalidad"><a class="anchor" href="#variables-de-criminalidad"></a>Variables de criminalidad</h2>
+    <p><a href='https://rafzamb.github.io/sknifedatar/'>https://rafzamb.github.io/sknifedatar/</a></p>
+    <h2 class="hasAnchor" id="crime-variables"><a class="anchor" href="#crime-variables"></a>Crime variables</h2>
 
     
 
-<p>Para cada esquina se registra el número de delitos que ocurrieron en cada mes del periodo diciembre 2017 - diciembre-2019. En total son 25 columnas de criminalidad, que hacen referencia a los 25 meses del periodo de estudio. Los atributos están ordenados cronológicamente, pueden identificarse con el prefijo “delitos”, seguido del mes y año, por ejemplo: delitos_dec_2017.</p>
-    <h2 class="hasAnchor" id="variables-climaticas"><a class="anchor" href="#variables-climaticas"></a>Variables climaticas</h2>
+<p>For each corner, the number of crimes that occurred in each month of the December 2017 - December-2019 period is recorded.
+In total there are 25 columns of crime, which refer to the 25 months of the study period. The attributes are
+arranged chronologically, they can be identified with the prefix "crimes", followed by the month and year.</p>
+    <h2 class="hasAnchor" id="climate-variables"><a class="anchor" href="#climate-variables"></a>Climate variables</h2>
 
     
 
-<p>Se estudian 4 factores climáticos: temperatura promedio, velocidad del viento promedio, milímetros de agua y días de lluvia. Almacenando sus valores en 25 columnas para cada variable, en referencia a los 25 meses del periodo diciembre 2017 - diciembre-2019. Los atributos están ordenados cronológicamente, pueden identificarse con el prefijo del factor climático, seguido del mes y año, por ejemplo: dias_lluvia_feb_2018.</p>
-    <h2 class="hasAnchor" id="variables-de-entorno-cercano"><a class="anchor" href="#variables-de-entorno-cercano"></a>Variables de entorno cercano</h2>
+<p>4 climatic factors are studied: average temperature, average wind speed, millimeters of water and rainy days.
+Storing their values in 25 columns for each variable, referring to the 25 months of the December 2017 - December-2019 period.
+The attributes are ordered chronologically, they can be identified with the prefix of the climatic factor,
+followed by the month and year.</p>
+    <h2 class="hasAnchor" id="nearby-environment-variables"><a class="anchor" href="#nearby-environment-variables"></a>Nearby environment variables</h2>
 
     
 
-<p>Para cada esquina se cuentan los elementos de entorno físico que estén dentro de un radio de 250 metros, por ejemplo el número de estaciones de metro, comisarías, universidades, locales gastronómicos, entre otros. En total son 38 atributos de entorno.</p>
+<p>For each corner, the elements of the physical environment that are within a radius of 250 meters are counted,
+for example the number of metro stations, police stations, universities, gastronomic places, among others.
+In total there are 38 environment attributes.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

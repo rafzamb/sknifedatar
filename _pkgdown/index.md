@@ -1,5 +1,5 @@
 
-# **sknifedatar** 📦 “Swiss Knife of Data for R” <img src="man/figures/logo.png" align="right" height="139" />
+# **sknifedatar** 📦 “Swiss Knife of Data” <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -8,10 +8,10 @@
 license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/rafzamb/sknifedatar/blob/master/LICENSE)
 <!-- badges: end -->
 
-**sknifedatar** is a package that serves primarily as an extension to
-the [modeltime](https://business-science.github.io/modeltime/) 📦
-ecosystem. In addition, it includes some functionalities for spatial
-data and visualization.
+Serves primarily as an extension to the
+[modeltime](https://business-science.github.io/modeltime/) 📦 ecosystem.
+In addition, it includes some functionalities for spatial data and
+visualization.
 
 ## Installation
 
@@ -113,9 +113,9 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test   9.38  6.25 0.720  6.31 11.1  0.470
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test   9.09  6.16 0.699  6.12 11.1  0.429
 #> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.95  1.83 2.14   1.81  3.30 0.873
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.24  2.02 2.35   1.99  3.60 0.857
 ```
 
 ### 🔺 modeltime\_multiforecast
@@ -149,7 +149,8 @@ forecast_emae %>%
 best_model_emae <- modeltime_multibestmodel(
     .table = model_table_emae$table_time,
     .metric = "rmse",
-    .minimize = TRUE
+    .minimize = TRUE,
+    .forecast = FALSE
   )
 
 best_model_emae

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function para agregar valores NA a un data frame — insert_na • sknifedatar</title>
+<title>Add NA values to a dataframe — insert_na • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Function para agregar valores NA a un data frame — insert_na" />
-<meta property="og:description" content="Esta función permite agregar valores NA a un data frame, pudiendo seleccionar las columnas
-y la propòrcion de NAs deseados." />
+<meta property="og:title" content="Add NA values to a dataframe — insert_na" />
+<meta property="og:description" content="allows adding NA values to a data frame, selecting the columns
+and the proportion of desired NAs." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo_twitter_sknidatar.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -85,7 +85,7 @@ y la propòrcion de NAs deseados." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -113,6 +113,9 @@ y la propòrcion de NAs deseados." />
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -139,14 +142,14 @@ y la propòrcion de NAs deseados." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Function para agregar valores NA a un data frame</h1>
+    <h1>Add NA values to a dataframe</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/insert_na.R'><code>R/insert_na.R</code></a></small>
     <div class="hidden name"><code>insert_na.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Esta función permite agregar valores NA a un data frame, pudiendo seleccionar las columnas
-y la propòrcion de NAs deseados.</p>
+    <p>allows adding NA values to a data frame, selecting the columns
+and the proportion of desired NAs.</p>
     </div>
 
     <pre class="usage"><span class='fu'>insert_na</span><span class='op'>(</span><span class='va'>.dataset</span>, <span class='va'>columns</span>, .p <span class='op'>=</span> <span class='fl'>0.01</span>, seed <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span></pre>
@@ -156,25 +159,26 @@ y la propòrcion de NAs deseados.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.dataset</th>
-      <td><p>data frame</p></td>
+      <td><p>data frame.</p></td>
     </tr>
     <tr>
       <th>columns</th>
-      <td><p>vector que indica el nombre de las columnas donde se agregaran los valores NA, ejemplo de formato c("X1","X2").</p></td>
+      <td><p>vector that indicates the name of the columns where the NA values will be added,
+in the format: c("X1", "X2") for variables X1, X2.</p></td>
     </tr>
     <tr>
       <th>.p</th>
-      <td><p>valor entre 0 y 1, indica la proporción de valores NA que se agregaran.</p></td>
+      <td><p>value between 0 and 1, indicating the proportion of NA values that will be added.</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>semilla de números aleatorios.</p></td>
+      <td><p>random number seed.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>El data frame original suministrado a data, pero con los valores NA agregados en las columnas indicadas.</p>
+    <p>the original data frame, but with the NA values added in the indicated columns.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>insert_na</span><span class='op'>(</span>.dataset <span class='op'>=</span> <span class='va'>iris</span>, columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>,<span class='st'>"Petal.Length"</span><span class='op'>)</span>, .p <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span>

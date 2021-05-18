@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Series del indicaro EMAE — emae_series • sknifedatar</title>
+<title>Time series of the monthly estimator of Argentine economic activity, grouped by sector — emae_series • sknifedatar</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,13 @@
 
 
 
-<meta property="og:title" content="Series del indicaro EMAE — emae_series" />
-<meta property="og:description" content="El EMAE es un indicador que refleja la evolución mensual de la actividad económica del conjunto de los
-sectores productivos a nivel nacional para Argentina, para mas detalles consultar EMAE indicador.
-Se obtuvieron datos de todas las series de EMAE sectorial, desde Enero 2004 hasta Octubre 2020, los datos
-fueron extraidos desde Series de Tiempo (API) del Gobierno de la Ciudad de Buenos Aires." />
+<meta property="og:title" content="Time series of the monthly estimator of Argentine economic activity, grouped by sector — emae_series" />
+<meta property="og:description" content="The EMAE is an indicator that reflects the monthly evolution of the economic activity of all the
+productive sectors nationwide for Argentina, for more
+details: EMAE indicator.
+Data was obtained from all the sectoral EMAE series, from January 2004 to October 2020,
+from Time Series (API)
+from the Government Open Data Portal." />
 <meta property="og:image" content="https://rafzamb.github.io/sknifedatar/reference/figures/logo_twitter_sknidatar.png" />
 <meta property="og:image:alt" content="sknifedatar is a package that serves primarily as an extension to the modeltime ecosystem. In addition, it includes some functionalities for spatial data and visualization." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -87,7 +89,7 @@ fueron extraidos desde Series de Tiempo (API) del Gobierno de la Ciudad de Bueno
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -115,6 +117,9 @@ fueron extraidos desde Series de Tiempo (API) del Gobierno de la Ciudad de Bueno
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -141,16 +146,18 @@ fueron extraidos desde Series de Tiempo (API) del Gobierno de la Ciudad de Bueno
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Series del indicaro EMAE</h1>
+    <h1>Time series of the monthly estimator of Argentine economic activity, grouped by sector</h1>
     <small class="dont-index">Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/R/emae_series.R'><code>R/emae_series.R</code></a></small>
     <div class="hidden name"><code>emae_series.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>El EMAE es un indicador que refleja la evolución mensual de la actividad económica del conjunto de los
-sectores productivos a nivel nacional para Argentina, para mas detalles consultar <a href='https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-9-48'>EMAE indicador</a>.
-Se obtuvieron datos de todas las series de EMAE sectorial, desde Enero 2004 hasta Octubre 2020, los datos
-fueron extraidos desde <a href='https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13'>Series de Tiempo (API)</a> del Gobierno de la Ciudad de Buenos Aires.</p>
+    <p>The EMAE is an indicator that reflects the monthly evolution of the economic activity of all the
+productive sectors nationwide for Argentina, for more
+details: <a href='https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-9-48'>EMAE indicator</a>.
+Data was obtained from all the sectoral EMAE series, from January 2004 to October 2020,
+from <a href='https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13'>Time Series (API)</a>
+from the Government Open Data Portal.</p>
     </div>
 
     <pre class="usage"><span class='va'>emae_series</span></pre>
@@ -158,8 +165,8 @@ fueron extraidos desde <a href='https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Un data frame con 3104 filas y 3 columnas, la variable "date" representa la fecha mensual, "value" el valor mensual del indicador y
-la columna sector indica el id o sector económico de las series.</p>
+    <p>A data frame with 3104 rows and 3 columns, the variable "date" represents the monthly date,
+"value" the monthly value of the indicator and the sector column indicates the id or economic sector of the series.</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p><a href='https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13'>https://datos.gob.ar/dataset/jgm_3/archivo/jgm_3.13</a></p>

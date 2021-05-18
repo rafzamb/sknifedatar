@@ -85,7 +85,7 @@ into tabs. Concatenating all the chunks into a string that can be later knitted 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -112,6 +112,9 @@ into tabs. Concatenating all the chunks into a string that can be later knitted 
     </li>
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
     </li>
   </ul>
 </li>
@@ -149,14 +152,22 @@ into tabs. Concatenating all the chunks into a string that can be later knitted 
 into tabs. Concatenating all the chunks into a string that can be later knitted and rendered.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>automagic_tabs</span><span class='op'>(</span><span class='va'>input_data</span>, <span class='va'>panel_name</span>, <span class='va'>.output</span>, .layout <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>automagic_tabs</span><span class='op'>(</span>
+  <span class='va'>input_data</span>,
+  <span class='va'>panel_name</span>,
+  <span class='va'>.output</span>,
+  <span class='va'>...</span>,
+  tabset_title <span class='op'>=</span> <span class='st'>""</span>,
+  tabset_props <span class='op'>=</span> <span class='st'>".tabset-fade .tabset-pills"</span>,
+  is_output_distill <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_data</th>
-      <td><p>tibble with at least 2 columns, one for the title of the tabs and another with
+      <td><p>Ungrouped tibble with at least 2 columns, one for the title of the tabs and another with
 the output to be displayed.</p></td>
     </tr>
     <tr>
@@ -168,15 +179,21 @@ the output to be displayed.</p></td>
       <td><p>string with the name of the column of the output.</p></td>
     </tr>
     <tr>
-      <th>.layout</th>
-      <td><p>string that represents the layout of the tabs, can take the values "l-body",
-"l-body-outset", "l-page" and "l-screen". By default the value is NULL and takes
-"l-body" as parameter.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>additional parameters that correspond to all those available in rmarkdown chunks
 (fig.align, fig.width, ...).</p></td>
+    </tr>
+    <tr>
+      <th>tabset_title</th>
+      <td><p>string title of the .tabset</p></td>
+    </tr>
+    <tr>
+      <th>tabset_props</th>
+      <td><p>string defining .tabset properties. Only works with is_output_distill = F</p></td>
+    </tr>
+    <tr>
+      <th>is_output_distill</th>
+      <td><p>boolean. is output a distill article.</p></td>
     </tr>
     </table>
 
@@ -185,7 +202,7 @@ the output to be displayed.</p></td>
     <p>concatenated string of all automatically generated chunks.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>given a tiblle, which must contain an "ID" column (representing the title of the tabs) and another
+    <p>given a tibble, which must contain an "ID" column (representing the title of the tabs) and another
 column that stores the output to be generated (plot, text, code, ...), a string is automatically
 generated which can be later rendered in a Rmarkdown document.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -200,34 +217,48 @@ generated which can be later rendered in a Rmarkdown document.</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://purrr.tidyverse.org'>purrr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rafzamb/sknifedatar'>sknifedatar</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 
-<span class='va'>dataset</span> <span class='op'>&lt;-</span>
- <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>ID <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span><span class='op'>)</span>,
-                numbers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
- <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>plots <span class='op'>=</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>numbers</span>,
-                    <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>plots <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>plots</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='va'>iris</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Species</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
+    .plot <span class='op'>=</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='op'>~</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Sepal.Length</span>, y <span class='op'>=</span> <span class='va'>Petal.Length</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='va'>dataset</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span><span>
-#&gt;   ID    numbers   plots 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> A     </span><span style='color: #949494;'>&lt;dbl [5]&gt;</span><span> </span><span style='color: #949494;'>&lt;gg&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> B     </span><span style='color: #949494;'>&lt;dbl [5]&gt;</span><span> </span><span style='color: #949494;'>&lt;gg&gt;</span><span>  </div><div class='input'>
-<span class='fu'>automagic_tabs</span><span class='op'>(</span>input_data <span class='op'>=</span> <span class='va'>dataset</span>, panel_name <span class='op'>=</span> <span class='st'>"ID"</span>, .output <span class='op'>=</span> <span class='st'>"plots"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |..............                                                        |  20%
-#&gt;    inline R code fragments
+<span class='fu'>automagic_tabs</span><span class='op'>(</span>input_data <span class='op'>=</span> <span class='va'>dataset</span>, panel_name <span class='op'>=</span> <span class='st'>"Species"</span>, .output <span class='op'>=</span> <span class='st'>".plot"</span>, fig.align<span class='op'>=</span><span class='st'>'center'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |..........                                                            |  14%
+#&gt;   ordinary text without R code
 #&gt; 
+#&gt;   |                                                                              |....................                                                  |  29%
+#&gt; label: `r automagic_chunk_dataset_setosa` (with options) 
+#&gt; List of 1
+#&gt;  $ fig.align: chr "center"
 #&gt; 
+#&gt;   |                                                                              |..............................                                        |  43%
+#&gt;   ordinary text without R code
 #&gt; 
+#&gt;   |                                                                              |........................................                              |  57%
+#&gt; label: `r automagic_chunk_dataset_versicolor` (with options) 
+#&gt; List of 1
+#&gt;  $ fig.align: chr "center"
 #&gt; 
+#&gt;   |                                                                              |..................................................                    |  71%
+#&gt;   ordinary text without R code
 #&gt; 
-#&gt; </div><div class='output co'>#&gt; <span class='message'>Quitting from lines 2-5 () </span></div><div class='output co'>#&gt; <span class='error'>Error in eval(parse_only(code), envir = envir): object 'dataset' not found</span></div><div class='output co'>#&gt; </div><div class='input'>
+#&gt;   |                                                                              |............................................................          |  86%
+#&gt; label: `r automagic_chunk_dataset_virginica` (with options) 
+#&gt; List of 1
+#&gt;  $ fig.align: chr "center"
+#&gt; 
+#&gt;   |                                                                              |......................................................................| 100%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt; </div><div class='output co'>#&gt; [1] "##  { .tabset-fade .tabset-pills} \n\n::::: {.panelset}\n\n::: {.panel}\n\n### setosa \n\n\n```r\n dataset$.plot[[1]] \n```\n\n```\n## Error in eval(expr, envir, enclos): object 'dataset' not found\n```\n\n:::\n::: {.panel}\n\n### versicolor \n\n\n```r\n dataset$.plot[[2]] \n```\n\n```\n## Error in eval(expr, envir, enclos): object 'dataset' not found\n```\n\n:::\n::: {.panel}\n\n### virginica \n\n\n```r\n dataset$.plot[[3]] \n```\n\n```\n## Error in eval(expr, envir, enclos): object 'dataset' not found\n```\n\n::: \n\n:::::"</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='st'>"figure"</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

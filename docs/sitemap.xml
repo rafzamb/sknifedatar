@@ -7,6 +7,9 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/automagic_tabs.html</loc>
   </url>
   <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/automagic_tabs2.html</loc>
+  </url>
+  <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/crimes.html</loc>
   </url>
   <url>
@@ -40,6 +43,36 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_multirefit.html</loc>
   </url>
   <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_bestmodel.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_fit.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_forecast.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_heatmap.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_multibestmodel.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_multifit.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_multiforecast.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_multirefit.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_rank.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//reference/modeltime_wfs_refit.html</loc>
+  </url>
+  <url>
     <loc>https://rafzamb.github.io/sknifedatar//reference/multieval.html</loc>
   </url>
   <url>
@@ -56,5 +89,8 @@
   </url>
   <url>
     <loc>https://rafzamb.github.io/sknifedatar//articles/automatic_tabs.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//articles/workflowsets_times.html</loc>
   </url>
 </urlset>

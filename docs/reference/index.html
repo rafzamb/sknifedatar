@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -110,6 +110,9 @@
     </li>
     <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
     </li>
   </ul>
 </li>
@@ -169,51 +172,57 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="automagic_tabs2.html">automagic_tabs2()</a></code> </p>
+        </td>
+        <td><p>Automatic Generation of Tabs with multiple outputs</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="crimes.html">crimes</a></code> </p>
         </td>
-        <td><p>Muestra de delitos ocurridos en la ciudad de Buenos Aires</p></td>
+        <td><p>Buenos Aires crimes data</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="data_avellaneda.html">data_avellaneda</a></code> </p>
         </td>
-        <td><p>Flujo vehicular por peaje Avellaneda en la Ciudad Autónoma de Buenos Aires.</p></td>
+        <td><p>Vehicle flow through Avellaneda toll in Ciudad Autonoma de Buenos Aires, Argentina.</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="data_crime_clime.html">data_crime_clime</a></code> </p>
         </td>
-        <td><p>Esquinas de la ciudad de Buenos Aires</p></td>
+        <td><p>Corners of the city of Buenos Aires</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="data_longer_crime.html">data_longer_crime</a></code> </p>
         </td>
-        <td><p>Esquinas de la ciudad de Buenos Aires con factores meteorológicos y de entorno</p></td>
+        <td><p>Corners of the city of Buenos Aires with meteorological and environmental factors</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="emae_series.html">emae_series</a></code> </p>
         </td>
-        <td><p>Series del indicaro EMAE</p></td>
+        <td><p>Time series of the monthly estimator of Argentine economic activity, grouped by sector</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="insert_na.html">insert_na()</a></code> </p>
         </td>
-        <td><p>Function para agregar valores NA a un data frame</p></td>
+        <td><p>Add NA values to a dataframe</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="intercepcion_calles.html">intercepcion_calles</a></code> </p>
         </td>
-        <td><p>Muestra la intercepciòn de las principales calles y avenidas de la ciudad de Buenos Aires</p></td>
+        <td><p>Dataset of the intersection of the main streets and avenues of the city of Buenos Aires, Argentina.</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="modeltime_multibestmodel.html">modeltime_multibestmodel()</a></code> </p>
         </td>
-        <td><p>Función para obtener el mejor modelo a partir de una modeltime table</p></td>
+        <td><p>Gets the best model from a modeltime table</p></td>
       </tr><tr>
         
         <td>
@@ -225,31 +234,91 @@
         <td>
           <p><code><a href="modeltime_multiforecast.html">modeltime_multiforecast()</a></code> </p>
         </td>
-        <td><p>Forecasting de múltiples modelos sobre múltiples series de tiempo</p></td>
+        <td><p>Forecasting of multiple models over multiple time series</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="modeltime_multirefit.html">modeltime_multirefit()</a></code> </p>
         </td>
-        <td><p>Función para reajustar el o los modelos para múltiples series de tiempo</p></td>
+        <td><p>Refit the model or models for multiple time series</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_bestmodel.html">modeltime_wfs_bestmodel()</a></code> </p>
+        </td>
+        <td><p>Modeltime best workflow from a set of models</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_fit.html">modeltime_wfs_fit()</a></code> </p>
+        </td>
+        <td><p>Modeltime workflowsets fit</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_forecast.html">modeltime_wfs_forecast()</a></code> </p>
+        </td>
+        <td><p>Modeltime workflow sets forecast</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_heatmap.html">modeltime_wfs_heatmap()</a></code> </p>
+        </td>
+        <td><p>Modeltime workflowsets heatmap plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_multibestmodel.html">modeltime_wfs_multibestmodel()</a></code> </p>
+        </td>
+        <td><p>Get the best workflow for each time series</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_multifit.html">modeltime_wfs_multifit()</a></code> </p>
+        </td>
+        <td><p>Fit a workflow_set object over multiple time series</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_multiforecast.html">modeltime_wfs_multiforecast()</a></code> </p>
+        </td>
+        <td><p>Forecast of a workflow set on multiple time series</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_multirefit.html">modeltime_wfs_multirefit()</a></code> </p>
+        </td>
+        <td><p>Refit one or more trained workflows to new data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_rank.html">modeltime_wfs_rank()</a></code> </p>
+        </td>
+        <td><p>Modeltime workflow sets ranking based on a metric</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modeltime_wfs_refit.html">modeltime_wfs_refit()</a></code> </p>
+        </td>
+        <td><p>Modeltime workflow sets refit</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="multieval.html">multieval()</a></code> </p>
         </td>
-        <td><p>Evaluación de múltiples métricas y predicciones</p></td>
+        <td><p>Evaluation of multiple metrics and predictions</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="sliding_window.html">sliding_window()</a></code> </p>
         </td>
-        <td><p>Trasnformación de ventana deslizante movil</p></td>
+        <td><p>Mobile sliding window transformation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="table_time.html">table_time</a></code> </p>
         </td>
-        <td><p>Modelos ajustados para el indicador EMAE</p></td>
+        <td><p>Fitted models for the EMAE indicator</p></td>
       </tr>
     </tbody>
     </table>
