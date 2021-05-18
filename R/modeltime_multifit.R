@@ -42,6 +42,11 @@
 #'                                 m_ets)
 modeltime_multifit <- function(serie, .prop, ...){
 
+  #validation
+  variables <- serie %>% dplyr::select(nested_column) %>% purrr::pluck(1,1) %>% names()
+  if('value' %in% variables == FALSE) stop("No 'value' column was found. Please specify a column named 'value'.")
+  if('date' %in% variables == FALSE) stop("No 'date' column was found. Please specify a column named 'date'.")
+  
   #Fit Function
   nest_fit <- function(serie, model, .proportion = .prop){
 
@@ -104,6 +109,9 @@ modeltime_multifit <- function(serie, .prop, ...){
       dplyr::relocate(.data$name_serie)
 
   }, table_time$calibration, table_time[[1]], SIMPLIFY = F) %>% dplyr::bind_rows()
+  
+  cli::cat_line()
+  cli::cli_h1(paste0(nrow(table_time), ' models fitted ', cli::symbol$heart))
 
   list(table_time = table_time,
        models_accuracy = models_accuracy)
