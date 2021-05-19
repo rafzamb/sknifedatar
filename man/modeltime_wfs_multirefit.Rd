@@ -20,6 +20,7 @@ It allows retraining a set of workflows trained on new data.
 }
 \examples{
 library(dplyr)
+library(earth)
 
 df <- sknifedatar::emae_series
 

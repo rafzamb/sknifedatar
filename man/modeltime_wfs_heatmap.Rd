@@ -35,6 +35,7 @@ recipe from the model name.
 library(modeltime)
 library(dplyr)
 library(parsnip)
+library(earth)
 
 data <- sknifedatar::data_avellaneda \%>\% mutate(date=as.Date(date)) \%>\% filter(date<'2011-01-01')
 

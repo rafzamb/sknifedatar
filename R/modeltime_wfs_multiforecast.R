@@ -16,6 +16,7 @@
 #'
 #' @examples
 #' library(dplyr)
+#' library(earth)
 #' 
 #' df <- sknifedatar::emae_series
 #' 

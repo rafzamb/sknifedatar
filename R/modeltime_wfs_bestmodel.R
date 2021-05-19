@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' library(dplyr)
-#' 
+#' library(earth)
 #' data <- sknifedatar::data_avellaneda %>% mutate(date=as.Date(date)) %>% filter(date<'2012-06-01')
 #' 
 #' recipe_date <- recipes::recipe(value ~ ., data = data) %>% 

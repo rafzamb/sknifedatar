@@ -12,3 +12,4 @@
 ^logo.png$
 ^vignettes$
 ^cran-comments\.md$
+^CRAN-RELEASE$

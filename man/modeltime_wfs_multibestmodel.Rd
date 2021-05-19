@@ -25,6 +25,7 @@ obtains the best workflow for each time series based on a performance metric.
 }
 \examples{
 library(dplyr)
+library(earth)
 
 df <- sknifedatar::emae_series
 

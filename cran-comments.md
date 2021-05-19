@@ -1,3 +1,11 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* change 'http' to 'https' into a 'README.md' URL.
+
+* Add the 'earth' package payload in the examples where it was 
+  needed, to improve readability.
+
 ## Test environments
 * local OS X install, R 4.0.3
 * windows-x86_64-devel (r-devel)

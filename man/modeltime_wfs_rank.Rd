@@ -25,6 +25,7 @@ the ranking depends on the metric selected.
 \examples{
 library(dplyr)
 library(modeltime)
+library(earth)
 
 data <- sknifedatar::data_avellaneda \%>\% 
   mutate(date=as.Date(date)) \%>\% 

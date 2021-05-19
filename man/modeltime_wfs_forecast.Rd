@@ -28,6 +28,7 @@ can be made on new data or on a number of periods.
 \examples{
 library(dplyr)
 library(modeltime)
+library(earth)
 
 data <- sknifedatar::data_avellaneda \%>\%  mutate(date=as.Date(date)) \%>\% 
 filter(date<'2012-06-01')

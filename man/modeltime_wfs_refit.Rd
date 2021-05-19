@@ -24,6 +24,7 @@ each workflow is now re-trained using all the available data.
 \examples{
 library(modeltime)
 library(dplyr)
+library(earth)
 
 data <- sknifedatar::data_avellaneda \%>\% 
   mutate(date=as.Date(date)) \%>\% 

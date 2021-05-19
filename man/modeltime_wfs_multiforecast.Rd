@@ -25,6 +25,7 @@ generates forecasts of a workflow set object over multiple time series.
 }
 \examples{
 library(dplyr)
+library(earth)
 
 df <- sknifedatar::emae_series
 

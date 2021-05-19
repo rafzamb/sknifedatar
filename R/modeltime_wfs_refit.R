@@ -14,6 +14,7 @@
 #' @examples
 #' library(modeltime)
 #' library(dplyr)
+#' library(earth)
 #' 
 #' data <- sknifedatar::data_avellaneda %>% 
 #'   mutate(date=as.Date(date)) %>% 
