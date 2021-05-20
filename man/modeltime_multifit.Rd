@@ -35,17 +35,18 @@ of the models separated by commas. The function admits as many models as require
 }
 \examples{
 library(modeltime)
+library(earth)
 nested_serie <- 
-tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2006-02-01'),
+tidyr::nest(dplyr::filter(sknifedatar::emae_series, date < '2007-02-01'),
             nested_column = -sector)
 
 ## Models
-m_ets <- parsnip::set_engine(modeltime::exp_smoothing(), 'ets')
+mars <- parsnip::mars(mode = 'regression') \%>\% parsnip::set_engine('earth')
 
 # modeltime_multifit
 sknifedatar::modeltime_multifit(serie = head(nested_serie,2),
-                                .prop = 0.97,
-                                m_ets)
+                                .prop = 0.9,
+                                mars)
 }
 \seealso{
 \href{https://rafzamb.github.io/sknifedatar/}{sknifedatar website}
