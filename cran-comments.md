@@ -1,10 +1,13 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* change 'http' to 'https' into a 'README.md' URL.
+* 'data.table' package was removed as import required.
 
-* Add the 'earth' package payload in the examples where it was 
-  needed, to improve readability.
+* 'workflowsets' package was moved from import to suggests.
+
+* non-ASCII characters were removed from the 'crimes' dataset.
+
+* update of the example of the `modeltime_multifit()` function.
 
 ## Test environments
 * local OS X install, R 4.0.3
