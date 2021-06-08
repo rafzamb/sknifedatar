@@ -185,9 +185,9 @@
 ##   .model_id  .model_desc  .type    mae  mape  mase smape   rmse   rsq .fit_model
 ##   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;    
 ## 1 base_M_ma… EARTH        Test   9901.  9.30 0.598  8.66 15187. 0.260 &lt;model_ti…
-## 2 base_M_pr… PROPHET W/ … Test  10335.  9.45 0.624  9.03 15478. 0.233 &lt;model_ti…
+## 2 base_M_pr… PROPHET W/ … Test  10112.  9.23 0.610  8.85 15141. 0.257 &lt;model_ti…
 ## 3 fourier_M… EARTH        Test   9944.  9.35 0.600  8.69 15236. 0.260 &lt;model_ti…
-## 4 fourier_M… PROPHET W/ … Test  10203.  9.28 0.616  8.93 15092. 0.267 &lt;model_ti…</code></pre>
+## 4 fourier_M… PROPHET W/ … Test  10198.  9.32 0.616  8.92 15222. 0.253 &lt;model_ti…</code></pre>
 <div id="heatmap-modelsrecipes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#heatmap-modelsrecipes" class="anchor"></a>Heatmap models/recipes</h2>
@@ -214,10 +214,10 @@
 <pre><code>## # A tibble: 4 x 11
 ##   .model_id      rank .model_desc    .type    mae  mape  mase smape   rmse   rsq
 ##   &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-## 1 base_M_proph…     1 PROPHET W/ XG… Test  10335.  9.45 0.624  9.03 15478. 0.233
-## 2 fourier_M_ma…     2 EARTH          Test   9944.  9.35 0.600  8.69 15236. 0.260
-## 3 base_M_mars       3 EARTH          Test   9901.  9.30 0.598  8.66 15187. 0.260
-## 4 fourier_M_pr…     4 PROPHET W/ XG… Test  10203.  9.28 0.616  8.93 15092. 0.267
+## 1 fourier_M_pr…     1 PROPHET W/ XG… Test  10198.  9.32 0.616  8.92 15222. 0.253
+## 2 base_M_proph…     2 PROPHET W/ XG… Test  10112.  9.23 0.610  8.85 15141. 0.257
+## 3 fourier_M_ma…     3 EARTH          Test   9944.  9.35 0.600  8.69 15236. 0.260
+## 4 base_M_mars       4 EARTH          Test   9901.  9.30 0.598  8.66 15187. 0.260
 ## # … with 1 more variable: .fit_model &lt;list&gt;</code></pre>
 </div>
 </div>
@@ -232,10 +232,10 @@
                                    .minimize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">wfbests</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
-##   .model_id                rank .model_desc               .fit_model          
-##   &lt;chr&gt;                   &lt;int&gt; &lt;chr&gt;                     &lt;list&gt;              
-## 1 fourier_M_prophet_boost     1 PROPHET W/ XGBOOST ERRORS &lt;model_time [1 × 3]&gt;
-## 2 base_M_mars                 2 EARTH                     &lt;model_time [1 × 3]&gt;</code></pre>
+##   .model_id       rank .model_desc .fit_model          
+##   &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;       &lt;list&gt;              
+## 1 base_M_mars        1 EARTH       &lt;model_time [1 × 3]&gt;
+## 2 fourier_M_mars     2 EARTH       &lt;model_time [1 × 3]&gt;</code></pre>
 </div>
 <div id="refit-in-all-data" class="section level1">
 <h1 class="hasAnchor">
