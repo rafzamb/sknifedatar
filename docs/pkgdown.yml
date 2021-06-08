@@ -2,11 +2,12 @@ pandoc: 2.11.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  Worklowset over a time series: workflowsets_times.html
-  Worklowset over multiple time series: workflowsets_multi_times.html
-  Automatic generation of Tabs in Distill/Rmarkdown files: automatic_tabs.html
-  Sliding windows: sliding_windows.html
-last_built: 2021-05-20T12:58Z
+  automatic_tabs: automatic_tabs.html
+  sliding_windows: sliding_windows.html
+  workflowsets_multi_times: workflowsets_multi_times.html
+  workflowsets_times: workflowsets_times.html
+last_built: 2021-06-08T05:10Z
 urls:
   reference: https://rafzamb.github.io/sknifedatar//reference
   article: https://rafzamb.github.io/sknifedatar//articles
+

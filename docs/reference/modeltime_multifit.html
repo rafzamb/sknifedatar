@@ -56,7 +56,7 @@ from the 'modeltime' package." />
 <meta name="twitter:site" content="@rafa_zamr" />
 
 
-
+<meta name="robots" content="noindex">
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -85,7 +85,7 @@ from the 'modeltime' package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -108,13 +108,16 @@ from the 'modeltime' package." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Geospatial.html">Geospatial</a>
-    </li>
-    <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
     <li>
-      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+      <a href="../articles/sliding_windows.html">Sliding windows</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_multi_times.html">Worklowset over multiple time series (no panel)</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets over a time series</a>
     </li>
   </ul>
 </li>
@@ -205,7 +208,9 @@ of the models separated by commas. The function admits as many models as require
 <span class='fu'>sknifedatar</span><span class='fu'>::</span><span class='fu'>modeltime_multifit</span><span class='op'>(</span>serie <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>nested_serie</span>,<span class='fl'>2</span><span class='op'>)</span>,
                                 .prop <span class='op'>=</span> <span class='fl'>0.9</span>,
                                 <span class='va'>mars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>2 models fitted ♥</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; $table_time
+</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'tune':</span>
+#&gt; <span class='message'>  method                   from   </span>
+#&gt; <span class='message'>  required_pkgs.model_spec parsnip</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>2 models fitted ♥</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; $table_time
 #&gt; </span><span style='color: #949494;'># A tibble: 2 x 5</span><span>
 #&gt;   sector    nested_column     mars     nested_model         calibration         
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>              

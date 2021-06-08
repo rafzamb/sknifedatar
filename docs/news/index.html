@@ -54,7 +54,7 @@
 <meta name="twitter:site" content="@rafa_zamr" />
 
 
-
+<meta name="robots" content="noindex">
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sknifedatar</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -106,13 +106,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Geospatial.html">Geospatial</a>
-    </li>
-    <li>
       <a href="../articles/automatic_tabs.html">Automagic Tabs in Distill/Rmarkdown files and time series analysis</a>
     </li>
     <li>
-      <a href="../articles/workflowsets_times.html">Workflowsets for time series</a>
+      <a href="../articles/sliding_windows.html">Sliding windows</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_multi_times.html">Worklowset over multiple time series (no panel)</a>
+    </li>
+    <li>
+      <a href="../articles/workflowsets_times.html">Workflowsets over a time series</a>
     </li>
   </ul>
 </li>
@@ -144,10 +147,21 @@
       <small>Source: <a href='https://github.com/rafzamb/sknifedatar/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="sknifedatar-0009003-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9003">
-<a href="#sknifedatar-0009003-development-version" class="anchor"></a>sknifedatar 0.0.0.9003 (development version)<small> Unreleased </small>
+    <div id="sknifedatar-0129000-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.2.9000">
+<a href="#sknifedatar-0129000-development-version" class="anchor"></a>sknifedatar 0.1.2.9000 (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="sknifedatar-012" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.2">
+<a href="#sknifedatar-012" class="anchor"></a>sknifedatar 0.1.2<small> 2021-06-01 </small>
+</h1>
+<ul>
+<li><p>‘data.table’ package was removed as import required.</p></li>
+<li><p>‘workflowsets’ package was moved from import to suggests.</p></li>
+<li><p>non-ASCII characters were removed from the ‘crimes’ dataset.</p></li>
+<li><p>update of the example of the <code><a href="../reference/modeltime_multifit.html">modeltime_multifit()</a></code> function.</p></li>
+</ul>
 </div>
     <div id="sknifedatar-0009002-2021-05-16" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9002">

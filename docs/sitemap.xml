@@ -85,10 +85,13 @@
     <loc>https://rafzamb.github.io/sknifedatar//reference/table_time.html</loc>
   </url>
   <url>
-    <loc>https://rafzamb.github.io/sknifedatar//articles/Geospatial.html</loc>
+    <loc>https://rafzamb.github.io/sknifedatar//articles/automatic_tabs.html</loc>
   </url>
   <url>
-    <loc>https://rafzamb.github.io/sknifedatar//articles/automatic_tabs.html</loc>
+    <loc>https://rafzamb.github.io/sknifedatar//articles/sliding_windows.html</loc>
+  </url>
+  <url>
+    <loc>https://rafzamb.github.io/sknifedatar//articles/workflowsets_multi_times.html</loc>
   </url>
   <url>
     <loc>https://rafzamb.github.io/sknifedatar//articles/workflowsets_times.html</loc>
