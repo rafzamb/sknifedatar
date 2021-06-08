@@ -33,13 +33,13 @@ Or install the development version from GitHub with:
 devtools::install_github("rafzamb/sknifedatar")
 ```
 
-## Features:
+## Features:  
 
 -   multifit: multiple models into multiple time series (no panel).
 -   workflowsets: [worklowset over a time
-    series](https:/rafzamb.github.io/sknifedatar/articles/workflowsets_times.html).
+    series](https://rafzamb.github.io/sknifedatar/articles/workflowsets_times.html).
 -   workflowset multifit: [worklowset over multiple time series (no
-    panel)](https:/rafzamb.github.io/sknifedatar/articles/workflowsets_multi_times.html).
+    panel)](https://rafzamb.github.io/sknifedatar/articles/workflowsets_multi_times.html).
 -   automagic tabs: [automatic generation of Tabs in Distill/Rmarkdown
     files](https://rafzamb.github.io/sknifedatar/articles/automatic_tabs.html).
 -   sliding windows: [data partitioning in sliding
