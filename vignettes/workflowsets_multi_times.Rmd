@@ -33,7 +33,6 @@ library(workflowsets)
 library(modeltime)
 library(timetk)
 library(gt)
-library(lubridate)
 library(sknifedatar)
 library(USgas)
 ```
@@ -79,10 +78,6 @@ recipe_base <- recipe(value~date, data=data)
 
 # Some date variables
 recipe_date_features <- recipe_base %>% step_date(date, features = c('month','year'))
-
-# More date variables
-recipe_date_extrafeatures <- recipe_date_features %>% 
-  step_date(date, features = c('quarter','semester'))
 ```
 
 ### Models 🚀
@@ -91,17 +86,6 @@ recipe_date_extrafeatures <- recipe_date_features %>%
 # prophet_xgboost
 prophet_boost <- 
   prophet_boost(mode = 'regression') %>% set_engine("prophet_xgboost")
-
-# prophet_xgboost logistic
-prophet_boost_log <-
-  prophet_boost(
-    mode = 'regression',
-    changepoint_range = 0.8,
-    logistic_floor = min(data$value),
-    logistic_cap = max(data$value),
-    growth = 'logistic'
-  ) %>%
-  set_engine("prophet_xgboost")
 
 # mars
 mars <- mars( mode = 'regression') %>% set_engine('earth')
@@ -112,11 +96,9 @@ mars <- mars( mode = 'regression') %>% set_engine('earth')
 wfsets <- workflow_set(
   preproc = list(
     base                  = recipe_base,
-    features              = recipe_date_features, 
-    extrafeatures         = recipe_date_extrafeatures
+    features              = recipe_date_features
   ),
   models  = list(
-    M_prophet_boost_log = prophet_boost_log, 
     M_prophet_boost     = prophet_boost,
     M_mars              = mars
   ),
@@ -135,11 +117,11 @@ wfs_multifit <- modeltime_wfs_multifit(serie = nested_data %>% head(4),
 
 👉 The fitted object is a list containing the fitted models (**table_time**) and the corresponding metrics for each model (**models_accuracy**).
 
-```{r }
+```{r}
 wfs_multifit$table_time
 ```
 
-```{r }
+```{r}
 wfs_multifit$models_accuracy
 ```
 
@@ -166,8 +148,8 @@ plots <- wfs_multifit$models_accuracy %>%
 Another function included in **sknifedatar** is **modeltime_wfs_multiforecast**, which generates 🧙 [forecast of a workflow_set fitted object over multiple time series]{.ul}.
 
 ```{r}
-wfs_multiforecast <- modeltime_wfs_multiforecast(
-  wfs_multifit$table_time, .prop=0.8)
+wfs_multiforecast <- modeltime_wfs_multiforecast(wfs_multifit$table_time,
+                                                 .prop=0.9)
 ```
 
 🔹The **plot_modeltime_forecast** function from **modeltime** is used to visualize each forecast, where the nested_forecast is unnnested before using the function. As it can be seen, many models did not perform well.

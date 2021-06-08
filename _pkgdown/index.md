@@ -127,9 +127,9 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test  10.3   6.73 0.793  6.97 12.5  0.433
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test   8.80  6.00 0.676  5.92 10.6  0.473
 #> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.67  1.67 1.94   1.65  3.00 0.868
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.89  1.80 2.09   1.78  3.24 0.846
 ```
 
 ### 🔺 modeltime\_multiforecast
