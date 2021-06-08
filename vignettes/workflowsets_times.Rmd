@@ -1,6 +1,5 @@
 ---
-title: "Workflowsets for time series"
-description: "Functions related to the calculation of distance between geographic points and data partitioning in sliding windowsn"
+title: "Workflowsets over a time series"
 opengraph:
   image: 
     src: "figures_articles/automatic_tabs.png"
@@ -9,13 +8,15 @@ opengraph:
     card: summary_large_image
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Workflowsets for time series}
+  %\VignetteIndexEntry{Workflowsets over a time series}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introducion
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE)
+```
 
 # Libraries
 
@@ -79,9 +80,7 @@ wffits
 ```
 
 
-# Analisis 
-
-## Tabluar
+## Heatmap models/recipes
 
 
 ```{r}

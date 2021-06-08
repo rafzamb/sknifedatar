@@ -1,0 +1,228 @@
+---
+title: "Worklowset over multiple time series (no panel)"
+author: "Rafael Zambrano and Karina Bartolomé"
+base_url: https:/rafzamb.github.io/sknifedatar/articles/workflowsets_multi_times.html
+preview: icono.png
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 5
+draft: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE)
+```
+
+At a general level, this is the modeling scheme:
+
+```{r,echo=FALSE ,fig.align = 'center', layout='l-body'}
+knitr::include_graphics('workflowsets_times/framework.png')
+```
+
+PS: An approach similar to that of our previous publication, [Multiple Models Over Multiple Time Series: A Tidy Approach](https://karbartolome-blog.netlify.app/posts/seriestemporales/).
+
+# Libraries 📚
+
+```{r}
+library(tidymodels)
+library(tidyverse)
+library(workflowsets)
+library(modeltime)
+library(timetk)
+library(gt)
+library(lubridate)
+library(sknifedatar)
+library(USgas)
+```
+
+# Workflowsets for multiple series 💡
+
+🔹[Considering the 4 series selected at the beginning.]{.ul} The first necessary step is to nest the series into a **nested dataframe**, where the first column is the state, and the second column is the nested_column (date and value).
+
+```{r}
+data_states <-  USgas::us_residential %>% rename(value=y)
+
+nested_data <- data_states %>% 
+  nest(nested_column=-state)
+```
+
+```{r, echo=FALSE}
+library(reactable)
+library(htmltools)
+
+reactable(nested_data, details = function(index) {
+  data <- data_states[data_states$state == nested_data$state[index], c('date','value')] %>% 
+    mutate(value = round(value, 2))
+  div(style = "padding: 16px",
+                 reactable(data, outlined = TRUE)
+  )
+}, defaultPageSize=5)
+```
+
+## 1️⃣Multiple workflows sets fit
+
+The **modeltime_wfs_multifit** function from **sknifedatar** 📦 allows a 🌟 [workflowset object to be fitted over multiple time series]{.ul} 🌟. In this function, the workflow_set object is the same as the one used before, since it contains the diferent model + recipes combinations.
+
+### Recipes 🚀
+
+```{r}
+#data only for recipes read
+data <- data_states %>%
+  filter(state=='Hawaii') %>%
+  select(-state)
+
+# Recipe without steps
+recipe_base <- recipe(value~date, data=data)
+
+# Some date variables
+recipe_date_features <- recipe_base %>% step_date(date, features = c('month','year'))
+
+# More date variables
+recipe_date_extrafeatures <- recipe_date_features %>% 
+  step_date(date, features = c('quarter','semester'))
+```
+
+### Models 🚀
+
+```{r}
+# prophet_xgboost
+prophet_boost <- 
+  prophet_boost(mode = 'regression') %>% set_engine("prophet_xgboost")
+
+# prophet_xgboost logistic
+prophet_boost_log <-
+  prophet_boost(
+    mode = 'regression',
+    changepoint_range = 0.8,
+    logistic_floor = min(data$value),
+    logistic_cap = max(data$value),
+    growth = 'logistic'
+  ) %>%
+  set_engine("prophet_xgboost")
+
+# mars
+mars <- mars( mode = 'regression') %>% set_engine('earth')
+```
+
+
+```{r}
+wfsets <- workflow_set(
+  preproc = list(
+    base                  = recipe_base,
+    features              = recipe_date_features, 
+    extrafeatures         = recipe_date_extrafeatures
+  ),
+  models  = list(
+    M_prophet_boost_log = prophet_boost_log, 
+    M_prophet_boost     = prophet_boost,
+    M_mars              = mars
+  ),
+  cross   = TRUE
+) 
+
+wfsets
+```
+
+
+```{r }
+wfs_multifit <- modeltime_wfs_multifit(serie = nested_data %>% head(4), 
+                                       .prop = 0.9, 
+                                       .wfs  = wfsets)
+```
+
+👉 The fitted object is a list containing the fitted models (**table_time**) and the corresponding metrics for each model (**models_accuracy**).
+
+```{r }
+wfs_multifit$table_time
+```
+
+```{r }
+wfs_multifit$models_accuracy
+```
+
+🔹 Using the models_accuracy table included in the wfs_multifit object, a heatmap can be generated for a specific metric for each series 🔍 . This is done using the **modeltime_wfs_heatmap** function presented above.
+
+```{r}
+plots <- wfs_multifit$models_accuracy %>% 
+  dplyr::select(-.model_id) %>%  
+  dplyr::rename(.model_id=.model_names) %>% 
+  dplyr::mutate(.fit_model = '') %>% 
+  group_by(name_serie) %>% 
+  nest() %>% 
+  mutate(plot = map(data, ~ modeltime_wfs_heatmap(., metric = 'rsq',
+                                                 low_color = '#ece2f0',
+                                                 high_color = '#02818a'))) %>% 
+  ungroup()
+
+```
+
+`r automagic_tabs(input_data = plots, panel_name = "name_serie", .output = "plot", echo=FALSE, .layout = "l-page", fig.heigth=2, fig.width=10)`
+
+## 2️⃣Multiple forecast
+
+Another function included in **sknifedatar** is **modeltime_wfs_multiforecast**, which generates 🧙 [forecast of a workflow_set fitted object over multiple time series]{.ul}.
+
+```{r}
+wfs_multiforecast <- modeltime_wfs_multiforecast(
+  wfs_multifit$table_time, .prop=0.8)
+```
+
+🔹The **plot_modeltime_forecast** function from **modeltime** is used to visualize each forecast, where the nested_forecast is unnnested before using the function. As it can be seen, many models did not perform well.
+
+```{r, layout='l-page'}
+wfs_multiforecast %>% 
+      select(state, nested_forecast) %>% 
+      unnest(nested_forecast) %>% 
+      group_by(state) %>% 
+      plot_modeltime_forecast(
+        .legend_max_width = 12,
+        .facet_ncol = 2, 
+        .line_size = 0.5,
+        .interactive = FALSE,
+        .facet_scales = 'free_y',
+        .title='Proyecciones') 
+```
+
+## 3️⃣ Best models
+
+The **modeltime_wfs_multibest** 🏅 from **sknifedatar** obtains the [best workflow/model for each time series]{.ul} based on a performance metric (one of 'mae', 'mape','mase', 'smape','rmse','rsq').
+
+```{r}
+wfs_bests<- modeltime_wfs_multibestmodel(
+      .table = wfs_multiforecast,
+      .metric = "rmse",
+      .minimize = TRUE
+    )
+```
+
+## 4️⃣Multiple refit
+
+Now that we've selected the best model for each series, the **modeltime_wfs_multirefit** function is used in order to [retrain a set of workflows on all the data (train and test)]{.ul} 👌
+
+```{r }
+wfs_refit <- modeltime_wfs_multirefit(wfs_bests)
+```
+
+## 5️⃣Final forecast
+
+Finally, [a new forecast is generated for the refitted object]{.ul} 🧙, resulting in 4 forecasts, one for each series. In this case, the **modeltime_wfs_multiforecast** is used with .h paramenter = '12 month', giving a future forecast.
+
+```{r}
+wfs_forecast <- modeltime_wfs_multiforecast(wfs_refit, .h = "12 month")
+
+wfs_forecast %>% 
+      select(state, nested_forecast) %>% 
+      unnest(nested_forecast) %>% 
+      group_by(state) %>% 
+      plot_modeltime_forecast(
+        .legend_max_width = 12,
+        .facet_ncol = 2, 
+        .line_size = 0.5,
+        .interactive = FALSE,
+        .facet_scales = 'free_y',
+        .title='Proyecciones') 
+```
+

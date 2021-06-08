@@ -1,7 +1,5 @@
 ---
 title: "Automagic Tabs in Distill/Rmarkdown files and time series analysis"
-description: |
-  This article shows the use of tabs in Rmarkdown documents, through an example of time series analysis of the monthly estimator of Argentine economic activity.
 author: "Rafael Zambrano and Karina Bartolomé"
 date: 03-25-2021
 base_url: https:/rafzamb.github.io/sknifedatar/articles/automatic_tabs.html
@@ -278,10 +276,10 @@ xaringanExtra::use_panelset()
 
 ```{r, eval=FALSE}
 `r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots",
-                  .layout = "l-page", fig.heigth=1, fig.width=10)`
+                  fig.heigth=1, fig.width=10, echo = FALSE)`
 ```
 
-`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots", .layout = "l-page", fig.heigth=1, fig.width=10)`
+`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots", fig.heigth=1, fig.width=10, echo = FALSE)`
 
 ```{r, out.width="70%",echo=FALSE ,fig.align = 'center'}
 knitr::include_graphics('https://media1.tenor.com/images/d589b89e1748b63e810fbca15d86b945/tenor.gif')
@@ -375,10 +373,10 @@ data_filter <- data_filter %>%
 
 ```{r, eval=FALSE}
 `r automagic_tabs(input_data=data_filter ,panel_name="sector",.output="STL" ,
-                  fig.height=5.5 ,.layout="l-body-outset")`
+                  fig.height=5.5 ,.layout="l-body-outset", echo = FALSE)`
 ```
 
-`r automagic_tabs(input_data = data_filter, panel_name = "sector", .output = "STL", fig.height=5.5, .layout = "l-body-outset")`
+`r automagic_tabs(input_data = data_filter, panel_name = "sector", .output = "STL", fig.height=5.5, .layout = "l-body-outset", echo = FALSE)`
 
 🔹 Finally [**the autocorrelation plots are added in the ACF column.**]{.ul} This is also plotted on tabs with the **automagic_tabs** function.
 
@@ -402,10 +400,10 @@ data_filter
 
 ```{r, eval=FALSE}
 `r automagic_tabs(input_data = data_filter , panel_name = "sector", .output = "ACF",
-                  .layout="l-body-outset")`
+                  .layout="l-body-outset", echo = FALSE)`
 ```
 
-`r automagic_tabs(input_data = data_filter , panel_name = "sector", .output = "ACF",.layout="l-body-outset")`
+`r automagic_tabs(input_data = data_filter , panel_name = "sector", .output = "ACF",.layout="l-body-outset", echo = FALSE)`
 
 The emojis are displayed in the tab titles 🤩🤩🤩.
 
@@ -413,6 +411,6 @@ Thank you very much for reading us 👏👏👏.
 
 ## Contacts ✉
 
-Karina Bartolome, [Linkedin](https://www.linkedin.com/in/karinabartolome/), [Twitter](https://twitter.com/karbartolome), [Github](https://github.com/karbartolome), [Blogpost](https://karbartolome-blog.netlify.app/).
-
 Rafael Zambrano, [Linkedin](https://www.linkedin.com/in/rafael-zambrano/), [Twitter](https://twitter.com/rafa_zamr), [Github](https://github.com/rafzamb), [Blogpost](https://rafael-zambrano-blog-ds.netlify.app/).
+
+Karina Bartolome, [Linkedin](https://www.linkedin.com/in/karinabartolome/), [Twitter](https://twitter.com/karbartolome), [Github](https://github.com/karbartolome), [Blogpost](https://karbartolome-blog.netlify.app/).

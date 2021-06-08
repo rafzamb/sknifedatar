@@ -1,6 +1,6 @@
 Package: sknifedatar
 Title: Swiss Knife of Data
-Version: 0.0.0.9003
+Version: 0.1.2.9000
 Authors@R: 
     c(person(given = "Rafael",
              family = "Zambrano",

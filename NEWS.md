@@ -1,4 +1,14 @@
-# sknifedatar 0.0.0.9003 (development version)
+# sknifedatar 0.1.2.9000 (development version)
+
+# sknifedatar 0.1.2
+
+* 'data.table' package was removed as import required.
+
+* 'workflowsets' package was moved from import to suggests.
+
+* non-ASCII characters were removed from the 'crimes' dataset.
+
+* update of the example of the `modeltime_multifit()` function.
 
 # sknifedatar 0.0.0.9002 (2021-05-16)
 
