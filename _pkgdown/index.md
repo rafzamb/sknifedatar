@@ -34,9 +34,9 @@ devtools::install_github("rafzamb/sknifedatar")
 
 -   multifit: multiple models into multiple time series (no panel).
 -   workflowsets: [worklowset over a time
-    series](https:/rafzamb.github.io/sknifedatar/articles/workflowsets_times.html).
+    series](https://rafzamb.github.io/sknifedatar/articles/workflowsets_times.html).
 -   workflowset multifit: [worklowset over multiple time series (no
-    panel)](https:/rafzamb.github.io/sknifedatar/articles/workflowsets_multi_times.html).
+    panel)](https://rafzamb.github.io/sknifedatar/articles/workflowsets_multi_times.html).
 -   automagic tabs: [automatic generation of Tabs in Distill/Rmarkdown
     files](https://rafzamb.github.io/sknifedatar/articles/automatic_tabs.html).
 -   sliding windows: [data partitioning in sliding
@@ -127,9 +127,9 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test   8.80  6.00 0.676  5.92 10.6  0.473
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test  10.2   6.63 0.784  6.87 12.4  0.495
 #> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.89  1.80 2.09   1.78  3.24 0.846
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.56  2.22 2.58   2.19  3.96 0.834
 ```
 
 ### 🔺 modeltime\_multiforecast
