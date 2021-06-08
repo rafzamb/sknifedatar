@@ -3,22 +3,24 @@
 
 <!-- badges: start -->
 
-[![made-with-R](https://img.shields.io/badge/Made%20with-R-1f425f.svg)](https://www.r-project.org/)
-[![GitHub
-license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/rafzamb/sknifedatar/blob/master/LICENSE)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/sknifedatar)](https://CRAN.R-project.org/package=sknifedatar)
+[![Total
+Downloads](http://cranlogs.r-pkg.org/badges/grand-total/sknifedatar?color=brightgreen)](https://cran.r-project.org/package=sknifedatar)
+![](http://cranlogs.r-pkg.org/badges/sknifedatar?color=brightgreen)
 <!-- badges: end -->
 
-Serves primarily as an extension to the
-[modeltime](https://business-science.github.io/modeltime/) 📦 ecosystem.
-In addition, it includes some functionalities for spatial data and
-visualization.
+> Serves primarily as an extension to the
+> [modeltime](https://business-science.github.io/modeltime/) 📦
+> ecosystem. In addition to some functionalities of spatial data and
+> visualization.
 
 ## Installation
 
-Not on CRAN yet.
+CRAN version:
 
 ``` r
-#install.packages("sknifedatar")
+install.packages("sknifedatar")
 ```
 
 Or install the development version from GitHub with:
@@ -27,6 +29,18 @@ Or install the development version from GitHub with:
 # install.packages("devtools")
 devtools::install_github("rafzamb/sknifedatar")
 ```
+
+## Features:
+
+-   multifit: multiple models into multiple time series (no panel).
+-   workflowsets: [worklowset over a time
+    series](https:/rafzamb.github.io/sknifedatar/articles/workflowsets_times.html).
+-   workflowset multifit: [worklowset over multiple time series (no
+    panel)](https:/rafzamb.github.io/sknifedatar/articles/workflowsets_multi_times.html).
+-   automagic tabs: [automatic generation of Tabs in Distill/Rmarkdown
+    files](https://rafzamb.github.io/sknifedatar/articles/automatic_tabs.html).
+-   sliding windows: [data partitioning in sliding
+    windows](https://rafzamb.github.io/sknifedatar/articles/sliding_windows.html).
 
 ### Multiple models on multiple series functions 📈
 
@@ -113,9 +127,9 @@ model_table_emae = modeltime_multifit(serie = nested_serie %>% head(2),
 #>   name_serie .model_id .model_desc     .type   mae  mape  mase smape  rmse   rsq
 #>   <chr>          <int> <chr>           <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 #> 1 Comercio           1 ETS(M,AD,M)     Test   9.69  6.66 0.745  6.50 11.7  0.407
-#> 2 Comercio           2 NNAR(1,1,10)[1… Test   9.09  6.16 0.699  6.12 11.1  0.429
+#> 2 Comercio           2 NNAR(1,1,10)[1… Test  10.3   6.73 0.793  6.97 12.5  0.433
 #> 3 Ensenanza          1 ETS(A,A,A)      Test   4.99  3.11 3.62   3.05  5.63 0.732
-#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   3.24  2.02 2.35   1.99  3.60 0.857
+#> 4 Ensenanza          2 NNAR(1,1,10)[1… Test   2.67  1.67 1.94   1.65  3.00 0.868
 ```
 
 ### 🔺 modeltime\_multiforecast
