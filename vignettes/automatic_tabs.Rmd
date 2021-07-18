@@ -17,6 +17,43 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE,
                       warning = FALSE, 
                       message = FALSE)
+
+automagic_tabs_fix <- function(input_data , panel_name, .output, .layout = NULL, ...){
+  #Capture extra arguments
+  list_arguments <- list(...)
+  .arguments <- names(list_arguments)
+  .inputs <- list_arguments %>% unlist() %>% unname()
+  parse_extra_argumnets <- NULL
+  if(!is.null(.arguments)) parse_extra_argumnets <- purrr::map2(.arguments,.inputs, ~paste(.x,.y, sep = " = ")
+  ) %>% unlist() %>% paste(collapse=" , ")
+  #Capture name of data
+  data_name <- match.call()
+  data_name <- as.list(data_name[-1])$input_data %>% as.character()
+  #Layaout page
+  if(is.null(.layout)) .layout <- "l-body"
+  if(!.layout %in% c("l-body","l-body-outset","l-page","l-screen")) stop('the specified layout does not match those available. c("l-body","l-body-outset","l-page","l-screen")')
+  layaout_code <- paste0("::: {.",.layout,"}\n::: {.panelset}\n")
+  #knit code
+  knit_code <- NULL
+  for (i in 1:nrow(input_data)) {
+    #Capture time to diference same chunks
+    time_acual <- paste0(Sys.time() %>% lubridate::hour() %>% as.character(),
+                         Sys.time() %>% lubridate::minute() %>% as.character(),
+                         Sys.time() %>% lubridate::second() %>% as.character())
+    knit_code_individual <- paste0(":::{.panel}\n### `r ", data_name,"$",panel_name,"[[",i,
+                                   "]]` {.panel-name}\n```{r   `r ", i,
+                                   time_acual,
+                                   "`, echo=FALSE, layout='",.layout,"', ",
+                                   parse_extra_argumnets,
+                                   "}\n\n ",data_name,"$",.output,"[[",i,
+                                   "]] \n\n```\n:::")
+    knit_code <- c(knit_code, knit_code_individual)
+  }
+  #layout code + knit code + close ::: :::
+  knit_code <- c(layaout_code,knit_code,"\n:::\n:::")
+  #knirt code
+  paste(knitr::knit(text = knit_code), collapse = '\n')
+}
 ```
 
 # Tidy tabs approach 🧙
@@ -279,7 +316,7 @@ xaringanExtra::use_panelset()
                   fig.heigth=1, fig.width=10, echo = FALSE)`
 ```
 
-`r automagic_tabs(input_data = nest_data, panel_name = "sector", .output = "ts_plots", fig.heigth=1, fig.width=10, echo = FALSE)`
+`r automagic_tabs_fix(input_data = nest_data, panel_name = "sector", .output = "ts_plots", fig.heigth=1, fig.width=10, echo = FALSE)`
 
 ```{r, out.width="70%",echo=FALSE ,fig.align = 'center'}
 knitr::include_graphics('https://media1.tenor.com/images/d589b89e1748b63e810fbca15d86b945/tenor.gif')
@@ -376,7 +413,7 @@ data_filter <- data_filter %>%
                   fig.height=5.5 ,.layout="l-body-outset", echo = FALSE)`
 ```
 
-`r automagic_tabs(input_data = data_filter, panel_name = "sector", .output = "STL", fig.height=5.5, .layout = "l-body-outset", echo = FALSE)`
+`r automagic_tabs_fix(input_data = data_filter, panel_name = "sector", .output = "STL", fig.height=5.5, .layout = "l-body-outset", echo = FALSE)`
 
 🔹 Finally [**the autocorrelation plots are added in the ACF column.**]{.ul} This is also plotted on tabs with the **automagic_tabs** function.
 
@@ -403,7 +440,7 @@ data_filter
                   .layout="l-body-outset", echo = FALSE)`
 ```
 
-`r automagic_tabs(input_data = data_filter , panel_name = "sector", .output = "ACF",.layout="l-body-outset", echo = FALSE)`
+`r automagic_tabs_fix(input_data = data_filter , panel_name = "sector", .output = "ACF",.layout="l-body-outset", echo = FALSE)`
 
 The emojis are displayed in the tab titles 🤩🤩🤩.
 
