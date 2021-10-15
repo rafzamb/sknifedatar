@@ -84,7 +84,7 @@ automagic_tabs <- function(input_data, panel_name, .output, ..., tabset_title = 
     # Create Individual Chunks
     individual_chunk <- sprintf('::: {%s}\n
 ### %s \n
-```{r `r automagic_chunk_%s_%s`, %s} \n %s \n ``` \n
+```{r `r automagic_chunk_%s_%s`, %s} \n %s \n```\n
 :::', aux_3, .panel_name, dataset_name, .panel_name, .chunk_props, .panel_output)
     
     chunks <- c(chunks, individual_chunk)
