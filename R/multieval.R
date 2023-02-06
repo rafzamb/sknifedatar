@@ -28,8 +28,8 @@ multieval = function(.dataset , .observed, .predictions, .metrics, value_table =
     purrr::map2(.metrics, .predictions, function(x = .metrics, y = .predictions) {
       
       x(data = .dataset,
-        truth = .dataset[[.observed]],
-        estimate = .dataset[[y]],
+        truth = {{ .observed }},
+        estimate = {{ y }},
         na_rm = TRUE) %>% 
         dplyr::mutate(modelo = y) 
     }) %>% 
